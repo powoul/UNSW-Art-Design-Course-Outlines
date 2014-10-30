@@ -1,0 +1,100 @@
+<!-- New Course Information
+============================ -->
+
+<div class="form-inputs">
+  <div class="control-group">
+    <label class="control-label required">Course Code</label>
+    <div class="controls">
+      <%= f.input :code, :label => false %>
+    </div>
+  </div>
+
+   <br />
+  <div class="control-group">
+    <label class="control-label required">Course Name</label>
+    <div class="controls">
+      <%= f.input :name, :label => false, :input_html => { :class => 'span5' } %>
+    </div>
+  </div>
+
+  <!-- <br /> -->
+  <!-- <div class="control-group">
+    <label class="control-label required">Year</label>
+    <div class="controls">
+      <%#= f.input :year, :label => false, :collection => (Time.now.year..Time.now.year+2).to_a, :item_wrapper_class => 'inline', :include_blank => false %>
+    </div>
+  </div>  -->
+
+  <!-- <br />
+  <div class="control-group">
+    <%#= f.label :semester, "Semester", :class => "control-label required" %>
+    <div class="controls">
+      <%#= f.input :semester, :label => false, :collection => [['One', '1'],['Two', '2']], :as => :radio_buttons, :item_wrapper_class => 'inline' %>
+    </div>
+  </div> -->
+
+  <br />
+  <div class="control-group">
+    <label class ="control-label required" >Semester</label>
+    <div class="controls">
+      <%= f.input :semester_id, :label => false, :collection => Semester.all %>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label required">Units of Credit</label>
+    <div class="controls">
+      <%= f.input :units_of_credit, :label => false %>
+    </div>
+  </div>
+  <br />
+  <div class="control-group">
+    <label class="control-label required">Course Summary</label>
+    <div class="controls">
+      <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11' %>
+      <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Course Convenor</h3>
+  <br />
+  <%= f.simple_fields_for :convenor do |convenor| %>
+     <%= convenor.input :role, :as => :hidden, :input_html => { :value => "CONVENOR" } %>
+    <div class="controls">
+      <label class="control-label required">Convenor</label>
+      <div class="controls">
+        <%= convenor.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <hr>
+
+  <h3>Program Affiliation</h3>
+  <br />
+
+  <div class="controls">
+      <label class="control-label required">This course is affiliated with the following program/s:</label>
+      <div class="controls">
+        <%= f.input :program_name, :label => "Program", :url => autocomplete_program_description_courses_path, :as => :autocomplete, :placeholder => "Type program name", :input_html => {:"data-update-elements" => "[]", :class => 'span4'}, :class => "controls" %>
+      </div>
+    </div>
+
+  <%= f.simple_fields_for :program_director do |director| %>
+
+    <%= director.input :role, :as => :hidden, :input_html => { :value => "PROGRAM DIRECTOR" } %>
+
+    <br />
+    <div class="controls">
+      <label class="control-label required">Program Director</label>
+      <div class="controls">
+        <%= director.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
+      </div>
+    </div>
+    
+  <% end %>
+
+</div>

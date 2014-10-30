@@ -1,4 +1,31 @@
 Courseoutlines::Application.routes.draw do
+
+  resources :comments
+
+  resources :programs
+
+  resources :semesters
+
+  resources :members do
+    get :autocomplete_user_fullname, :on => :collection
+    get :show
+  end
+
+  resources :courses do
+    get :autocomplete_program_description, :on => :collection
+  end
+
+  resources :users
+
+  match '/logout' => 'sessions#destroy', :as => :logout
+  root :to => 'courses#index'
+
+  namespace :admin do
+    root :to => 'root#index', :as => :admin_root
+    resources :courses
+    resources :users
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +75,7 @@ Courseoutlines::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  
 
   # See how all your routes lay out with "rake routes"
 

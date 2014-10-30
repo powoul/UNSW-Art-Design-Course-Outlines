@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.ui.datepicker
+//= require autocomplete-rails
+//= require bootstrap
+//= require jquery_nested_form
+//= require tinymce-jquery
 //= require_tree .

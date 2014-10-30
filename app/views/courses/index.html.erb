@@ -1,0 +1,52 @@
+<%= content_for(:breadcrumbs) do -%>
+    <li><span class="divider">/</span><%= link_to "Courses", courses_path %></li>
+<% end -%>
+<% modal_class = Course %>
+<div class="page-header">
+    
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <%= link_to icon('folder-open', 'New Course'), new_course_path, :class => 'btn' %>
+        </div>
+    </div>
+    <h1>Courses</h1>
+</div>
+
+<% if @courses.present? -%>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Last Updated At</th>
+                <th>Completed?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>    
+
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= link_to course.code, course %></td>
+            <td><%= course.name %></td>
+            <td><%#= course.year %></td>
+            <td><%#= course.semester %></td>
+            <td><%= course.updated_at.localtime.strftime("%Y-%m-%d %H:%M") %></td>
+            <td><%= completed? ? icon('thumbs-up','') : icon('thumbs-down','') %></td>
+            <td>
+                <%= link_to 'View', course_path(course), :class => 'btn btn-mini' %>
+                <% if current_user.admin? || current_user.convenor?(course) || current_user.program_director?(course) %>
+                    <%= link_to 'Edit', edit_course_path(course), :class => 'btn btn-mini btn-primary' %>
+                <% end %>
+                <%= link_to 'Download (pdf)', course_path(course, :format => "pdf"), :class => 'btn btn-mini btn-success' %>
+                <%= link_to 'Delete', course_path(course), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
+            </td>            
+          </tr>
+        <% end %>
+    </table>
+<% else %>
+  <p>No courses in this listing.</p>
+<% end -%>
+
+<%#=  will_paginate @courses %>

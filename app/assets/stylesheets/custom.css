@@ -1,0 +1,44 @@
+.pagination a,
+.pagination em,
+.pagination span {
+  float: left;
+  padding: 0 14px;
+  line-height: 34px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left-width: 1px;
+}
+
+.dl-horizontal dt {
+    text-align: left;
+    margin-bottom: 1em;
+    width: 210px;
+    padding-right: 1em;
+}
+
+.dl-horizontal dd {
+    margin-left: 0;
+    margin-bottom: 1em;
+}
+.headings {
+  overflow: hidden;
+}
+.headings .input {
+  float: left;
+  width: 14%;
+}
+.headings .criteria_criteria {
+  width: 14%;
+}
+#criteria .input {
+  float: left;
+  width: 13%;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+}
+#criteria .input.delete-btn {
+  margin-left: 10px;
+}
+#criteria .input input {
+  max-width: 100%;
+}

@@ -1,0 +1,16 @@
+<fieldset>
+  <div class="control-group">
+  	<label class="control-label">Staff</label>
+  	<div class="controls">
+  		<%= f.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]"}, :class => "controls" %>
+  	</div>
+  </div>
+
+  <div class="control-group">
+  	<label class="control-label">Role</label>
+  	<div class="controls">
+  		<%= f.input :role, :collection => User::ROLES, :label => false, :include_blank => false %>
+  	</div>
+  </div>
+  
+</fieldset>

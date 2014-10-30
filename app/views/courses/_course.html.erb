@@ -1,0 +1,22 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="tab-content">
+      <dl class="dl-horizontal">
+        <dt>Course</dt>
+        <dd><%= course.code %></dd>
+        <dd><%= course.name %></dd>
+        <br />
+        <dt>Year</dt>
+        <dd><%= course.year %></dd>
+        <br />
+        <dt>Semester</dt>
+        <dd><%= course.semester %></dd>
+        <br />
+        
+        <dt>Course Completed ?</dt>
+        <dd><%= completed? ? 'Yes' : 'No' %></dd>
+        <br />    
+      </dl>
+    </div>
+  </div>
+</div>

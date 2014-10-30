@@ -1,0 +1,16 @@
+<dl class="dl-horizontal">
+	<h2 style="text-align: center;">EXPECTATIONS OF STUDENTS IN THIS COURSE</h2>
+	<br />
+	<dt>Assessment</dt>
+	<dd><%= @course.assessment.present? ? @course.assessment : '<i>undefined</i>'.html_safe %></dd>
+
+	<h3>Continual Course Improvement</h3>
+	<% if @course.course_improvements.present? %>
+		<% @course.course_improvements.each do |i| %>
+			<dt>Improvement</dt>
+			<dd><%= i.description %></dd>
+		<% end %>
+	<% else %>
+		<dd><%= '<i>undefined</i>'.html_safe %></dd>
+	<% end %>	
+</dl>

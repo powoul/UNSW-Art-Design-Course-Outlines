@@ -35,3 +35,18 @@ Courseoutlines::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+require 'casclient'
+require 'casclient/frameworks/rails/filter'
+
+cas_logger = CASClient::Logger.new(Rails.root.join('log','cs.log'))
+cas_logger.level = Logger::DEBUG 
+
+CASClient::Frameworks::Rails::Filter.configure(
+  :cas_base_url => "https://dev.my.local",
+  :logger => cas_logger,
+  :username_session_key => :current_user,
+  :enable_single_sign_out => true
+  )
+
+MY_COFA_ROOT_APPLICATION_URL = "http://dev.my.local"

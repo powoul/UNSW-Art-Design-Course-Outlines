@@ -1,0 +1,15 @@
+<% content_for(:breadcrumbs) do -%>
+  <li><span class="divider">/</span><%= link_to "All Staff", users_path(:role => params[:role]) %></li>
+<% end -%>
+
+<%- model_class = User -%>
+
+<div class="page-header">
+  <h1>All Staff</h1>
+</div>
+
+<%= render :partial => 'search'%>
+ 
+<%= render :partial => 'users', :locals => { :users => @users } %>
+
+<%= will_paginate(@users) %>

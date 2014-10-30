@@ -1,0 +1,31 @@
+<div id="new_lecturers">
+  <%= f.simple_fields_for :lecturers do |lec| %>
+    <%= lec.input :role, :as => :hidden, :input_html => { :value => "LECTURER" } %>
+
+    <div class="pull-right">
+      <%= lec.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+    </div>
+
+    <div class="controls">
+      <label class="control-label">Staff</label>
+      <div class="controls">
+        <%= lec.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
+      </div>
+    </div>
+
+    <br />
+    <div class="controls">
+      <label class="control-label">Consultation Times</label>
+      <div class="controls">
+        <%= lec.input :consultation_times, :label => false, :input_html => { :class => 'span5' } %>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+</div>
+
+<div style="text-align: center;">
+  <br />
+  <p style="text-align: center;">You may add teaching staff here</p>
+  <%= f.link_to_add "Add a teaching staff", :lecturers, :data => { :target => "#new_lecturers"}, :class => "btn btn-primary" %>
+</div>

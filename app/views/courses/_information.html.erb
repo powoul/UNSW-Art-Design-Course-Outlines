@@ -1,0 +1,45 @@
+<dl class="dl-horizontal">
+	<h2 style="text-align: center;">COURSE INFORMATION</h2>
+
+	<dt>Course Code</dt>
+	<dd><%= @course.code.present? ? @course.code : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Course Name</dt>
+	<dd><%= @course.name.present? ? @course.name : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Semester</dt>
+	<dd><%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Units of Credit</dt>
+	<dd><%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Teaching Times and Locations</dt>
+	<dd><%= @course.teaching_times_and_locations.present? ? @course.teaching_times_and_locations : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Online Course Support</dt>
+	<dd><%= @course.online_course_support.present? ? @course.online_course_support : '<i>undefined</i>'.html_safe %></dd>
+	
+	<dt>Parallel Teaching</dt>
+	<dd><%= @course.parallel_teaching.present? ? @course.parallel_teaching : '<i>undefined</i>'.html_safe %></dd>
+	<h5>Resources Required</h5>
+	<% if @resources_required.present? %>
+		<% @resources_required.each do |resource| %>
+			<dt>&nbsp;</dt>
+			<dd><%= resource %></dd>
+		<% end %>
+	<% else %>
+		<dt>&nbsp;</dt>
+		<dd><%= '<i>undefined</i>'.html_safe %></dd>
+	<% end %> 
+
+	<h5>Proficiencies Required</h5>
+	<% if @proficiencies_required.present? %>
+		<% proficiencies_required.each do |proficiency| %>
+			<dt>&nbsp;</dt>
+			<dd><%= proficiency %></dd>
+		<% end %>
+	<% else %>
+		<dt>&nbsp;</dt>
+		<dd><%= '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
+</dl>

@@ -1,0 +1,521 @@
+<%= tinymce %>
+<!-- Course Information
+============================ -->
+
+<br />
+<section id="information">
+  <h2 style="text-align: center;">COURSE INFORMATION</h2><br />
+  <div class="form-inputs">
+
+    <div class="control-group">
+      <label class="control-label">Course Code</label>
+      <div class="controls">
+        <%= f.input :code, :label => false, :disabled => !current_user.admin? %>
+      </div>
+    </div>
+
+     <br />
+    <div class="control-group">
+      <label class="control-label">Course Name</label>
+      <div class="controls">
+        <%= f.input :name, :label => false, :disabled => !current_user.admin? %>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Year</label>
+      <div class="controls">
+        <%= f.input :year, :label => false, :collection => (Time.now.year..Time.now.year+2).to_a, :item_wrapper_class => 'inline', :include_blank => false, :disabled => !current_user.admin? %>
+      </div>
+    </div> 
+
+    <br />
+    <div class="control-group">
+      <%= f.label :semester, "Semester", :class => "control-label" %>
+      <div class="controls">
+        <%= f.input :semester, :label => false, :collection => [['One', '1'],['Two', '2']], :as => :radio_buttons, :item_wrapper_class => 'inline', :disabled => !current_user.admin? %>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Units of Credit</label>
+      <div class="controls">
+        <%= f.input :units_of_credit, :label => false, :disabled => !current_user.admin? %>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Teaching Times and Locations</label>
+      <div class="controls">
+        <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Online Course Support</label>
+      <div class="controls">
+        <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+        <p class="help-block"><small>Does this course have any online support associated with it such as Moodle, Omnium, a course blog etc. Please add a descriptor.</small></p>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Parallel Teaching</label>
+      <div class="controls">
+        <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+        <p class="help-block"><small>Put the codes and names of any courses taught in the same class(es) as this courses here.</small></p>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Reources Required</label>
+      <div class="controls">
+        <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' } , :disabled => !current_user.convenor?(f.object)%>
+
+        <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Proficiencies Required</label>
+      <div class="controls">
+        <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+        <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+<br /><br />
+
+
+<!-- Course Staff 
+============================ -->
+
+<section id="staff">
+  <div class="page-header">
+    <h2 style="text-align: center;">Course STAFF</h2>
+  </div>
+  <dl class="dl-horizontal">  
+    <dt>Course Convenor</dt>
+    <dd><%= @course.convenor.member_name %></dd>
+    <dt>E-mail</dt>
+    <dd><%= @course.convenor.user.email %></dd>
+    <dt>Phone</dt>
+    <dd><%= @course.convenor.user.phone_number.present? ? @course.convenor.user.phone_number : '-' %></dd>
+    <dt>Room</dt>
+    <dd><%= @course.convenor.user.room.present? ? @course.convenor.user.room : '-' %></dd>
+    <dt>Consultation times</dt>
+    <dd><%= @course.convenor.consultation_times.present? ? @course.convenor.consultation_times : '-' %></dd>
+  </dl>
+
+  <br />
+  <h3>OTHER TEACHING STAFF</h3>
+  <div class="form-inputs">
+
+    <%#= render :partial => "courses/members", :locals => { :f => f } %>
+
+    <div class="control-group">
+      <label class="control-label"></label>
+      <div class="controls">
+        <%=  %>
+      </div>
+    </div>
+  </div>
+</section>
+<br /><br />
+
+
+<!-- Course Overview
+============================ -->
+
+<section id="overview">
+  <div class="page-header">
+    <h2 style="text-align: center;">COURSE OVERVIEW</h2>
+  </div>
+
+  <h3>COURSE SUMMARY</h3> <br />
+  <div class="form-inputs">
+    
+    <div class="control-group">
+
+      <div class="controls">
+        <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
+        <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
+      </div>
+    </div>
+  </div>
+
+  <h3>PROGRAM AFFILIATION</h3> <br />
+  <dl class="dl-horizontal">  
+    <dt>Affiliated Program</dt>
+    <dd><%= @course.affiliated_program %></dd>
+    <dt>Program Director</dt>
+    <dd><%= @course.program_director.member_name %></dd>
+  </dl>
+
+  <br />
+  <h3>COURSE AIMS <i class="icon-info-sign" id="MyPopOver1" data-toggle="popover" title="Help for completing this section" data-content="<h4><i>Example:</i></h4><p>This course will enable you to explore and gain further experience in graphic design through the investigation of visual communication principles, colour theory and composition, with a direct emphasis on the application to real world situations in the field of information design.</p>"></i></h3> <br />
+  <div class="form-inputs">
+    <div class="control-group">
+      <div class="controls">
+        <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <p class="help-block" align="justify"><small>This is designed to make explicit to the students what YOU as the lecturer wish to achieve by teaching this course. They should express why this course is important to the learner and provide an overall big picture vision for student learning. Course aims should be clearly aligned with the curriculum learning and assessment outcomes of the course components. It is highly recommended that no more than TWO aims be provided. Too many aims suggest a scattergun approach. </small></p>
+      </div>
+    </div>
+
+  </div>
+
+  <br />
+  <h3>STUDENT LEARNING OUTCOMES</h3><br />
+  <p>At the conclusion of this course, students should be able to:</p>
+
+  <div id="outcomes">
+    <%= f.simple_fields_for :course_learning_outcomes do |outcome| %>
+      
+        <div class="pull-right">
+          <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+        </div>
+      
+        <div class="control-group">
+
+          <div class="controls">
+            <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
+          </div>
+        </div>
+      
+    <% end %>
+  </div>
+
+  <div style="text-align: center;">
+    <br />
+    <p style="text-align: center;">Please add upto 5 learning outcomes</p>
+    <%= f.link_to_add "Add a learning outcome", :course_learning_outcomes, :data => { :target => "#outcomes"}, :class => "btn btn-primary" %>
+  </div>
+
+  <br />
+  <h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3><br />
+
+  <%= f.simple_fields_for :teaching_strategy, :html => { :class => 'form-horizontal' } do |strategy| %>
+      <div class="form-inputs">
+
+        <div class="control-group">
+          <label class="control-label">Lectures</label>
+          <div class="controls">
+            <%= strategy.input :lectures, :as => :select, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Description</label>
+          <div class="controls">
+            <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+        <br />
+        <div class="control-group">
+          <label class="control-label">Seminars</label>
+          <div class="controls">
+            <%= strategy.input :seminars, :as => :select, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Description</label>
+          <div class="controls">
+            <%= strategy.input :seminars_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Tutuorials</label>
+          <div class="controls">
+            <%= strategy.input :tutorials, :as => :select, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Description</label>
+          <div class="controls">
+            <%= strategy.input :tutorials_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Studio</label>
+          <div class="controls">
+            <%= strategy.input :lectures, :as => :select, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Description</label>
+          <div class="controls">
+            <%= strategy.input :studio_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Blended/online</label>
+          <div class="controls">
+            <%= strategy.input :blended_online, :as => :select, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Description</label>
+          <div class="controls">
+            <%= strategy.input :blended_online_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Teaching philosophy <i class="icon-info-sign" id="MyPopOver2" data-toggle="popover" title="Help for completing this section" data-content="<p>When writing this rationale you may find it helpful to draw on the following:</p><br /><h4>UNSW Beliefs about Learning</h4><a href='https://teaching.unsw.edu.au/beliefs'>https://teaching.unsw.edu.au/beliefs</a><br /><br /><h4>Guidelines on Learning that Inform Teaching at UNSW</h4><a href='http://teaching.unsw.edu.au/guidelines'>http://teaching.unsw.edu.au/guidelines</a><br /><br /><i>Example Philosophy</i><br /> This course enables students to develop particular communications skills that will enhance their practice as a graphic designer. It reflects a view that professional practice whitin the field will require advanced levels of technical and design profieciencies.</p>"></i></label>
+          <div class="controls">
+            <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+
+</section>
+<br /><br />
+
+
+<!-- Expectations of Students 
+============================= -->
+
+<section id="student_expectations">
+  
+  <div class="page-header">
+    <h2 style="text-align: center;">EXPECTATIONS OF STUDENTS IN THIS COURSE</h2>
+  </div>
+    
+  <br />
+  <h3>ASSESSMENT</h3><br />
+  <div class="control-group">
+    <div class="controls">
+      <%= ex.input :assessment, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+      <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
+    </div>
+  </div>
+
+  <br />
+  <h3>CONTINUAL COURSE IMPROVEMENT</h3><br />
+  <div id="improvements">
+    <%= f.simple_fields_for :course_improvements do |mm| %>
+      <div class="form-inputs">
+
+        <div class="control-group">
+          <label class="control-label">Over the past semesters, we have improved the course by:</label>
+          <div class="controls">
+            <%= mm.input :description, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="text-align: center;">
+    <br />
+    <p style="text-align: center;">Please add more improvemets here</p>
+    <%= f.link_to_add "Add a learning outcome", :course_improvements, :data => { :target => "#improvements"}, :class => "btn btn-primary" %>
+  </div>
+
+</section>
+<br /><br />
+
+<!-- Assessment
+============================= -->
+
+<section id="assessments">
+  
+  <div class="page-header">
+    <h2 style="text-align: center;">ASSESSMENT</h2>
+  </div>
+
+  <p class="help-block"><small><i><u>NOTES ABOUT ASSESSMENT: </i></u>Limit course assessment to no more than THREE tasks - one or two of which may include the stages of a bigger task. Remember that not every task needs to be formally assessed for marks and students can be asked to provide a draft, for example, without it needing to have marks attached. Please include assessment details in the Course Outline so that all students know from the outset what is expected to pass the course.</small></p>
+
+  <div id="assessments_div">
+    <%= f.simple_fields_for :assessments do |aa| %>
+
+      <br />
+      <h3>ASSESSMENT Task 1</h3><br />
+
+      <div class="form-inputs">
+
+        <div class="control-group">
+          <label class="control-label">Title</label>
+          <div class="controls">
+            <%= aa.input :title, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Due</label>
+          <div class="controls">
+            <%= aa.input :due, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Weighting (%)</label>
+          <div class="controls">
+            <%= aa.input :weighting, :label => false, :disabled => !current_user.convenor?(f.object) %>
+            <p class="help-block"><small>No task should be more than 65%, with most tasks it is desirable to limit the size (and risk) to 50% weighting. Wigthing should reflect the complexity of the task. A larger weighting might mean more criteria being assessed, while a smaller wighting should have less criteria (see bellow).</small></p>
+          </div>
+        </div>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Assessment Synopsis (full brief available in course)</label>
+          <div class="controls">
+            <%= aa.input :synopsis, :label => false, :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <p class="help-block"><small>This can be a <u>summary</u> of the project brief that outlines teh aims of the task, what you want students to do and where they need to submit). Keep this short and to the point. Usually one paragraph.</small></p>
+          </div>
+        </div>
+
+        <%= aa.simple_fields_for :criteria do |criterion| %>
+          <br />
+          <h4>Assessment Criteria With Marking Rubric:</h4><br />
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Criteria</th>
+                <th>FAIL <p><small>Unsatisfactory performance, below minimum expected level. Poor or incomplete work, which shows a significant lack of understanding of the topic or its context.</small></p></th>
+                <th>PASS <p><small>Satisfactory performance. Addresses assessment requirements and demonstrates acceptable understanding of the issues entailed.</small></p></th>
+                <th>CREDIT <p><small>Good performance. Demonstrates analysis and contextual thinking. Understands/presents alternative points of view/perspectives and supporting evidence.</p></small></th>
+                <th>DISTINCTION <p><small>Very Good performance. Demonstrates superior ability to consider the course and its assessment requirements from a number of perspectives and to explore their interrelation</small></p></th>
+                <th>HIGH DISTINCTION <p><small>Outstanding performance. Indicates the student has produced excellent work, and demonstrates a high level of understanding, application and synthesis of the assessable criteria.</small></p></th>
+              </tr>
+            </thead>
+
+            <tbody> 
+              <%= render :partial => "criteria/row", :collection => @course.assessments.criteria, :as => :criterion %>
+            </tbody>
+          </table>
+        <% end %>
+
+        <br />
+        <div class="control-group">
+          <label class="control-label">Feedback<i class="icon-info-sign" id="MyPopOver3" data-toggle="popover" title="Help for completing this section" data-content="<p>For more information about giving feedback to students, please visit the UNSW Teaching Gateway.</p><br /><h4>Grading and Giving Feedback</h4><a href='https://teaching.unsw.edu.au/grading-assessment-feedback'>https://teaching.unsw.edu.au/grading-assessment-feedback</a><br /><br /><h4>Giving Assessment Feedback</h4><a href='http://teaching.unsw.edu.au/assessment-feedback'>http://teaching.unsw.edu.au/assessment-feedback</a></p>"></i></label>
+          <div class="controls">
+            <%= aa.input :feedback, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+            <p class="help-block"><small>You must provide feedback for every assessment, and you should provide students with information here on how they will get feedback on this task. Provide here information on whether feedback will be written or spoken, and when it will be given. NOTE – Feedback should be delivered in a timely manner (no more than two weeks from the date of submission), be succinct and clear, and also personalised for each student.</small></p>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+  <div style="text-align: center;">
+    <br />
+    <p style="text-align: center;">Please add assessment here</p>
+    <%= f.link_to_add "Add assessment", :course_resources, :data => { :target => "#assessments_div"}, :class => "btn btn-primary" %>
+  </div>
+
+</section>
+<br /><br />
+
+<!-- Topics and Dates 
+============================= -->
+
+<section id="course_resources">
+  
+  <div class="page-header">
+    <h2 style="text-align: center;">TOPICS AND DATES</h2>
+  </div>
+
+  <br />
+    
+  <%= f.simple_fields_for :topics do |t| %>
+
+    <div class="form-inputs">
+
+      <div class="control-group">
+        <label class="control-label">Resource</label>
+        <div class="controls">
+          <%= t.input :topic_name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+          <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</section>
+<br /><br />
+
+<!-- Resources of Students 
+============================= -->
+
+<section id="course_resources">
+  
+  <div class="page-header">
+    <h2 style="text-align: center;">RESOURCES FOR STUDENTS</h2>
+  </div>
+
+  <br />
+  <h3>REFERENCES AND OTHER RESOURCES FOT THIS COURSE</h3><br />
+  
+  <div class="control-group">
+    <label class="control-label">Resource</label>
+    <div class="controls">
+      <%= re.input :resource, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+      <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
+    </div>
+  </div>
+      
+</section>
+<br /><br />
+
+<script type="text/javascript" charset="utf-8">
+
+$(document).ready(function() {
+  $('#MyPopOver1').popover();
+  $('#MyPopOver2').popover();
+  $('#MyPopOver3').popover();
+  // $("#" + "information").hide();
+  // $("#" + "staff").hide();
+  // $("#" + "overview").hide();
+  // $("#" + "student_expectations").hide();
+  // var section_id = getUrlVars()["section_id"];
+  // $("#" + section_id ).show();
+  });
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+</script>

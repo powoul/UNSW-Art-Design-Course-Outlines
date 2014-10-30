@@ -65,3 +65,18 @@ Courseoutlines::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
+
+require 'casclient'
+require 'casclient/frameworks/rails/filter'
+
+cas_logger = CASClient::Logger.new(Rails.root.join('log','cas.log'))
+cas_logger.level = Logger::DEBUG
+
+CASClient::Frameworks::Rails::Filter.configure(
+  :cas_base_url => "https://my.cofa.unsw.edu.au/",
+  :logger => cas_logger,
+  :username_session_key => :current_user,
+  :enable_single_sign_out => true
+)
+
+MY_COFA_ROOT_APPLICATION_URL = "http://my.cofa.unsw.edu.au"

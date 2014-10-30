@@ -1,0 +1,37 @@
+<dl class="dl-horizontal">
+	<h2 style="text-align: center;">COURSE STAFF</h2>
+	<h3>Course Convenor</h3>
+	<br />
+	<% if @course.convenor.present? %>
+		<dt>Full Name</dt>
+		<dd><%= @course.convenor.user.fullname.present? ? @course.convenor.user.fullname : '<i>undefined</i>'.html_safe %></dd>
+		<dt>Email</dt>
+		<dd><%= @course.convenor.email.present? ? @course.convenor.email : '<i>undefined</i>'.html_safe %></dd>
+		<dt>Phone</dt>
+		<dd><%= @course.convenor.phone_number.present? ? @course.convenor.phone_number : '<i>undefined</i>'.html_safe %></dd>
+		<dt>Room</dt>
+		<dd><%= @course.convenor.room.present? ? @course.convenor.room : '<i>undefined</i>'.html_safe %></dd>
+		<dt>Consultation times</dt>
+		<dd><%= @course.convenor.consultation_times.present? ? @course.convenor.consultation_times : '<i>undefined</i>'.html_safe %></dd>
+	<% else %>
+		<i>undefined</i>
+	<% end %>
+
+	<br />
+	<h3>Other Teaching Staff</h3>
+	<br />
+	
+	<% if @course.lecturers.present? %>		
+		<% @course.lecturers.each do |stf| %>
+			<dt>Full Name</dt>
+			<dd><%= stf.user.try(:fullname).present? ? stf.user.try(:fullname) : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Email</dt>
+			<dd><%= stf.user.try(:email).present? ? stf.user.try(:email) : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Consultation times</dt>
+			<dd><%= stf.consultation_times.present? ? stf.consultation_times : '<i>undefined</i>'.html_safe %></dd>
+			<br />
+		<% end %>
+	<% else %>
+		<i>undefined</i>
+	<% end %>	
+</dl>

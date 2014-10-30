@@ -1,0 +1,93 @@
+<dl class="dl-horizontal">
+	<h2 style="text-align: center;">ASSESSMENT</h2>
+	<br />
+
+	<% if @course.assessment_tasks.present? %>
+		<% @course.assessment_tasks.each_with_index do |assessment, index| %>
+			<h3>Assessment Task <%= (index + 1).to_s %></h3>
+
+			<dt>Title</dt>
+			<dd><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></dd>
+
+			<dt>Due</dt>
+			<dd><%= assessment.due.present? ? assessment.due : '<i>undefined</i>'.html_safe %></dd>
+
+			<dt>Weighting</dt>
+			<dd><%= assessment.weighting.present? ? assessment.weighting : '<i>undefined</i>'.html_safe %></dd>
+
+			<dt>Assessment Synopsis</dt>
+			<dd><%= assessment.synopsis.present? ? assessment.synopsis : '<i>undefined</i>'.html_safe %></dd>
+
+			<br />
+			<h4>Assessment Criteria With Marking Rubric</h4>
+			<br />
+			<% if assessment.criteria.present? %>
+				<table class="table table-bordered">
+	                    <thead>
+	                      <tr>
+	                        <th>Criteria</th>
+	                        <th>FAIL <p><small>Unsatisfactory performance, below minimum expected level. Poor or incomplete work, which shows a significant lack of understanding of the topic or its context.</small></p></th>
+	                        <th>PASS <p><small>Satisfactory performance. Addresses assessment requirements and demonstrates acceptable understanding of the issues entailed.</small></p></th>
+	                        <th>CREDIT <p><small>Good performance. Demonstrates analysis and contextual thinking. Understands/presents alternative points of view/perspectives and supporting evidence.</p></small></th>
+	                        <th>DISTINCTION <p><small>Very Good performance. Demonstrates superior ability to consider the course and its assessment requirements from a number of perspectives and to explore their interrelation</small></p></th>
+	                        <th>HIGH DISTINCTION <p><small>Outstanding performance. Indicates the student has produced excellent work, and demonstrates a high level of understanding, application and synthesis of the assessable criteria.</small></p></th>
+	                      </tr>
+	                    </thead>
+
+	                    <tbody> 
+	                      <%= render :partial => "criteria/row", :collection => assessment.criteria, :as => :criterion %>
+	                    </tbody>
+	                  </table>
+	        <% else %>
+	        	<dt>&nbsp;</dt>
+	        	<dd><i>undefined</i></dd>
+	        <% end %>
+
+	        <br />
+			<h4>Course Learning Oucomes addressed in this task:</h4>
+			<br />
+			<% if assessment.course_learning_outcomes.present? %>
+				<% assessment.course_learning_outcomes.each do |outcome| %>
+					<dt>&nbsp;</dt>
+					<dd><%= outcome.name.present? ? outcome.name : '<i>undefined</i>'.html_safe %></dd>
+				<% end %>
+	        <% else %>
+	        	<dt>&nbsp;</dt>
+	        	<dd><i>undefined</i></dd>
+	        <% end %>
+
+	        <br />
+			<h4>Resources required for this task:</h4>
+			<br />
+			<% if assessment.assessment_task_resources.present? %>
+				<% assessment.assessment_task_resources.each do |resource| %>
+					<dt>&nbsp;</dt>
+					<dd><%= resource.resource.present? ? resource.resource : '<i>undefined</i>'.html_safe %></dd>
+				<% end %>
+	        <% else %>
+	        	<dt>&nbsp;</dt>
+	        	<dd><i>undefined</i></dd>
+	        <% end %>
+
+	        <br />
+			<h4>Proficiencies required for this task:</h4>
+			<br />
+			<% if assessment.assessment_task_proficiencies.present? %>
+				<% assessment.assessment_task_proficiencies.each do |proficiency| %>
+					<dt>&nbsp;</dt>
+					<dd><%= proficiency.proficiency.present? ? proficiency.proficiency : '<i>undefined</i>'.html_safe %></dd>
+				<% end %>
+	        <% else %>
+	        	<dt>&nbsp;</dt>
+	        	<dd><i>undefined</i></dd>
+	        <% end %>
+
+	        <br />
+	        <dt>Feedback strategy for this task:</dt>
+			<dd><%= assessment.feedback.present? ? assessment.feedback : '<i>undefined</i>'.html_safe %></dd>
+		<% end %>
+		
+	<% else %>
+		<i>undefined</i>
+	<% end %>
+</dl>

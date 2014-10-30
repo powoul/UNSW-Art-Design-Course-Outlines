@@ -1,0 +1,104 @@
+<%= content_for(:breadcrumbs) do -%>
+  <li><span class="divider">/</span><%= link_to "Courses", courses_path %></li>
+  <li><span class="divider">/</span><%= @course.code %> - <%= @course.name %></li>
+<% end -%>
+
+<div class="page-header">
+  <h1><%= @course.code %> - <%= @course.name %></h1>
+</div>
+<% params[:section_id] ||= "information" %>
+<div class="row-fluid">
+	<div class="span9">
+		<ul class="nav nav-tabs">
+			<li class="<%= 'active' if params[:section_id] == 'information' %>"><a href="#course_information" data-toggle="tab">Information</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'staff' %>"><a href="#staff" data-toggle="tab">Staff</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'overview' %>"><a href="#overview" data-toggle="tab">Overview</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'expectations' %>"><a href="#expectations" data-toggle="tab">Stduent Expectations</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'assessments' %>"><a href="#assessments" data-toggle="tab">Assessment</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'topics' %>"><a href="#topics" data-toggle="tab">Topics and Dates</a></li>
+			<li class="<%= 'active' if params[:section_id] == 'resources' %>"><a href="#resources" data-toggle="tab">Resources fo Students</a></li>
+		</ul>
+	
+		<div class="tab-content">
+			<div id="course_information" class="tab-pane active">
+				<%= render :partial => 'information'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "information"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="staff" class="tab-pane">
+				<%= render :partial => 'staff'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "staff"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="overview" class="tab-pane">
+				<%= render :partial => 'overview'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "overview"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="expectations" class="tab-pane">
+				<%= render :partial => 'expectations'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "expectations"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="assessments" class="tab-pane">
+				<%= render :partial => 'assessments'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "assessments"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="topics" class="tab-pane">
+				<%= render :partial => 'topics'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "topics"), :class => 'btn' %>
+				</div>
+			</div>
+
+			<div id="resources" class="tab-pane">
+				<%= render :partial => 'resources'%>
+				<hr>
+				<div>
+					<%= link_to 'Edit', edit_course_path(@course, :section_id => "resources"), :class => 'btn' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+	var section_id = getUrlVars()["section_id"];
+	//$("#" + section_id ).show();
+});
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+</script>

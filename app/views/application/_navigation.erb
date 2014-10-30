@@ -1,0 +1,16 @@
+<style type="text/css" media="screen">
+  li > ul {
+    list-style: none;
+    margin-left: 10px;
+  }
+</style>
+
+<ul class="nav nav-list">
+  <li class="nav-header">MY Lists</li>
+  <li class="<%= 'active' if controller_name == 'courses' %> "><%= link_to icon("book","Courses"), courses_path %></li>
+  <li class="divider"></li>  
+  <li class="nav-header">Browse</li>   
+  <li class="<%= 'active' if controller_name == 'semesters' %>"><%= link_to icon("calendar", "Semesters"), semesters_path %></li>
+  <li class="<%= 'active' if controller_name == 'programs' %>"><%= link_to icon("book", "Programs"), programs_path %></li>
+  <li class="<%= 'active' if controller_name == 'users' %>"><%= link_to icon("user", "Staff"), users_path %></li>
+</ul>

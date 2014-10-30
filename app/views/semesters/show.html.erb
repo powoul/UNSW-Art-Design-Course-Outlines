@@ -1,0 +1,34 @@
+<%= content_for(:breadcrumbs) do -%>
+  <li><span class="divider">/</span><%= link_to "Semesters", semesters_path %></li>
+  <li><span class="divider">/</span><%= @semester.name %></li>
+<% end -%>
+
+<div class="page-header">
+  <h1><%= @semester.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <br />
+
+  <dt>Name</dt>
+  <dd><%= @semester.name.present? ? @semester.name : '<i>undefined</i>'.html_safe %></dd>
+
+  <dt>Year</dt>
+  <dd><%= @semester.year.present? ? @semester.year : '<i>undefined</i>'.html_safe %></dd>
+
+  <dt>Start</dt>
+  <dd><%= @semester.start.present? ? @semester.start : '<i>undefined</i>'.html_safe %></dd>
+
+  <dt>End</dt>
+  <dd><%= @semester.end.present? ? @semester.end : '<i>undefined</i>'.html_safe %></dd>
+
+  <dt>Non teaching week start</dt>
+  <dd><%= @semester.non_teaching_week.present? ? @semester.non_teaching_week : '<i>undefined</i>'.html_safe %></dd>
+
+  <dt>Mid-semester break start</dt>
+  <dd><%= @semester.mid_semester_break.present? ? @semester.mid_semester_break : '<i>undefined</i>'.html_safe %></dd>
+
+</dl>
+
+
+<%= link_to "Back", semesters_path, :class => 'btn' %>

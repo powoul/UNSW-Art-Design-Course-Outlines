@@ -1,0 +1,7 @@
+<%= form_tag users_path, :method => :get, :class => "form-inline" do %>
+  <div class="field">
+    <input type="text" class="input-medium search-query" name="search" placeholder="zid, full-name, phone", value="<%= params[:search] %>">
+    <%= hidden_field_tag :role, params[:role] %>
+    <%= submit_tag "Search", :class => "btn btn-mini btn-primary" %>
+  </div>
+<% end %>
