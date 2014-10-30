@@ -8,7 +8,7 @@ require 'will_paginate/array'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate, :validate_group, :load_user
+  before_filter :authenticate, :validate_group#, :load_user
 
   helper_method :current_user, :current_ad_user
   
