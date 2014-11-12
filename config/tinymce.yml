@@ -1,0 +1,5 @@
+default:
+  document_base_url: http://localhost:3000/courseoutline/
+  theme_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/themes/modern/theme.js
+  remove_script_host: false
+  theme: modern
