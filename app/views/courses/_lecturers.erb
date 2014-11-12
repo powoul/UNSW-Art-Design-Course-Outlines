@@ -7,7 +7,7 @@
     </div>
 
     <div class="controls">
-      <label class="control-label">Staff</label>
+      <label class="control-label required">Staff</label>
       <div class="controls">
         <%= lec.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
       </div>
@@ -15,7 +15,7 @@
 
     <br />
     <div class="controls">
-      <label class="control-label">Consultation Times</label>
+      <label class="control-label required">Consultation Times</label>
       <div class="controls">
         <%= lec.input :consultation_times, :label => false, :input_html => { :class => 'span5' } %>
       </div>

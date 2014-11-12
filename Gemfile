@@ -11,16 +11,15 @@ gem 'resque'
 gem 'rubyzip', '0.9.9', :require =>'zip/zip'
 gem 'ruby-ldap', '0.9.12'
 gem 'rubycas-client'
-gem 'therubyracer', '0.12.1'
-gem 'libv8', '3.16.14.3'
-#gem 'httparty'
 gem 'jquery-rails', '~> 2.3.0'
 gem 'simple_form'
 gem 'nested_form'
 gem 'will_paginate'
 gem 'rails3-jquery-autocomplete', '1.0.11'
 gem 'thinking-sphinx', '2.0.12'
-
+gem 'tinymce-rails'
+#gem 'prawn'
+#gem 'prawn-table'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -39,6 +38,11 @@ end
 group :development do
   gem 'ruby-debug', :platform => :mri_18
   gem 'debugger', :require => 'ruby-debug', :platform => :mri_19
+end
+
+group :production do
+  gem 'therubyracer', '0.12.1'
+  gem 'execjs'
 end
 
 # To use ActiveModel has_secure_password

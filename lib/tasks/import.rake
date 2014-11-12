@@ -9,7 +9,7 @@ namespace :import do
   # USAGE
   # ================
   # rake import:staff_list
-  # RAILS_ENV=production rake import:staff_list
+  # RAILS_ENV=production rake import:staff
 
   task :staff => [:environment] do
 

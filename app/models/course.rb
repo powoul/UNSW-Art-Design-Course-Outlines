@@ -1,7 +1,7 @@
 class Course < ActiveRecord::Base
 
-  attr_accessible :code, :name, :semester_id, :program_id, :program_name, :units_of_credit, :teaching_times_and_locations, :online_course_support,
-      :parallel_teaching, :summary, :course_aims, :teaching_philosophy, :assessment, :resources
+  attr_accessible :code, :name, :semester_id, :semester_name, :program_id, :program_name, :units_of_credit, :teaching_times_and_locations, :online_course_support,
+      :parallel_teaching, :summary, :course_aims, :assessment, :resources
   
   attr_accessible :convenor_attributes
   attr_accessible :program_director_attributes
@@ -12,7 +12,6 @@ class Course < ActiveRecord::Base
   attr_accessible :course_improvements_attributes
   attr_accessible :topics_attributes
   attr_accessible :assessment_tasks_attributes
-  # attr_accessible :semesters_attributes
 
   has_many :users, :through => :members, :uniq => true
   has_many :lecturers, :as => :associate, :class_name => "Member", :conditions => "members.role = 'LECTURER'", :dependent => :destroy
@@ -33,19 +32,36 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :course_learning_outcomes, :allow_destroy => true, :reject_if => proc { |a| a["name"].blank? }
   accepts_nested_attributes_for :teaching_strategy, :allow_destroy => true
   accepts_nested_attributes_for :topics, :allow_destroy => true
-  accepts_nested_attributes_for :assessment_tasks, :allow_destroy => true#, :reject_if => proc { |a| a["title"].blank? }
-  accepts_nested_attributes_for :course_improvements, :allow_destroy => true
-  #accepts_nested_attributes_for :semesters
+  accepts_nested_attributes_for :assessment_tasks, :allow_destroy => true
+  accepts_nested_attributes_for :course_improvements, :allow_destroy => true, :reject_if => proc { |a| a["description"].blank? }
   accepts_nested_attributes_for :members
   
+  before_create :create_topics
+
   before_validation :initialize_associate, :on => :create
 
-  validates_presence_of :code, :name, :semester_id, :units_of_credit, :summary
-  validates_presence_of :convenor, :program_director
-  #validate :presence_of_course_convenor
-  validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this course"
+  validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program_director, :program, :on => :create
+  validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :on => :update
   
-  before_create :create_topics
+
+  validates :resources, :presence => {:message => "Resources for students can't be blank."}, :on => :update
+
+  validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester"
+
+  validates_associated :assessment_tasks, :message => "Error in assetments. Please see bellow descriptions."
+  validates_associated :teaching_strategy, :message => "Error in teaching strategy. Please see bellow descriptions."
+
+ 
+  validate :uniqueness_of_learning_outcomes, :maximum_number_of_learning_outcomes
+  validate :uniqueness_of_lecturers, :presence_of_convenor_attributes
+  validate :presence_of_teaching_staff_attributes
+
+
+  STATUS = {
+    'SUBMIT'  => 'SUBMITTED',
+    'SAVE'    => 'SAVED',
+    'APPROVE' => 'APPROVED'
+  }
 
   define_index do
     indexes code
@@ -54,6 +70,14 @@ class Course < ActiveRecord::Base
     indexes [users.username, users.full_name], :as => :user_id
 
     set_property :min_infix_len => 2
+  end
+
+  def semester_name
+    semester.present? ? semester.try(:name) + ', ' + semester.try(:year).to_s : ''
+  end 
+
+  def semester_name=(name)
+    self.semester = Semester.search_by_name_and_year(name).first if name.present?
   end
 
   def program_name
@@ -82,10 +106,6 @@ class Course < ActiveRecord::Base
     end
   end
 
-  def presence_of_course_convenor
-    
-  end
-
   def create_topics
     topics = []
     semester = self.semester
@@ -111,6 +131,55 @@ class Course < ActiveRecord::Base
     end
     
     self.topics = topics
+  end
+
+  private
+
+  def uniqueness_of_learning_outcomes
+    names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
+    if names.compact.uniq.count != self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name).size
+      errors.add :course_learning_outcomes, 'Duplicate learning outcomes. Please remove the duplicates.'
+    end
+  end
+
+  def maximum_number_of_learning_outcomes
+    names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
+    if names.compact.uniq.count > 5
+      errors.add :course_learning_outcomes, 'Maximum <strong>five</strong> learning outcomes are allowed.'.html_safe
+    end
+  end
+
+  def uniqueness_of_lecturers
+    names = self.lecturers.reject(&:marked_for_destruction?).map(&:member_name)
+    if names.compact.uniq.count != self.lecturers.reject(&:marked_for_destruction?).map(&:member_name).size
+      errors.add :lecturers, 'Duplicate teaching staff. Please remove the duplicates.'
+    end
+  end
+
+  def presence_of_convenor_attributes
+    convenor = self.convenor
+    if convenor.present?
+      if convenor.phone_number.blank?
+        errors.add :convenor, "Phone number can't be blank"
+      end
+
+      if convenor.room.blank?
+        errors.add :convenor, "Phone number can't be blank"
+      end
+
+      if convenor.consultation_times.blank?
+        errors.add :convenor, "consultation times can't be blank"
+      end
+    end
+  end
+
+  def presence_of_teaching_staff_attributes
+    staff = self.lecturers
+    staff.each do |s|
+      if s.consultation_times.blank?        
+        errors.add :lecturers, "consultation times can't be blank"
+      end
+    end
   end
 
 end

@@ -1,0 +1,8 @@
+<%= tinymce %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+	<%= f.input :name %>
+	<%= f.input :body, :input_html => { :class => 'span11 tinymce' } %>
+</div>
+

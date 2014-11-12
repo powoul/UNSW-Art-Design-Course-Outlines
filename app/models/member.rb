@@ -4,6 +4,7 @@ class Member < ActiveRecord::Base
   belongs_to :user
   belongs_to :associate, :polymorphic => true
   belongs_to :course
+  belongs_to :assessment_task_resource
   delegate :phone_number, :phone_number=, :room, :room=, :email, :email=, :to => :user, :allow_nil => true
 
   def member_name

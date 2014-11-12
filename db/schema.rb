@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027034259) do
+ActiveRecord::Schema.define(:version => 20141101223628) do
 
   create_table "assessment_task_proficiencies", :force => true do |t|
     t.string   "proficiency"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20141027034259) do
     t.integer  "program_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.string   "status"
   end
 
   create_table "criteria", :force => true do |t|
@@ -101,6 +102,13 @@ ActiveRecord::Schema.define(:version => 20141027034259) do
     t.string   "consultation_times"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "parameters", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "programs", :force => true do |t|

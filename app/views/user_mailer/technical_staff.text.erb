@@ -1,0 +1,7 @@
+Dear <%= @user.fullname %>,
+
+A course outline requires your approval on requried resources. 
+
+Please use the following link for your approval: <%= course_url(@course, :host => "localhost:3000") %>
+
+Thank you for your time!

@@ -1,0 +1,23 @@
+<% if f.object.errors.any? -%>
+<div class="alert alert-error">
+  <a class="close" data-dismiss="alert" href="#"></a>
+  <h4 class="alert-heading">Please fix the following errors and submit again!</h4>
+  <a class="close" data-dismiss="alert" href="#">x</a>
+  <br />
+  <p><strong><i>Course:</strong></i></p>
+  <% f.object.errors.each do |name, msg| %>
+    <p><%= name %>:&nbsp;<%= msg %></p>
+  <% end %>
+  <%# f.object.assessment_tasks.map { | t | t.errors.full_messages }.flatten.each do |msg| %>
+    <p><%#= msg %></p>
+  <%# end %>
+
+  <% if f.object.assessment_tasks.present? %>
+	  <p><strong><i>Assessments:</strong></i></p>
+	  <% f.object.assessment_tasks.map { | t | t.errors.full_messages.to_sentence }.flatten.each do |msg| %>
+	    <p><%= msg %></p>
+	  <% end %>
+  <% end %>
+
+</div>
+<% end %>

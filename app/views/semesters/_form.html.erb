@@ -5,14 +5,14 @@
   <%= f.input :year %>
   <br />
 
-  <%= f.input :start, :label => "Semester Start date" %>
+  <%= f.input :start, :label => "Semester Start date", :start_year => Date.today.year, :end_year => Date.today.year + 2 %>
   <br />
 
-  <%= f.input :end, :label => "Semester End date" %>
+  <%= f.input :end, :label => "Semester End date", :start_year => Date.today.year, :end_year => Date.today.year + 2 %>
   <br />
 
-  <%= f.input :non_teaching_week %>
+  <%= f.input :non_teaching_week, :start_year => Date.today.year, :end_year => Date.today.year + 2 %>
   <br />
 
-  <%= f.input :mid_semester_break %>
+  <%= f.input :mid_semester_break, :start_year => Date.today.year, :end_year => Date.today.year + 2 %>
 </div>

@@ -17,27 +17,11 @@
     </div>
   </div>
 
-  <!-- <br /> -->
-  <!-- <div class="control-group">
-    <label class="control-label required">Year</label>
-    <div class="controls">
-      <%#= f.input :year, :label => false, :collection => (Time.now.year..Time.now.year+2).to_a, :item_wrapper_class => 'inline', :include_blank => false %>
-    </div>
-  </div>  -->
-
-  <!-- <br />
-  <div class="control-group">
-    <%#= f.label :semester, "Semester", :class => "control-label required" %>
-    <div class="controls">
-      <%#= f.input :semester, :label => false, :collection => [['One', '1'],['Two', '2']], :as => :radio_buttons, :item_wrapper_class => 'inline' %>
-    </div>
-  </div> -->
-
   <br />
   <div class="control-group">
     <label class ="control-label required" >Semester</label>
     <div class="controls">
-      <%= f.input :semester_id, :label => false, :collection => Semester.all %>
+      <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year } %>
     </div>
   </div>
 

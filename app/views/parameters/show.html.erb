@@ -1,0 +1,22 @@
+<%= content_for(:breadcrumbs) do -%>
+  <li><span class="divider">/</span><%= link_to "Parameters", parameters_path %></li>
+  <li><span class="divider">/</span><%= @parameter.name %></li>
+<% end -%>
+
+<div class="page-header">
+  <h1><%= @parameter.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <br />
+  <dt>Name</dt>
+  <dd><%= @parameter.name.present? ? @parameter.name : '<i>undefined</i>'.html_safe %></dd>
+
+  <br />
+  <dt>Body</dt>
+  <dd><%= @parameter.body.present? ? @parameter.body.html_safe : '<i>undefined</i>'.html_safe %></dd>
+
+</dl>
+
+<%= link_to 'Edit', edit_parameter_path(@parameter), :class => "btn btn-primary" %>
+<%= link_to 'Back', parameters_path, :class => 'btn' %>

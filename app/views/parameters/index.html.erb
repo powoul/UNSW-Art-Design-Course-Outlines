@@ -1,0 +1,38 @@
+<%= content_for(:breadcrumbs) do -%>
+    <li><span class="divider">/</span><%= link_to "System Parameters", parameters_path %></li>
+<% end -%>
+
+<div class="page-header">
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <%= link_to icon('wrench', 'New Paramter'), new_parameter_path, :class => 'btn' %>
+        </div>
+    </div>
+    <h1>Parameters</h1>
+</div>
+
+<% if @parameters.present? %>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th>Actions</th>
+    </tr>
+
+  <% @parameters.each do |parameter| %>
+    <tr>
+      <td><%= parameter.name %></td>
+      <td><%= parameter.body.html_safe %></td>
+      <td>
+          <%= link_to 'View', parameter_path(parameter), :class => 'btn btn-mini' %>
+          <%= link_to 'Edit', edit_parameter_path(parameter), :class => 'btn btn-mini btn-primary' %>
+          <%= link_to 'Delete', parameter_path(parameter), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
+<% else %>
+  <p>No paramters in this listing.</p>
+<% end %>

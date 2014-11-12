@@ -1,5 +1,7 @@
 Courseoutlines::Application.routes.draw do
 
+  resources :parameters
+
   resources :comments
 
   resources :programs

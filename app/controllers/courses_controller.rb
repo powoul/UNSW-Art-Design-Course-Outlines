@@ -21,6 +21,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
+    
     @resources_required = []
     @proficiencies_required = []
     @course.assessment_tasks.each do |task|
@@ -54,18 +55,22 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    if current_user.admin?
-      @course = Course.new
-      @course.convenor = Member.new(:role => 'CONVENOR')
-      @course.program_director = Member.new(:role => 'PROGRAM DIRECTOR')
+    if current_user.admin? && Semester.count >= 1 
+        @course = Course.new
+        @course.convenor = Member.new(:role => 'CONVENOR')
+        @course.program_director = Member.new(:role => 'PROGRAM DIRECTOR')
 
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render :json => @course }
-      end
+        respond_to do |format|
+          format.html # new.html.erb
+          format.json { render :json => @course }
+        end
     else
       respond_to do |format|
-        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe 
+        unless current_user.admin?
+          flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe 
+        else
+          flash[:error] = 'Please create a semester first and try again.'
+        end 
         format.html { redirect_to courses_url }
         format.json { head :no_content }
       end      
@@ -78,6 +83,19 @@ class CoursesController < ApplicationController
     
     if !@course.teaching_strategy.present?
        @course.teaching_strategy = TeachingStrategy.new
+    end
+
+    if current_user.admin? || current_user.convenor?(@course) || current_user.program_director?(@course)
+      respond_to do |format|
+          format.html # new.html.erb
+          format.json { render :json => @course }
+        end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to course_url(@course) }
+        format.json { head :no_content }
+      end
     end
 
     # if !@course.topics.present?
@@ -102,11 +120,12 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(params[:course])
-
+    @course.status = params[:status]
+    
     respond_to do |format|
       if @course.save
-        #@course.convenor.user.update_attributes(params[:convenor_details])
-        #@course.program_director.user.update_attributes(params[:program_director_details])
+        UserMailer.course_convenor(@course.convenor.user, @course).deliver
+
         format.html { redirect_to @course, :notice => 'Course was successfully created.' }
         format.json { render :json => @course, :status=> :created, :location => @course }
       else
@@ -120,10 +139,16 @@ class CoursesController < ApplicationController
   # PUT /courses/1.json
   def update
     @course = Course.find(params[:id])
-
+    
+    @course.status = Course::STATUS[params[:status]]
+    @course.attributes = params[:course]
+    validate = params[:status] && (params[:status] == "SUBMIT" || params[:status] == "APPROVE")
+    
     respond_to do |format|
-      if @course.update_attributes(params[:course])
-
+      if @course.save(:validate => validate)
+        if params[:status] == "SUBMIT"
+          UserMailer.program_director(@course.program_director.user, @course).deliver
+        end
         format.html { redirect_to course_path(@course, :section_id => params[:section_id]), :notice => 'Course was successfully updated.' }
         format.json { head :no_content }
       else

@@ -1,29 +1,37 @@
-<h1>Listing programs</h1>
+<%= content_for(:breadcrumbs) do -%>
+    <li><span class="divider">/</span><%= link_to "Programs", programs_path %></li>
+<% end -%>
+
+<div class="page-header">
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <%#= link_to icon('folder-open', 'New Program'), new_program_path, :class => 'btn' %>
+        </div>
+    </div>
+    <h1>Programs</h1>
+</div>
+
 
 <%= render :partial => "search" %>
 
-<table>
-  <tr>
-    <th>Number</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<% if @programs.present? %>
+  <table class="table table-striped">
+    <tr>
+      <th>Number</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
 
-<% @programs.each do |program| %>
-  <tr>
-    <td><%= program.number %></td>
-    <td><%= program.description %></td>
-    <td><%= link_to 'Show', program %></td>
-    <td><%= link_to 'Edit', edit_program_path(program) %></td>
-    <td><%= link_to 'Destroy', program, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <% @programs.each do |program| %>
+    <tr>
+      <td><%= program.number %></td>
+      <td><%= program.description %></td>
+      <td><%= link_to 'Show', program %></td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <p>No programs in this listing.</p>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Program', new_program_path %>
 
 <%= will_paginate(@programs) %>

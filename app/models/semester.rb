@@ -3,4 +3,12 @@ class Semester < ActiveRecord::Base
 
   has_many :courses
 
+  scope :search_by_name_and_year, lambda { |q|
+   (q ? where(["name LIKE ? or year LIKE ? or concat(name, ', ', year) like ?", '%'+ q + '%', '%'+ q + '%','%'+ q + '%' ]).order(:year).limit(10)  : {})
+ }
+
+ def name_with_year
+  	"#{name}, #{year}"
+  end
+
 end

@@ -1,6 +1,6 @@
 <%= form_tag programs_path, :method => :get, :class => "form-inline" do %>
   <div class="field">
-    <input type="text" class="input-medium search-query" name="search" placeholder="code, description", value="<%= params[:search] %>">
+    <input type="text" class="input-medium search-query" name="search" placeholder="number, description", value="<%= params[:search] %>">
     <%= submit_tag "Search", :class => "btn btn-mini btn-primary" %>
   </div>
 <% end %>
