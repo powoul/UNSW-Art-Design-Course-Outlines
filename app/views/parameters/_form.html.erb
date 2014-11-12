@@ -1,4 +1,9 @@
+<%- if Rails.env.production? %>
+<%= tinymce :production %>
+<% else %>
 <%= tinymce %>
+<% end %>
+
 <%= f.error_notification %>
 
 <div class="form-inputs">

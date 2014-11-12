@@ -1,3 +1,9 @@
+<%- if Rails.env.production? %>
+<%= tinymce :production %>
+<% else %>
+<%= tinymce %>
+<% end %>
+
 <%= content_for(:breadcrumbs) do -%>
 	<li><span class="divider">/</span><%= link_to "Courses", courses_path %></li>
   <li><span class="divider">/</span><%= @course.code.upcase %> - <%= @course.name.titleize %></li>
