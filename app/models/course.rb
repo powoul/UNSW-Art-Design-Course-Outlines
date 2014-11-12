@@ -52,9 +52,9 @@ class Course < ActiveRecord::Base
   validates_associated :teaching_strategy, :message => "Error in teaching strategy. Please see bellow descriptions."
 
  
-  validate :uniqueness_of_learning_outcomes, :maximum_number_of_learning_outcomes
-  validate :uniqueness_of_lecturers, :presence_of_convenor_attributes
-  validate :presence_of_teaching_staff_attributes
+  validate :uniqueness_of_learning_outcomes, :maximum_number_of_learning_outcomes, :on => :update
+  validate :uniqueness_of_lecturers, :presence_of_convenor_attributes, :on => :update
+  validate :presence_of_teaching_staff_attributes, :on => :update
 
 
   STATUS = {
