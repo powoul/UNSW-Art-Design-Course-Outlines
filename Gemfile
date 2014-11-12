@@ -41,6 +41,7 @@ group :development do
 end
 
 group :production do
+  gem 'libv8', '3.16.14.3'
   gem 'therubyracer', '0.12.1'
   gem 'execjs'
 end
