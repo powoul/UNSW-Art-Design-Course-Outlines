@@ -71,7 +71,7 @@ Courseoutlines::Application.configure do
     :port                 => 25,
     :domain               => 'www.unsw.edu.au'
   }
-  config.action_mailer.default_url_options = { :host => "http://my.cofa.unsw.edu.au/course-outline" }
+  config.action_mailer.default_url_options = { :host => "my.cofa.unsw.edu.au/course-outline" }
 end
 
 require 'casclient'

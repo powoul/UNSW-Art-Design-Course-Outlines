@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome to Course Outlines application.</h1><br/>
+    <p>
+      Dear <strong><%= @user.fullname %></strong>,<br/>
+    </p>
+    <p>You are the course covenor for <%= @course.code%> - <%= @course.name %>.<br/></p>
+    <p>
+      Please follow this link to complete the course outlines:
+      <%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>
+    </p>
+    <p>Thank you and have a great day!</p><br/><br/>
+    <p>
+      <strong>UNSW | Art & Design</strong></br>
+      UNSW AUSTRALIA
+    </p>
+    <p>
+      Paddington Campus</br>
+      Cnr Oxford St & Greens Rd,</br>
+      Paddington, NSW 2021
+    </p>
+  </body>
+</html>

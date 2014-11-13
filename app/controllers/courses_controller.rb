@@ -129,6 +129,8 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, :notice => 'Course was successfully created.' }
         format.json { render :json => @course, :status=> :created, :location => @course }
       else
+        @course.convenor ||= Member.new(:role => 'CONVENOR')
+        @course.program_director ||= Member.new(:role => 'PROGRAM DIRECTOR')
         format.html { render :action => "new" }
         format.json { render :json => @course.errors, :status => :unprocessable_entity }
       end
