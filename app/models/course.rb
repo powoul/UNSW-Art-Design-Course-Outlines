@@ -42,20 +42,13 @@ class Course < ActiveRecord::Base
 
   validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program_director, :program, :on => :create
   validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :on => :update
-  
-
   validates :resources, :presence => {:message => "Resources for students can't be blank."}, :on => :update
-
-  validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester"
-
-  validates_associated :assessment_tasks, :message => "Error in assetments. Please see bellow descriptions."
-  validates_associated :teaching_strategy, :message => "Error in teaching strategy. Please see bellow descriptions."
-
- 
-  validate :uniqueness_of_learning_outcomes, :maximum_number_of_learning_outcomes, :on => :update
+  validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester" 
+  validate :uniqueness_of_learning_outcomes, :number_of_learning_outcomes, :on => :update
   validate :uniqueness_of_lecturers, :presence_of_convenor_attributes, :on => :update
   validate :presence_of_teaching_staff_attributes, :on => :update
-
+  validate :number_of_assessment_tasks, :on => :update
+  validates_associated :assessment_tasks, :message => "Error in assessment tasks"
 
   STATUS = {
     'SUBMIT'  => 'SUBMITTED',
@@ -136,16 +129,29 @@ class Course < ActiveRecord::Base
   private
 
   def uniqueness_of_learning_outcomes
-    names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
-    if names.compact.uniq.count != self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name).size
-      errors.add :course_learning_outcomes, 'Duplicate learning outcomes. Please remove the duplicates.'
+    if self.course_learning_outcomes.present?
+      names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
+      if names.compact.uniq.count != self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name).size
+        errors.add :course_learning_outcomes, 'Duplicate learning outcomes. Please remove the duplicates.'
+      end
     end
   end
 
-  def maximum_number_of_learning_outcomes
+  def number_of_learning_outcomes
     names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
     if names.compact.uniq.count > 5
       errors.add :course_learning_outcomes, 'Maximum <strong>five</strong> learning outcomes are allowed.'.html_safe
+    end
+    if names.compact.uniq.count < 1
+      errors.add :course_learning_outcomes, 'No student learning outcome has been added.'.html_safe
+    end
+  end
+
+  def number_of_assessment_tasks
+    if !self.assessment_tasks.present? || self.assessment_tasks.reject(&:marked_for_destruction?).size < 1
+      errors.add :assessment_tasks, 'No assessment task has been added.'.html_safe
+    elsif self.assessment_tasks.reject(&:marked_for_destruction?).size > 3
+      errors.add :assessment_tasks, 'Maximum <strong>three</strong> assessment tasks are allowed.'.html_safe
     end
   end
 

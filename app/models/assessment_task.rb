@@ -22,6 +22,8 @@ class AssessmentTask < ActiveRecord::Base
   validates_presence_of :title, :due, :weighting, :synopsis, :feedback
 
   validate :number_of_criteria
+  validates_associated :criteria, :message => "Error in assessment criteria"
+  validate :uniqueness_of_task_outcomes
 
   def week_name
     
@@ -32,6 +34,13 @@ class AssessmentTask < ActiveRecord::Base
   def number_of_criteria
     if self.criteria.reject(&:marked_for_destruction?).size > 5
       errors.add :criteria, 'Maximum 5 criteria is accepted.'
+    end
+  end
+
+  def uniqueness_of_task_outcomes
+    ids = self.task_outcomes.reject_if(&:marked_for_destruction?).map(&:course_learning_outcome_id)
+    if ids.compact.uniq.count != self.task_outcomes.reject_if(&:marked_for_destruction?).map(&:course_learning_outcome_id).size
+      errors.add :self, 'Duplicate course learning outcomes. Please remove the duplicates.'
     end
   end
 
