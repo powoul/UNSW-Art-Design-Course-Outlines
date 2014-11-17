@@ -9,7 +9,19 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    if !params[:category].present?
+      @courses = Course.all
+    elsif (params[:category] == 'convenor')
+      @courses = []
+      Course.all.each do |course|
+        @courses << course if current_user.convenor?(course)
+      end
+    else
+      @courses = []
+      Course.all.each do |course|
+        @courses << course if current_user.program_director?(course)
+      end      
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -84,6 +96,7 @@ class CoursesController < ApplicationController
     if !@course.teaching_strategy.present?
        @course.teaching_strategy = TeachingStrategy.new
     end
+
 
     if current_user.admin? || current_user.convenor?(@course) || current_user.program_director?(@course)
       respond_to do |format|

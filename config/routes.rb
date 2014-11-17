@@ -20,7 +20,7 @@ Courseoutlines::Application.routes.draw do
   resources :users
 
   match '/logout' => 'sessions#destroy', :as => :logout
-  root :to => 'courses#index'
+  root :to => 'courses#index', :category => 'convenor'
 
   namespace :admin do
     root :to => 'root#index', :as => :admin_root

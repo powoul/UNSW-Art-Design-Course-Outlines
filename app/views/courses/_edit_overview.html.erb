@@ -1,0 +1,245 @@
+<h3>COURSE SUMMARY</h3> <br />
+<div class="control-group">
+  <label class="control-label required">&nbsp;</label>
+  <div class="controls">
+    <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
+    <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
+  </div>
+</div>
+
+<h3>PROGRAM AFFILIATION</h3> <br />
+<dl class="dl-horizontal">  
+<dt>Affiliated Program</dt>
+<dd><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></dd>
+<dt>Program Director</dt>
+<dd><%= @course.program_director.member_name %></dd>
+</dl><br />
+
+<h3>COURSE AIMS</h3> <br />
+<div class="control-group">
+  <label class="control-label required">&nbsp;</label>
+  <div class="controls">
+    <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+    <p class="help-block" align="justify"><small>This is designed to make explicit to the students what YOU as the lecturer wish to achieve by teaching this course. They should express why this course is important to the learner and provide an overall big picture vision for student learning. Course aims should be clearly aligned with the curriculum learning and assessment outcomes of the course components. It is highly recommended that no more than TWO aims be provided. Too many aims suggest a scattergun approach. </small></p>
+  </div>
+</div>
+<p><a class="btn btn-info btn-mini" data-toggle="modal" href="#aims_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
+
+<h3>STUDENT LEARNING OUTCOMES</h3><br />
+<p>At the conclusion of this course, students should be able to:</p>
+
+<div id="outcomes">
+<%= f.simple_fields_for :course_learning_outcomes do |outcome| %>
+  
+    <div class="pull-right">
+      <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+    </div>
+  
+    <div class="control-group">
+      <label class="control-label required">Learning outcome</label>
+      <div class="controls">
+        <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+      </div>
+    </div>
+
+<% end %>
+
+</div>
+
+<div style="text-align: center;">
+<br />
+<p style="text-align: center;">Please add up to 5 learning outcomes</p>
+<%= f.link_to_add "Add a learning outcome", :course_learning_outcomes, :data => { :target => "#outcomes"}, :class => "btn btn-primary" %>
+</div>
+
+<p class="help-block" align="justify"><small>Learning outcomes specify what the <strong>STUDENTS</strong> who are undertaking your course will achieve by its conclusion. Learning outcomes could cover content based (knowledge), cognitive (attitudes, analysis and interpretation) and application (skills based) outcomes. <strong>Learning Outcomes are also what your assessment tasks test and each task must be linked to one or more outcomes, so think carefully about what students are achieving by completing this course</strong>. It is recommended that no more than <strong>THREE</strong> or <strong>FOUR</strong> learning outcomes be provided.</small></p><br />
+<p><a class="btn btn-info btn-mini" data-toggle="modal" href="#course_learning_outcomes_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
+
+<hr>
+<h3>ALIGNMENT WITH PROGRAM LEARNING OUTCOMES</h3><br />
+<p class="help-block" align="justify">Each course in a program is designed to help students achieve some of teh Program Learning OUtcomes - that is what students undertaking the program should achieve by its conclusion. The table bellow illustrates how the course learning outcomes relate to course activities and assessments, and the learning outcome of the <strong><%= f.object.program.try(:description) %></strong></p><br />
+<p><a class="btn btn-info btn-mini" data-toggle="modal" href="#alignment_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
+
+<hr>
+<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3><br /><br />
+<%= f.simple_fields_for :teaching_strategy, :html => { :class => 'form-horizontal' } do |strategy| %>
+
+  <% disabled_options = [] %>
+  <% disabled_options = [true, false] unless current_user.convenor?(f.object) %>
+
+  <div class="form-inputs">
+
+    <div class="control-group">
+      <label class="control-label">Lectures</label>
+      <div class="controls">
+        
+        <%= strategy.input :lectures, :as => :select, :label => false, :disabled => disabled_options %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+      </div>
+    </div>
+    <br />
+    <div class="control-group">
+      <label class="control-label">Seminars</label>
+      <div class="controls">
+        <%= strategy.input :seminars, :as => :select, :label => false, :disabled => disabled_options %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <%= strategy.input :seminars_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Tutuorials</label>
+      <div class="controls">
+        <%= strategy.input :tutorials, :as => :select, :label => false, :disabled => disabled_options %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <%= strategy.input :tutorials_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Studio</label>
+      <div class="controls">
+        <%= strategy.input :studio, :as => :select, :label => false, :disabled => disabled_options %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <%= strategy.input :studio_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label">Blended/online</label>
+      <div class="controls">
+        <%= strategy.input :blended_online, :as => :select, :label => false, :disabled => disabled_options %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <%= strategy.input :blended_online_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
+      </div>
+    </div>
+
+    <br />
+    <div class="control-group">
+      <label class="control-label required">Teaching philosophy</label>
+      <div class="controls">
+        <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <p class="help-block"><small>Indicate the teaching strategies used in the course (e.g. lectures, seminars, tutorials, studios, blended learning, practicum) and how the students are expected to participate and learn in these various components. In terms of the approach to learning, briefly describe the values and beliefs you bring to your teaching and how these have informed the course design. This should indicate the way course content enhances the experiences of learning for the student.</small></p><br />        
+      </div>
+    </div>
+    <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#philosophy_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
+
+  </div>
+<% end %>
+
+<% content_for :modals do %>
+  <div class="modal fade hide" id="aims_help">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Help for completing this section</h3>
+    </div>      
+    <div class="modal-body">
+      <p><i>Example:</i></p>
+      <p align="justify">This course will enable you to explore and gain further experience in graphic design through the investigation of visual communication principles, colour theory and composition, with a direct emphasis on the application to real world situations in the field of information design.</p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">        
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
+  <div class="modal fade hide" id="course_learning_outcomes_help">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Help for completing this section</h3>
+    </div>      
+    <div class="modal-body">
+      <p><i>Example:</i></p>
+      <p align="justify">On completion of this course, the students should be able to:
+      <ol><li>Research, identify and describe the cultural and contextual issues that influence contemporary visual communication that they encounter</li>
+      <li>Use research and critical insight in concert with fundamental elements of design to help solve a visual communication brief</li><li>Present and deliver a design concept by describing the context, approach and solutions</li><li>Demonstrate teh ability to work collaboratively within a group and provide (and receive) critical feedback though the working process.</li></ol></p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">        
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
+  <div class="modal fade hide" id="alignment_help">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Help for completing this section</h3>
+    </div>      
+    <div class="modal-body">
+      <p align="justify">For further information, see the following UNSW Teaching Gateway pages:</p>
+      <p align="justify">
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>Program-Level Learning Outcomes</strong><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://teaching.unsw.edu.au/outcomes" target="_blank">http://teaching.unsw.edu.au/outcomes</a><br /><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>Curriculum Design</strong><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://teaching.unsw.edu.au/curriculum-design" target="_blank">http://teaching.unsw.edu.au/curriculum-design</a><br /><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>Alignment of Learning Outcomes with Course and Program</strong><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://teaching.unsw.edu.au/alignment-learning-outcomes-course-and-program" target="_blank">http://teaching.unsw.edu.au/alignment-learning-outcomes-course-and-program</a>
+      </p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">        
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+  
+  <div class="modal fade hide" id="philosophy_help">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Help for completing this section</h3>
+    </div>      
+    <div class="modal-body">
+      <p align="justify">When writing this rationale you may find it helpful to draw on the following:</p>
+      <p align="justify">
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>UNSW Beliefs about Learning</strong><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://teaching.unsw.edu.au/guidelines" target="_blank">http://teaching.unsw.edu.au/guidelines</a><br /><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>Guidelines on Learning that Inform Teaching at UNSW</strong><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://teaching.unsw.edu.au/beliefs" target="_blank">https://teaching.unsw.edu.au/beliefs</a>
+      </p><br /><br />
+
+      <p><i>Example Philosophy:</i></p>
+      <p align="justify">This course enables students to develop particular communications skills that will enhance their practice as a graphic designer. It reflects a view that professional practice within the field will require advanced levels of technical and design proficiencies...</p>
+
+    </div>
+    <div class="modal-footer" style="text-align: center;">        
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
+  <style type="text/css" media="screen">
+    div.modal form {
+      margin-bottom: 0;
+    }
+  </style>
+
+<% end %>

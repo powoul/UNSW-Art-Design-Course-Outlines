@@ -1,80 +1,96 @@
-<%= content_for(:breadcrumbs) do -%>
-  <li><span class="divider">/</span><%= link_to "Courses", courses_path %></li>
-  <li><span class="divider">/</span><%= @course.code %> - <%= @course.name %></li>
-<% end -%>
+<!--<%#= content_for(:breadcrumbs) do -%>
+  <li><span class="divider">/</span><%#= link_to "Courses", courses_path %></li>
+  <li><span class="divider">/</span><%#= @course.code %> - <%#= @course.name %></li>
+<%# end -%>  -->
 
-<div class="page-header">
-  <h1><%= @course.code %> - <%= @course.name %></h1>
-</div>
-<% params[:section_id] ||= "information" %>
 <div class="row-fluid">
-	<div class="span9">
-		<ul class="nav nav-tabs">
-			<li class="<%= 'active' if params[:section_id] == 'information' %>"><a href="#course_information" data-toggle="tab">Information</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'staff' %>"><a href="#staff" data-toggle="tab">Staff</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'overview' %>"><a href="#overview" data-toggle="tab">Overview</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'expectations' %>"><a href="#expectations" data-toggle="tab">Stduent Expectations</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'assessments' %>"><a href="#assessments" data-toggle="tab">Assessment</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'topics' %>"><a href="#topics" data-toggle="tab">Topics and Dates</a></li>
-			<li class="<%= 'active' if params[:section_id] == 'resources' %>"><a href="#resources" data-toggle="tab">Resources fo Students</a></li>
-		</ul>
-	
-		<div class="tab-content">
-			<div id="course_information" class="tab-pane <%= 'active' if params[:section_id] == 'information' %>">
-				<%= render :partial => 'information'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "information"), :class => 'btn' %>
-				</div>
+	<div class="span11">
+		<header class="jumbotron subhead">
+			<div class="btn-toolbar pull-right">
+		        <div class="btn-group">
+		            <%= link_to 'Edit', edit_course_path(@course), :class => 'btn' %>
+		        </div>
+		    </div>
+			<h1><%= @course.code.upcase %> - <%= @course.name.upcase %></h1>
+			<p class="lead">You are viewing <%= @course.code.upcase %> - <%= @course.name.upcase %></p><br />
+			<div class="subnav">
+			    <ul class="nav nav-pills">
+			      <li><a href="#course_information">Information</a></li>
+			      <li><a href="#staff">Staff</a></li>
+			      <li><a href="#overview">Course Overview</a></li>
+			      <li><a href="#expectations">Stduent Expectations</a></li>
+			      <li><a href="#assessments">Assessment</a></li>
+			      <li><a href="#topics">Topics and Dates</a></li>
+			      <li><a href="#resources">Resources for Students</a></li>
+			    </ul>
 			</div>
+		</header>
+		
+		<section id="course_information">
+			<div class="page-header">
+				<h1>COURSE INFORMATION</h1>
+			</div>
+			<%= render :partial => 'information'%>
+		</section>
 
-			<div id="staff" class="tab-pane <%= 'active' if params[:section_id] == 'staff' %>">
-				<%= render :partial => 'staff'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "staff"), :class => 'btn' %>
-				</div>
+		<section id="staff">
+			<div class="page-header">
+				<h1>COURSE STAFF</h1>
 			</div>
+			<%= render :partial => 'staff'%>
+		</section>
 
-			<div id="overview" class="tab-pane <%= 'active' if params[:section_id] == 'overview' %>">
-				<%= render :partial => 'overview'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "overview"), :class => 'btn' %>
-				</div>
+		<section id="overview">
+			<div class="page-header">
+				<h1>COURSE OVERVIEW</h1>
 			</div>
+			<%= render :partial => 'overview'%>
+		</section>
 
-			<div id="expectations" class="tab-pane <%= 'active' if params[:section_id] == 'expectations' %>">
-				<%= render :partial => 'expectations'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "expectations"), :class => 'btn' %>
-				</div>
+		<section id="expectations">
+			<div class="page-header">
+				<h1>EXPECTATIONS OF STUDENTS IN THIS COURSE</h1>
 			</div>
+			<%= render :partial => 'expectations'%>
+		</section>
 
-			<div id="assessments" class="tab-pane <%= 'active' if params[:section_id] == 'assessments' %>">
-				<%= render :partial => 'assessments'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "assessments"), :class => 'btn' %>
-				</div>
+		<section id="assessments">
+			<div class="page-header">
+				<h1>ASSESSMENT</h1>
 			</div>
+			<%= render :partial => 'assessments'%>
+		</section>
 
-			<div id="topics" class="tab-pane <%= 'active' if params[:section_id] == 'topics' %>">
-				<%= render :partial => 'topics'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "topics"), :class => 'btn' %>
-				</div>
+		<section id="topics">
+			<div class="page-header">
+				<h1>TOPICS AND DATES</h1>
 			</div>
+			<%= render :partial => 'topics'%>
+		</section>
 
-			<div id="resources" class="tab-pane <%= 'active' if params[:section_id] == 'resources' %>">
-				<%= render :partial => 'resources'%>
-				<hr>
-				<div>
-					<%= link_to 'Edit', edit_course_path(@course, :section_id => "resources"), :class => 'btn' %>
-				</div>
+		<section id="resources">
+			<div class="page-header">
+				<h1>RESOURCES FOR STUDENTS</h1>
 			</div>
-		</div>
+			<%= render :partial => 'resources'%>
+		</section>
+
 	</div>
 </div>
+<script type="text/javascript">
+$(document).scroll(function(){
+    // If has not activated (has no attribute "data-top"
+    if (!$('.subnav').attr('data-top')) {
+        // If already fixed, then do nothing
+        if ($('.subnav').hasClass('subnav-fixed')) return;
+        // Remember top position
+        var offset = $('.subnav').offset()
+        $('.subnav').attr('data-top', offset.top);
+    }
+
+    if ($('.subnav').attr('data-top') - $('.subnav').outerHeight() <= $(this).scrollTop())
+        $('.subnav').addClass('subnav-fixed');
+    else
+        $('.subnav').removeClass('subnav-fixed');
+});
+</script>

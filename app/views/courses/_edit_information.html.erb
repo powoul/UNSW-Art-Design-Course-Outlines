@@ -1,0 +1,89 @@
+<div class="form-inputs">
+
+  <div class="control-group">
+    <label class="control-label">Course Code</label>
+    <div class="controls">
+      <%= f.input :code, :label => false, :disabled => !current_user.admin? %>
+    </div>
+  </div>
+
+   <br />
+  <div class="control-group">
+    <label class="control-label">Course Name</label>
+    <div class="controls">
+      <%= f.input :name, :label => false, :disabled => !current_user.admin? %>
+    </div>
+  </div>
+
+  <br />
+  <!-- <div class="control-group">
+    <label class="control-label">Year</label>
+    <div class="controls">
+      <%#= f.input :year, :label => false, :collection => (Time.now.year..Time.now.year+2).to_a, :item_wrapper_class => 'inline', :include_blank => false, :disabled => !current_user.admin? %>
+    </div>
+  </div>  -->
+
+  <br />
+  <div class="control-group">
+    <label class ="control-label">Semester</label>
+    <div class="controls">
+      <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year }, :disabled => !current_user.admin? %>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Units of Credit</label>
+    <div class="controls">
+      <%= f.input :units_of_credit, :label => false, :disabled => !current_user.admin? %>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Teaching Times and Locations</label>
+    <div class="controls">
+      <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Online Course Support</label>
+    <div class="controls">
+      <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+      <p class="help-block"><small>Does this course have any online support associated with it such as Moodle, Omnium, a course blog etc. Please add a descriptor.</small></p>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Parallel Teaching</label>
+    <div class="controls">
+      <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+      <p class="help-block"><small>Put the codes and names of any courses taught in the same class(es) as this courses here.</small></p>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Reources Required</label>
+    <div class="controls">
+      <%#= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' } , :disabled => !current_user.convenor?(f.object)%>
+
+      <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
+    </div>
+  </div>
+
+  <br />
+  <div class="control-group">
+    <label class="control-label">Proficiencies Required</label>
+    <div class="controls">
+      <%#= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+
+      <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
+    </div>
+  </div>
+</div>

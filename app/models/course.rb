@@ -52,7 +52,7 @@ class Course < ActiveRecord::Base
 
   STATUS = {
     'SUBMIT'  => 'SUBMITTED',
-    'SAVE'    => 'SAVED',
+    'SAVE'    => 'DRAFT',
     'APPROVE' => 'APPROVED'
   }
 

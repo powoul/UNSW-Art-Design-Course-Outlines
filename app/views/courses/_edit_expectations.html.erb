@@ -1,0 +1,44 @@
+<h3>ASSESSMENT</h3><br />
+<div class="control-group">
+  <div class="controls">
+    <%= f.input :assessment, :label => false, :input_html => { :rows => '5', :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+    <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
+  </div>
+</div>          
+
+<div>
+  <h3>RISK OF FAILURE WARNINGS</h3>
+  <p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+</div>
+
+<div>
+  <h3>LATE SUBMISSION PENALTIES</h3>
+  <p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+</div>
+
+<br />
+<h3>CONTINUAL COURSE IMPROVEMENT</h3>
+<p class="help-block">Student responses to Course and Teaching Evaluation & Improvement (CATEI) surveys are gathered every time this course is taught, using online evaluation forms. Student responses are taken seriously, and continual improvements are made to the course based in part on such feedback. Significant changes to the course will be communicated to subsequent cohorts of students taking the course. It is important that students complete the CATEI course and teaching surveys for this course.  This is completely anonymous and provides important student observations and suggestions to ensure that the course is continually improved.</p><br />
+<div id="improvements">
+  <p>Over the past semesters, we have improved the course by:</p>
+  <%= f.simple_fields_for :course_improvements do |mm| %>
+      <div class="pull-right">
+        <%= mm.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+      </div>             
+
+      <div class="control-group">
+        
+        <label class="control-label">Improvement</label>
+        <div class="controls">
+          <%= mm.input :description, :label => false, :disabled => !current_user.convenor?(f.object) %>          
+        </div>
+      </div>
+  <% end %>
+</div>
+<p class="help-block"><small>Please describe imporovements that have been made to the course since it last run, and describe how you have responded to student comments feedback via CATE!</small></p>
+
+<div style="text-align: center;">
+  <br />
+  <p style="text-align: center;">You may add course improvemets here</p>
+  <%= f.link_to_add "Add course improvement", :course_improvements, :data => { :target => "#improvements"}, :class => "btn btn-primary" %>
+</div>

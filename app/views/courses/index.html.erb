@@ -19,21 +19,24 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>Semester</th>
+                <th>Convenor</th>
                 <th>Last Updated At</th>
-                <th>Completed?</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
-        </thead>    
+        </thead>
 
         <% @courses.each do |course| %>
           <tr>
-            <td><%= link_to course.code, course %></td>
+            <td><%= link_to course.code, course_path(course, :category => params[:category]) %></td>
             <td><%= course.name %></td>
             <td><%= course.semester_name %></td>
+            <td><%= course.convenor.user.fullname %></td>
             <td><%= course.updated_at.localtime.strftime("%Y-%m-%d %H:%M") %></td>
-            <td><%= completed?(course) ? icon('thumbs-up','') : icon('thumbs-down','') %></td>
+            <td style="color: <%= text_color(course.status) %>"><%= course.status %></td>
             <td>
                 <%= link_to 'View', course_path(course), :class => 'btn btn-mini' %>
+                <%= link_to 'Edit', edit_course_path(course), :class => 'btn btn-mini btn-success' %>
                 <%= link_to_if course.status == "APPROVED", 'Download (pdf)', course_path(course, :format => "pdf"), :class => 'btn btn-mini btn-success' %>
                 <%= link_to 'Delete', course_path(course), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
             </td>            

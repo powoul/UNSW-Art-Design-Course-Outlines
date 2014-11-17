@@ -4,14 +4,27 @@
 <%= tinymce %>
 <% end %>
 
-<%= content_for(:breadcrumbs) do -%>
-	<li><span class="divider">/</span><%= link_to "Courses", courses_path %></li>
-  <li><span class="divider">/</span><%= @course.code.upcase %> - <%= @course.name.titleize %></li>
-<% end -%>
-
+<!-- <%#= content_for(:breadcrumbs) do -%>
+	<li><span class="divider">/</span><%#= link_to "Courses", courses_path %></li>
+  <li><span class="divider">/</span><%#= @course.code.upcase %> - <%#= @course.name.titleize %></li>
+<%# end -%> -->
+<div class="row-fluid">
 	<div class="span11">
 		<header class="jumbotron subhead">
 			<h1> <%= @course.code.upcase %> - <%= @course.name.titleize %></h1>
+      <p class="lead">You are editting <%= @course.code.upcase %> - <%= @course.name.upcase %></p><br />
+      <div class="subnav">
+          <ul class="nav nav-pills">
+            <li><a href="#course_information">Information</a></li>
+            <li><a href="#staff">Staff</a></li>
+            <li><a href="#overview">Course Overview</a></li>
+            <li><a href="#expectations">Stduent Expectations</a></li>
+            <li><a href="#assessments">Assessment</a></li>
+            <li><a href="#topics">Topics and Dates</a></li>
+            <li><a href="#resources">Resources for Students</a></li>
+            <li><a href="#submission">Submission</a></li>
+          </ul>
+      </div>
 		</header>
 
     <%= simple_nested_form_for @course, :html => { :class => 'form-horizontal' } do |f| %>
@@ -21,97 +34,11 @@
         <!-- Course Information
         ============================ -->
 
-        <section id="information">
-          <h2 style="text-align: center;">COURSE INFORMATION</h2><br />
-          <div class="form-inputs">
-
-            <div class="control-group">
-              <label class="control-label">Course Code</label>
-              <div class="controls">
-                <%= f.input :code, :label => false, :disabled => !current_user.admin? %>
-              </div>
-            </div>
-
-             <br />
-            <div class="control-group">
-              <label class="control-label">Course Name</label>
-              <div class="controls">
-                <%= f.input :name, :label => false, :disabled => !current_user.admin? %>
-              </div>
-            </div>
-
-            <br />
-            <!-- <div class="control-group">
-              <label class="control-label">Year</label>
-              <div class="controls">
-                <%#= f.input :year, :label => false, :collection => (Time.now.year..Time.now.year+2).to_a, :item_wrapper_class => 'inline', :include_blank => false, :disabled => !current_user.admin? %>
-              </div>
-            </div>  -->
-
-            <br />
-            <div class="control-group">
-              <label class ="control-label">Semester</label>
-              <div class="controls">
-                <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year }, :disabled => !current_user.admin? %>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Units of Credit</label>
-              <div class="controls">
-                <%= f.input :units_of_credit, :label => false, :disabled => !current_user.admin? %>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Teaching Times and Locations</label>
-              <div class="controls">
-                <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Online Course Support</label>
-              <div class="controls">
-                <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
-
-                <p class="help-block"><small>Does this course have any online support associated with it such as Moodle, Omnium, a course blog etc. Please add a descriptor.</small></p>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Parallel Teaching</label>
-              <div class="controls">
-                <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
-
-                <p class="help-block"><small>Put the codes and names of any courses taught in the same class(es) as this courses here.</small></p>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Reources Required</label>
-              <div class="controls">
-                <%#= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' } , :disabled => !current_user.convenor?(f.object)%>
-
-                <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
-              </div>
-            </div>
-
-            <br />
-            <div class="control-group">
-              <label class="control-label">Proficiencies Required</label>
-              <div class="controls">
-                <%#= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
-
-                <p class="help-block" ><small>This list will be automatically filled from your answers in the individual assessment requirements later in the outline. It will comprise resources from the Resource centre, Computer Services Unit and the Workshop that students need to complete the course.</small></p>
-              </div>
-            </div>
+        <section id="course_information">
+          <div class="page-header">
+            <h1>COURSE INFORMATION</h1>
           </div>
+          <%= render :partial => 'edit_information', :locals => { :f => f } %>          
         </section>
 
 
@@ -120,58 +47,9 @@
 
         <section id="staff">
           <div class="page-header">
-            <h2 style="text-align: center;">Course STAFF</h2>
+            <h1>Course STAFF</h1>
           </div>
-          <h3>COURSE CONVENOR</h3>
-          
-          <%= f.simple_fields_for :convenor do |convenor| %>
-
-            <br />
-            <div class="controls">
-              <label class="control-label required">Full name</label>
-              <div class="controls">
-                <%= convenor.input :member_name, :as => :hidden %><%= convenor.object.member_fullname %>
-              </div>
-            </div>
-
-            <br />
-            <div class="controls">
-              <label class="control-label required">Email</label>
-              <div class="controls">
-                <%= convenor.object.email %>
-              </div>
-            </div>
-
-            <br />
-            <div class="controls">
-              <label class="control-label required">Phone Number</label>
-              <div class="controls">
-                <%= convenor.input :phone_number, :label => false %>
-              </div>
-            </div>
-
-            <br />
-            <div class="controls">
-              <label class="control-label required">Room Number</label>
-              <div class="controls">
-                <%= convenor.input :room, :label => false %>
-              </div>
-            </div>    
-
-            <br />
-            <div class="controls">
-              <label class="control-label required">Consultation Times</label>
-              <div class="controls">
-                <%= convenor.input :consultation_times, :label => false, :input_html => { :class => 'span5' } %>
-              </div>
-            </div>
-          <% end %>
-
-          <br />
-          <h3>OTHER TEACHING STAFF</h3>
-          <div class="form-inputs">
-            <%= render :partial => "courses/lecturers", :locals => { :f => f } %>
-          </div>
+          <%= render :partial => 'edit_staff', :locals => { :f => f } %>          
         </section>
 
 
@@ -180,596 +58,70 @@
 
         <section id="overview">
           <div class="page-header">
-            <h2 style="text-align: center;">COURSE OVERVIEW</h2>
+            <h1>COURSE OVERVIEW</h1>
           </div>
-
-          <h3>COURSE SUMMARY</h3> <br />
-          <div class="form-inputs">
-            
-            <div class="control-group">
-              <label class="control-label required">&nbsp;</label>
-              <div class="controls">
-                <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
-                <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
-              </div>
-            </div>
-          </div>
-
-          <h3>PROGRAM AFFILIATION</h3> <br />
-          <dl class="dl-horizontal">  
-            <dt>Affiliated Program</dt>
-            <dd><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></dd>
-            <dt>Program Director</dt>
-            <dd><%= @course.program_director.member_name %></dd>
-          </dl>
-
-          <br />
-          <h3>COURSE AIMS <i class="icon-info-sign" id="CourseAimPopOver" data-toggle="popover" title="Help for completing this section" data-content="<h4><i>Example:</i></h4><p>This course will enable you to explore and gain further experience in graphic design through the investigation of visual communication principles, colour theory and composition, with a direct emphasis on the application to real world situations in the field of information design.</p>"></i></h3> <br />
-          <div class="form-inputs">
-            <div class="control-group">
-              <label class="control-label required">&nbsp;</label>
-              <div class="controls">
-                <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                <p class="help-block" align="justify"><small>This is designed to make explicit to the students what YOU as the lecturer wish to achieve by teaching this course. They should express why this course is important to the learner and provide an overall big picture vision for student learning. Course aims should be clearly aligned with the curriculum learning and assessment outcomes of the course components. It is highly recommended that no more than TWO aims be provided. Too many aims suggest a scattergun approach. </small></p>
-              </div>
-            </div>
-
-          </div>
-
-          <br />
-          <h3>STUDENT LEARNING OUTCOMES<i class="icon-info-sign" id="OutcomesPopOver" data-toggle="popover" title="Help for completing this section" data-content="<h4><i>Example:</i></h4><p> On completion of this course, the students should be able to:</p><p><ol><li>Research, identify and describe the cultural and contextual issues that influence contemporary visual communication that they encounter</li>
-            <li>Use research and critical insight in concert with fundamental elements of design to help solve a visual communication brief</li><li>Present and deliver a design concept by describing the context, approach and solutions</li><li>Demonstrate teh ability to work collaboratively within a group and provide (and receive) critical feedback though the working process.</li></ol></p>"></i></h3><br />
-          <p>At the conclusion of this course, students should be able to:</p>
-
-          <div id="outcomes">
-            <%= f.simple_fields_for :course_learning_outcomes do |outcome| %>
-              
-                <div class="pull-right">
-                  <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                </div>
-              
-                <div class="control-group">
-                  <label class="control-label required">Learning outcome</label>
-                  <div class="controls">
-                    <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                  </div>
-                </div>
-
-            <% end %>
-
-          </div>
-
-          <div style="text-align: center;">
-            <br />
-            <p style="text-align: center;">Please add upto 5 learning outcomes</p>
-            <%= f.link_to_add "Add a learning outcome", :course_learning_outcomes, :data => { :target => "#outcomes"}, :class => "btn btn-primary" %>
-          </div>
-
-          <p class="help-block" align="justify"><small>Learning outcomes specify what the <strong>STUDENTS</strong> who are undertaking your course will achieve by its conclusion. Learning outcomes could cover content based (knowledge), cognitive (attitudes, analysis and interpretation) and application (skills based) outcomes. <strong>Learning Outcomes are also what your assessment tasks test and each task must be linked to one or more outcomes, so think carefully about what students are achieving by completing this course</strong>. It is recommended that no more than <strong>THREE</strong> or <strong>FOUR</strong> learning outcomes be provided.</small></p>
-
-          <hr>
-          <h3>ALIGNMENT WITH PROGRAM LEARNING OUTCOMES</h3><br />
-          <p class="help-block" align="justify">Each course in a program is designed to help students achieve some of teh Program Learning OUtcomes - that is what students undertaking the program should achieve by its conclusion. The table bellow illustrates how the course learning outcomes relate to course activities and assessments, and the learning outcome of the <strong><%= f.object.program.try(:description) %></strong></p>
-
-          <hr>
-          <h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3><br /><br />
-          <%= f.simple_fields_for :teaching_strategy, :html => { :class => 'form-horizontal' } do |strategy| %>
-
-              <% disabled_options = [] %>
-              <% disabled_options = [true, false] unless current_user.convenor?(f.object) %>
-
-              <div class="form-inputs">
-
-                <div class="control-group">
-                  <label class="control-label">Lectures</label>
-                  <div class="controls">
-                    
-                    <%= strategy.input :lectures, :as => :select, :label => false, :disabled => disabled_options %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Description</label>
-                  <div class="controls">
-                    <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
-                  </div>
-                </div>
-                <br />
-                <div class="control-group">
-                  <label class="control-label">Seminars</label>
-                  <div class="controls">
-                    <%= strategy.input :seminars, :as => :select, :label => false, :disabled => disabled_options %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Description</label>
-                  <div class="controls">
-                    <%= strategy.input :seminars_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
-                  </div>
-                </div>
-
-                <br />
-                <div class="control-group">
-                  <label class="control-label">Tutuorials</label>
-                  <div class="controls">
-                    <%= strategy.input :tutorials, :as => :select, :label => false, :disabled => disabled_options %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Description</label>
-                  <div class="controls">
-                    <%= strategy.input :tutorials_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
-                  </div>
-                </div>
-
-                <br />
-                <div class="control-group">
-                  <label class="control-label">Studio</label>
-                  <div class="controls">
-                    <%= strategy.input :studio, :as => :select, :label => false, :disabled => disabled_options %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Description</label>
-                  <div class="controls">
-                    <%= strategy.input :studio_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
-                  </div>
-                </div>
-
-                <br />
-                <div class="control-group">
-                  <label class="control-label">Blended/online</label>
-                  <div class="controls">
-                    <%= strategy.input :blended_online, :as => :select, :label => false, :disabled => disabled_options %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Description</label>
-                  <div class="controls">
-                    <%= strategy.input :blended_online_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
-                  </div>
-                </div>
-
-                <br />
-                <div class="control-group">
-                  <label class="control-label required">Teaching philosophy <i class="icon-info-sign" id="TeachingPhilisophyPopOver" data-toggle="popover" title="Help for completing this section" data-content="<p>When writing this rationale you may find it helpful to draw on the following:</p><br /><h4>UNSW Beliefs about Learning</h4><a href='https://teaching.unsw.edu.au/beliefs'>https://teaching.unsw.edu.au/beliefs</a><br /><br /><h4>Guidelines on Learning that Inform Teaching at UNSW</h4><a href='http://teaching.unsw.edu.au/guidelines'>http://teaching.unsw.edu.au/guidelines</a><br /><br /><i>Example Philosophy</i><br /> This course enables students to develop particular communications skills that will enhance their practice as a graphic designer. It reflects a view that professional practice whitin the field will require advanced levels of technical and design profieciencies.</p>"></i></label>
-                  <div class="controls">
-                    <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <p class="help-block"><small>Indicate the teaching strategies used in the course (e.g. lectures, seminars, tutorials, studios, blended learning, practicum) and how the students are expected to participate and learn in these various components. In terms of the approach to learning, briefly describe the values and beliefs you bring to your teaching and how these have informed the course design. This should indicate the way course content enhances the experiences of learning for the student.</small></p>
-                  </div>
-                </div>
-
-              </div>
-            <% end %>
-
+          <%= render :partial => 'edit_overview', :locals => { :f => f } %>
         </section>
 
 
         <!-- Expectations of Students 
         ============================= -->
 
-        <section id="expectations">
-          
+        <section id="expectations">          
           <div class="page-header">
-            <h2 style="text-align: center;">EXPECTATIONS OF STUDENTS IN THIS COURSE</h2>
+            <h1>EXPECTATIONS OF STUDENTS IN THIS COURSE</h1>
           </div>
-
-          <br />
-          <h3>ASSESSMENT</h3><br />
-          <div class="control-group">
-            <div class="controls">
-              <%= f.input :assessment, :label => false, :input_html => { :rows => '5', :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-              <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
-            </div>
-          </div>          
-
-          <div>
-            <h3>RISK OF FAILURE WARNINGS</h3>
-            <p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-          </div>
-
-          <div>
-            <h3>LATE SUBMISSION PENALTIES</h3>
-            <p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-          </div>
-
-          <br />
-          <h3>CONTINUAL COURSE IMPROVEMENT</h3>
-          <p class="help-block">Student responses to Course and Teaching Evaluation & Improvement (CATEI) surveys are gathered every time this course is taught, using online evaluation forms. Student responses are taken seriously, and continual improvements are made to the course based in part on such feedback. Significant changes to the course will be communicated to subsequent cohorts of students taking the course. It is important that students complete the CATEI course and teaching surveys for this course.  This is completely anonymous and provides important student observations and suggestions to ensure that the course is continually improved.</p><br /><br />
-
-          <div id="improvements">
-            <%= f.simple_fields_for :course_improvements do |mm| %>
-                <div class="pull-right">
-                  <%= mm.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                </div>             
-
-                <div class="control-group">
-                  <label class="control-label">Over the past semesters, we have improved the course by:</label>
-                  <div class="controls">
-                    <%= mm.input :description, :label => false, :disabled => !current_user.convenor?(f.object) %>
-                    <p class="help-block"><small>Please describe imporovements that have been made to the course since it last run, and describe how you have responded to student comments feedback via CATE!</small></p>
-                  </div>
-                </div>
-
-            <% end %>
-          </div>
-
-          <div style="text-align: center;">
-            <br />
-            <p style="text-align: center;">You may add course improvemets here</p>
-            <%= f.link_to_add "Add course improvement", :course_improvements, :data => { :target => "#improvements"}, :class => "btn btn-primary" %>
-          </div>
-
+          <%= render :partial => 'edit_expectations', :locals => { :f => f } %>
         </section>
 
         <!-- Assessment
         ============================= -->
 
-        <section id="assessments">
-          
+        <section id="assessments">          
           <div class="page-header">
-            <h2 style="text-align: center;">ASSESSMENT</h2>
+            <h1>ASSESSMENT</h1>
           </div>
-
-          <p class="help-block"><small><i><u>NOTES ABOUT ASSESSMENT: </i></u>Limit course assessment to no more than THREE tasks - one or two of which may include the stages of a bigger task. Remember that not every task needs to be formally assessed for marks and students can be asked to provide a draft, for example, without it needing to have marks attached. Please include assessment details in the Course Outline so that all students know from the outset what is expected to pass the course.</small></p>
-
-          <div id="assessments_div">
-            <%= f.simple_fields_for :assessment_tasks do |assess| %>
-              <div class="pull-right">
-                  <%= assess.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                </div>
-
-              <br />
-              <h3>ASSESSMENT Task</h3><br />
-
-              <div class="form-inputs">
-
-                <div class="control-group">
-                  <label class="control-label required">Title</label>
-                  <div class="controls">
-                    <%= assess.input :title, :label => false, :disabled => !current_user.convenor?(f.object) %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label required">Due</label>
-                  <div class="controls">
-                    <%= assess.input :due, :label => false, :collection => weeks_list(f.object), :disabled => !current_user.convenor?(f.object) %>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label required">Weighting (%)</label>
-                  <div class="controls">
-                    <%= assess.input :weighting, :label => false, :disabled => !current_user.convenor?(f.object) %>
-                    <p class="help-block"><small>No task should be more than 65%, with most tasks it is desirable to limit the size (and risk) to 50% weighting. Wigthing should reflect the complexity of the task. A larger weighting might mean more criteria being assessed, while a smaller wighting should have less criteria (see bellow).</small></p>
-                  </div>
-                </div>
-
-                <br />
-                <div class="control-group">
-                  <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
-                  <div class="controls">
-                    <%= assess.input :synopsis, :label => false, :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
-                    <p class="help-block"><small>This can be a <u>summary</u> of the project brief that outlines teh aims of the task, what you want students to do and where they need to submit). Keep this short and to the point. Usually one paragraph.</small></p>
-                  </div>
-                </div>
-
-                <br />
-                <h4>Assessment Criteria With Marking Rubric:<i class="icon-info-sign" id="CriteriaPopOver" data-toggle="popover" title="Help for completing this section" data-content="<h4><i>Example:</i></h4><p>This course will enable you to explore and gain further experience in graphic design through the investigation of visual communication principles, colour theory and composition, with a direct emphasis on the application to real world situations in the field of information design.</p>"></i></h4><br />
-                <div class="headings">
-                      
-                        <div class="input string optional criteria_criteria">
-                          Criteria
-                        </div>
-                        <div class="input string optional criteria_fail">
-                          FAIL <p><small>Unsatisfactory performance, below minimum expected level. Poor or incomplete work, which shows a significant lack of understanding of the topic or its context.</small></p>
-                        </div>
-                        <div class="input string optional criteria_pass">
-                          PASS <p><small>Satisfactory performance. Addresses assessment requirements and demonstrates acceptable understanding of the issues entailed.</small></p>
-                        </div>
-                        <div class="input string optional criteria_credit">
-                          CREDIT <p><small>Good performance. Demonstrates analysis and contextual thinking. Understands/presents alternative points of view/perspectives and supporting evidence.</small></p>
-                        </div>
-                        <div class="input string optional criteria_distinction">
-                          DISTINCTION <p><small>Very Good performance. Demonstrates superior ability to consider the course and its assessment requirements from a number of perspectives and to explore their interrelation</small></p>
-                        </div>
-                        <div class="input string optional criteria_high_distinction">
-                          HIGH DISTINCTION <p><small>Outstanding performance. Indicates the student has produced excellent work, and demonstrates a high level of understanding, application and synthesis of the assessable criteria.</small></p>
-                        </div>
-                        <div class="input delete-btn"></div>
-                </div>                  
-            
-                <div id="criteria">
-                  <%= assess.simple_fields_for :criteria, :html => { :class => 'form-horizontal' } do |criterion| %>
-                    <%#= render :partial => "criteria/row", :collection => @course.assessment_tasks.criteria, :as => :criterion %>
-                    <div id="criterion_<%= assess.object.id %>">
-                      <div><%= criterion.input :criteria, :label => false %></div>
-                      <div><%= criterion.input :fail, :label => false %></div>
-                      <div><%= criterion.input :pass, :label => false %></div>
-                      <div><%= criterion.input :credit, :label => false %></div>
-                      <div><%= criterion.input :distinction, :label => false %></div>
-                      <div><%= criterion.input :high_distinction, :label => false %></div>
-                      <div class="input delete-btn"><%= criterion.link_to_remove icon('trash'), :class => "btn" %></div>
-                    </div>
-                  <% end %>                    
-                </div>
-                <br /><br /><br />
-                <div>
-                  <div>
-                    <div colspan="6" class="empty" style="text-align: center;">
-                      <p>You may add criteria here.</p>
-                      <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria" }, :class => "btn btn-primary" %>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="help-block"><small><strong>NOTE - </strong>Stduents MUST be issued a copy of a filled in rubric along with written or recorded feedback for EACH assessment. You should list what you will be actually assessing in tehe Criteria column (eg. 1. Solution addresses all of the requirements of the brief, 2. Evidence of experimentation in the development of a final solution.</small></p>
-
-                <hr>
-                <h4>Course Learning Outcomes addressed in this task:</h4><br />
-                <div id="task_outcomes">
-                  <%= assess.simple_fields_for :task_outcomes do |outcome| %>
-
-                    <div class="pull-right">
-                      <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                    </div>
-                    
-                    <div class="control-group">
-                      <label class="control-label">Outcome</label>
-                      <div class="controls">
-                        <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor?(f.object) %>
-                      </div>
-                    </div>
-
-                  <% end %>
-                </div>
-
-                <br /><br />
-                <div style="text-align: center;">                  
-                  <p style="text-align: center;">You may select learning outcomes for this task here</p>
-                  <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :data => { :target => "#task_outcomes"}, :class => "btn btn-primary", :id => "add_learning_outcome_btn" %>
-                </div>
-                <% if @course.course_learning_outcomes.blank? %>
-                <script>
-                  $(document).ready(function() {
-                    $('#add_learning_outcome_btn').click(function() {
-                      alert('Course learning outcomes is empty')
-                      return false;
-                    });
-                  });
-                </script>
-                <% end %>
-
-                <p class="help-block"><small>All assessments within the course must be aligned to the stated learning outcomes of the course. You do not however have to link all of your learning outcomes to each assessment – use only those that the assessment is testing or building capacity within. Betweek all of your assessments however, all course learning outcoes must be represented.</small></p>
-
-                <hr>
-                <h4>Resources required for this task:</h4><br />
-
-                <div id="task_resources">
-                  <%= assess.simple_fields_for :assessment_task_resources do |resource| %>
-
-                    <div class="pull-right">
-                      <%= resource.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                    </div>
-                    
-                    <div class="control-group">
-                      <label class="control-label">Resource</label>
-                      <div class="controls">
-                        <%= resource.input :resource, :label => false, :disabled => !current_user.convenor?(f.object) %>
-                      </div>
-                    </div>
-                    <% resource.object.technical_staff = Member.new(:role => 'TECHNICAL STAFF') %>
-
-                    <%= resource.simple_fields_for :technical_staff do |staff| %>
-
-                      <%= staff.input :role, :as => :hidden, :input_html => { :value => "TECHNICAL STAFF" } %>
-
-                      <div class="control-group">
-                        <label class="control-label">Technical Staff</label>
-                        <div class="controls">
-                          <%= staff.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'}, :disabled => !current_user.convenor?(f.object) %>
-                        </div>
-                      </div>
-
-                    <% end %>
-
-                  <% end %>
-                </div>
-
-                <br /><br/>
-                <div style="text-align: center;">                  
-                  <p style="text-align: center;">You may add resources for this task here</p>
-                  <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :data => { :target => "#task_resources"}, :class => "btn btn-primary" %>
-                </div>
-
-                <p class="help-block"><small>Please list the type of equipment or software etc students will need to complete the assessment IF RELEVANT (eg. Cameras, certain types of software etc). This data will help us plan the support of resource better, and improve service to the students. If no equipment is required please leave blank. NOTE however that courses must list required equipment or they may not be guaranteed an equipment allocation during semester.</small></p>
-                <p class="help-block"><small><strong>Ensure that the equipment required aligns with the learning outcomes and is not too specific when it does not have to be</strong>For example do first year students really require expensive specialized equipment? What is the minimum standard required to achieve the learning outcome? Choosing appropriate equipment will significantly reduce the burden on the workshop, resource center and CSU and ensure more students can obtain the equipment they need.</small></p>
-
-                <p class="help-block"><small><strong>Where possible, think about using open source software rather than a specific type</strong>For example, if an assessable criteria is about successful image manipulation, does it matter if students use Photoshop or can they use free software like GIMP? Are you assessing their proficiency with one piece of software, or their image manipulation skills?</small></p>
-
-                <hr>
-                <h4>Proficiencies required for this task:</h4><br />
-
-                <div id="task_proficiencies">
-                  <%= assess.simple_fields_for :assessment_task_proficiencies do |proficiency| %>
-
-                    <div class="pull-right">
-                      <%= proficiency.link_to_remove icon("trash"), :class => "btn btn-mini" %>
-                    </div>
-
-                    <div class="control-group">
-                      <label class="control-label">Proficiency</label>
-                      <div class="controls">
-                        <%= proficiency.input :proficiency, :label => false, :disabled => !current_user.convenor?(f.object) %>
-                      </div>
-                    </div>
-
-                  <% end %>
-                </div>
-
-                <br /><br />
-                <div style="text-align: center;">                  
-                  <p style="text-align: center;">You may add proficiencies for this task here</p>
-                  <%= assess.link_to_add "Add a required proficiency", :assessment_task_proficiencies, :data => { :target => "#task_proficiencies"}, :class => "btn btn-primary" %>
-                </div>
-
-                <p class="help-block"><small>Please list any proficiencies students need to obtain to complete the assessment. Do they need to be trained in using equipment (bandsaw for example) or performing certain tasks (developing film in a darkroom)? Listing these here will help us plan how to support workshops for students and staff better. Please relate proficiencies to the resources above. NOTE this may not be in the final course outline but will be used to gather requirements for planning purposes, and for helping to developed flipped learning support for students.</small></p>
-
-                <hr>
-                <div class="control-group">
-                  <label class="control-label">Feedback<i class="icon-info-sign" id="FeedbackPopOver" data-toggle="popover" title="Help for completing this section" data-content="<p>For more information about giving feedback to students, please visit the UNSW Teaching Gateway.</p><br /><h4>Grading and Giving Feedback</h4><a href='https://teaching.unsw.edu.au/grading-assessment-feedback'>https://teaching.unsw.edu.au/grading-assessment-feedback</a><br /><br /><h4>Giving Assessment Feedback</h4><a href='http://teaching.unsw.edu.au/assessment-feedback'>http://teaching.unsw.edu.au/assessment-feedback</a></p>"></i></label>
-                  <div class="controls">
-                    <%= assess.input :feedback, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>                    
-                  </div>
-                </div>
-                <p class="help-block"><small>You must provide feedback for every assessment, and you should provide students with information here on how they will get feedback on this task. Provide here information on whether feedback will be written or spoken, and when it will be given. NOTE – Feedback should be delivered in a timely manner (no more than two weeks from the date of submission), be succinct and clear, and also personalised for each student.</small></p>
-
-              </div>
-              <hr>
-            <% end %>
-          </div>
-          
-          <div style="text-align: center;">
-            <br />
-            <p style="text-align: center;">You made add assessments here</p>
-            <%= f.link_to_add "Add assessment", :assessment_tasks, :data => { :target => "#assessments_div"}, :class => "btn btn-primary" %>
-          </div>
-          
+          <%= render :partial => "edit_assessments", :locals => { :f => f } %>
         </section>
 
 
         <!-- Topics and Dates 
         ============================= -->
 
-        <section id="topics">
-          
+        <section id="topics">          
           <div class="page-header">
-            <h2 style="text-align: center;">TOPICS AND DATES</h2>
+            <h1>TOPICS AND DATES</h1>
           </div>
-
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th style="text-align: center;">Week</th>
-                <th style="text-align: center;">Date</th>
-                <th style="text-align: center;">Topic Name</th>
-                <th style="text-align: center;">Tasks Due</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= f.simple_fields_for :topics do |topic| %>
-                <tr>
-                  <td><%= topic.input :week, :label => false, :disabled => true %></td>
-                  <td><%= topic.input :date, :as => :hidden %><%= topic.object.date.to_s("%d %B") %></td>
-                  <td><%= topic.input :topic_name, :label => false, :disabled => (topic.object.topic_name == "Non-Teaching Week" || topic.object.topic_name == "Mid-Semester Break") %></td>
-                  <td><%= topic.input :tasks_due, :label => false, :disabled => (topic.object.topic_name == "Non-Teaching Week" || topic.object.topic_name == "Mid-Semester Break") %></td>   
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-
+          <%= render :partial => "edit_topics", :locals => { :f => f } %>
         </section>
 
 
         <!-- Resources of Students 
         ============================= -->
 
-        <section id="resources">
-          
+        <section id="resources">          
           <div class="page-header">
-            <h2 style="text-align: center;">RESOURCES FOR STUDENTS</h2>
+            <h1>RESOURCES FOR STUDENTS</h1>
           </div>
-
-          <br />
-          <h3>REFERENCES AND OTHER RESOURCES FOT THIS COURSE</h3><br />       
-
-          <div class="control-group">
-            <label class="control-label required">Resources</label>
-            <div class="controls">
-              <%= f.input :resources, :label => false, :input_html => { :class => 'span11', :rows => 10 }, :disabled => !current_user.convenor?(f.object) %>
-              <p class="help-block">
-                <small>Provide a list of required and/or useful resources that can include amongst others:
-                  <ul>
-                    <li>details of online materials or blended learning support provided</li>
-                    <li>textbook details, including title, author, publisher, edition, year of publication</li>
-                    <li>references or links to required and additional readings</li>
-                    <li>confirmed active URLs for recommended websites</li>
-                    <li>advice on industry publications or other contact information (e.g. galleries, museums, practitioner networks, professional associations, research repositories, government authorities in Australia or overseas)</li>
-                    <li>information on relevant material sources and equipment suppliers.</li>
-                  </ul>
-                </small>
-              </p>
-
-              <p class="help-block"><small><strong>REFRESH YOUR COURSE RESOURCES - </strong>The UNSW Library is constantly updating its collection, increasingly adding many scholarly online resources in addition to print journals, books, image collections and video libraries. Contact the ART & DESIGN outreach Librarian Amy Barker amy.barker@unsw.edu.au for a personal consultation about your course to see what new resources are available, or to request new resources.</small></p>
-
-                  <p class="help-block"><small><strong>INTEGRATING RESOURCES INTO MOODLE - </strong>You can now embed many online resources from the UNSW Library directly into Moodle for students. For more information please speak to our educational developer Paul Rogers paul.rogers@unsw.edu.au.</small></p>
-              
-            </div>
-          </div>
-
-          
-
-          <div>
-            <h2><small>GENERAL INFORMATION</small></h2>
-            <p><%= Parameter.find_by_name('general information').present? ? Parameter.find_by_name('general information').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-          </div>
-
-          <div>
-            <h2><small>HEALTH AND SAFETY</small></h2>
-            <p><%= Parameter.find_by_name('health and safety').present? ? Parameter.find_by_name('health and safety').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-          </div>
-
-          <div>
-            <h2><small>ADDITIONAL SUPPORT FOR STUDENTS</small></h2>
-            <p><%= Parameter.find_by_name('additional support for students').present? ? Parameter.find_by_name('additional support for students').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-          </div>
-
+          <%= render :partial => "edit_resources", :locals => { :f => f } %>
         </section>
+
+
+        <!-- Submission
+        ============================= -->
 
         <section id="submission">
-      			<div class="form-actions">
-              
-    			    <%= f.submit "Save", :class => 'btn btn-primary', :name => "status", :value => "SAVE" %>&nbsp;&nbsp;&nbsp;
-              <% if current_user.convenor?(f.object) %>
-                <%= f.submit "Submit", :class => "btn btn-primary", :name => "status", :value => "SUBMIT" %>&nbsp;&nbsp;&nbsp;
-              <% end %>
-              <% if current_user.program_director?(f.object) %>
-                <%= f.submit "Approve", :class => "btn btn-success", :name => "status", :value => "APPROVE" %>&nbsp;&nbsp;&nbsp;
-              <% end %>
-              <%= link_to "Cancel", course_path, :class => 'btn' %>
-      			</div>
+      			<div class="page-header">
+            <h1>SUBMISSION</h1>
+          </div>
+          <%= render :partial => "submission", :locals => { :f => f } %>
         </section>
+
 
   		<% end %>
 
 	</div>
-
-<!-- <header class="jumbotron subhead" id="overview">
-	<h1><%= @course.code.upcase %> - <%= @course.name.titleize %></h1>
-	<br /><br />
-	
-	<div class="subnav">
-		<ul class="nav nav-pills">
-			<li><a href="#information">INFORMATION</a></li>
-			<li><a href="#staff">STAFF</a></li>
-			<li><a href="#overview">OVERVIEW</a></li>
-			<li><a href="#student_expectations">EXPECTATIONS</a></li>
-			<li><a href="#assessments">ASSESSMENTS</a></li>
-			<li><a href="#">TOPICS AND DATES</a></li>
-			<li><a href="#course_resources">RESOURCES</a></li>
-		</ul>
-	</div>
-</header> -->
+</div>
 
 <script type="text/javascript" charset="utf-8">
 
@@ -779,19 +131,6 @@ $(document).ready(function() {
   $('#OutcomesPopOver').popover();
   $('#CriteriaPopOver').popover();
   $('#FeedbackPopOver').popover();
-
-  $("#" + "information").hide();
-  $("#" + "staff").hide();
-  $("#" + "overview").hide();
-  $("#" + "expectations").hide();
-  $("#" + "assessments").hide();
-  $("#" + "topics").hide();
-  $("#" + "resources").hide();
-
-  var section_id = getUrlVars()["section_id"];
-  $("#" + section_id ).show();
-  $('#edit_course_<%= @course.id %>').attr('action', $('#edit_course_<%= @course.id %>').attr('action') + '?section_id=' + section_id )
-  });
 
   if($("select#course_teaching_strategy_attributes_lectures").val() == "true") {
     $("#course_teaching_strategy_attributes_lectures_description").show();
@@ -866,6 +205,24 @@ $("select#course_teaching_strategy_attributes_blended_online").change(function()
   } else {
     $("#course_teaching_strategy_attributes_blended_online_description").hide();
   };
+});
+
+});
+
+$(document).scroll(function(){
+    // If has not activated (has no attribute "data-top"
+    if (!$('.subnav').attr('data-top')) {
+        // If already fixed, then do nothing
+        if ($('.subnav').hasClass('subnav-fixed')) return;
+        // Remember top position
+        var offset = $('.subnav').offset()
+        $('.subnav').attr('data-top', offset.top);
+    }
+
+    if ($('.subnav').attr('data-top') - $('.subnav').outerHeight() <= $(this).scrollTop())
+        $('.subnav').addClass('subnav-fixed');
+    else
+        $('.subnav').removeClass('subnav-fixed');
 });
 
 // Read a page's GET URL variables and return them as an associative array.

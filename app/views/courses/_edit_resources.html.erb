@@ -1,0 +1,42 @@
+<h3>REFERENCES AND OTHER RESOURCES FOT THIS COURSE</h3><br />       
+
+<div class="control-group">
+  <label class="control-label required">Resources</label>
+  <div class="controls">
+    <%= f.input :resources, :label => false, :input_html => { :class => 'span11', :rows => 10 }, :disabled => !current_user.convenor?(f.object) %>
+    <p class="help-block">
+      <small>Provide a list of required and/or useful resources that can include amongst others:
+        <ul>
+          <li>details of online materials or blended learning support provided</li>
+          <li>textbook details, including title, author, publisher, edition, year of publication</li>
+          <li>references or links to required and additional readings</li>
+          <li>confirmed active URLs for recommended websites</li>
+          <li>advice on industry publications or other contact information (e.g. galleries, museums, practitioner networks, professional associations, research repositories, government authorities in Australia or overseas)</li>
+          <li>information on relevant material sources and equipment suppliers.</li>
+        </ul>
+      </small>
+    </p>
+
+    <p class="help-block"><small><strong>REFRESH YOUR COURSE RESOURCES - </strong>The UNSW Library is constantly updating its collection, increasingly adding many scholarly online resources in addition to print journals, books, image collections and video libraries. Contact the ART & DESIGN outreach Librarian Amy Barker amy.barker@unsw.edu.au for a personal consultation about your course to see what new resources are available, or to request new resources.</small></p>
+
+        <p class="help-block"><small><strong>INTEGRATING RESOURCES INTO MOODLE - </strong>You can now embed many online resources from the UNSW Library directly into Moodle for students. For more information please speak to our educational developer Paul Rogers paul.rogers@unsw.edu.au.</small></p>
+    
+  </div>
+</div>
+
+
+
+<div>
+  <h2><small>GENERAL INFORMATION</small></h2>
+  <p><%= Parameter.find_by_name('general information').present? ? Parameter.find_by_name('general information').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+</div>
+
+<div>
+  <h2><small>HEALTH AND SAFETY</small></h2>
+  <p><%= Parameter.find_by_name('health and safety').present? ? Parameter.find_by_name('health and safety').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+</div>
+
+<div>
+  <h2><small>ADDITIONAL SUPPORT FOR STUDENTS</small></h2>
+  <p><%= Parameter.find_by_name('additional support for students').present? ? Parameter.find_by_name('additional support for students').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+</div>

@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th style="text-align: center;">Week</th>
+      <th style="text-align: center;">Date</th>
+      <th style="text-align: center;">Topic Name</th>
+      <th style="text-align: center;">Tasks Due</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= f.simple_fields_for :topics do |topic| %>
+      <tr>
+        <td><%= topic.input :week, :label => false, :disabled => true %></td>
+        <td><%= topic.input :date, :as => :hidden %><%= topic.object.date.to_s("%d %B") %></td>
+        <td><%= topic.input :topic_name, :label => false, :disabled => (topic.object.topic_name == "Non-Teaching Week" || topic.object.topic_name == "Mid-Semester Break") %></td>
+        <td><%= topic.input :tasks_due, :label => false, :disabled => (topic.object.topic_name == "Non-Teaching Week" || topic.object.topic_name == "Mid-Semester Break") %></td>   
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,7 +1,5 @@
 <dl class="dl-horizontal">
-	<h2 style="text-align: center;">ASSESSMENT</h2>
-	<br />
-
+	
 	<% if @course.assessment_tasks.present? %>
 		<% @course.assessment_tasks.each_with_index do |assessment, index| %>
 			<h3>Assessment Task <%= (index + 1).to_s %></h3>
