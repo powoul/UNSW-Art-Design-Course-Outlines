@@ -1,5 +1,5 @@
 <h3>COURSE SUMMARY</h3> <br />
-<div class="control-group">
+<div class="control-group <%= 'error' if f.object.errors[:summary].any? %>">
   <label class="control-label required">&nbsp;</label>
   <div class="controls">
     <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
@@ -16,7 +16,7 @@
 </dl><br />
 
 <h3>COURSE AIMS</h3> <br />
-<div class="control-group">
+<div class="control-group <%= 'error' if f.object.errors[:course_aims].any? %>">
   <label class="control-label required">&nbsp;</label>
   <div class="controls">
     <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
@@ -35,7 +35,7 @@
       <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
     </div>
   
-    <div class="control-group">
+    <div class="control-group <%= 'error' if outcome.object.errors[:name].any? %>">
       <label class="control-label required">Learning outcome</label>
       <div class="controls">
         <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
@@ -69,31 +69,30 @@
 
   <div class="form-inputs">
 
-    <div class="control-group">
-      <label class="control-label">Lectures</label>
-      <div class="controls">
-        
+    <div class="control-group <%= 'error' if strategy.object.errors[:lectures].any? %>">
+      <label class="control-label required">Lectures</label>
+      <div class="controls">        
         <%= strategy.input :lectures, :as => :select, :label => false, :disabled => disabled_options %>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Description</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:lectures_description].any? %>" id="strategy_lectures">
+      <label class="control-label required">Description</label>
       <div class="controls">
         <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
       </div>
     </div>
     <br />
-    <div class="control-group">
-      <label class="control-label">Seminars</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:seminars].any? %>">
+      <label class="control-label required">Seminars</label>
       <div class="controls">
         <%= strategy.input :seminars, :as => :select, :label => false, :disabled => disabled_options %>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Description</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:seminars_description].any? %>" id="strategy_seminars">
+      <label class="control-label required">Description</label>
       <div class="controls">
         <%= strategy.input :seminars_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
@@ -101,15 +100,15 @@
     </div>
 
     <br />
-    <div class="control-group">
-      <label class="control-label">Tutuorials</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:tutorials].any? %>">
+      <label class="control-label required">Tutuorials</label>
       <div class="controls">
         <%= strategy.input :tutorials, :as => :select, :label => false, :disabled => disabled_options %>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Description</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:tutorials_description].any? %>" id="strategy_tutorials">
+      <label class="control-label required">Description</label>
       <div class="controls">
         <%= strategy.input :tutorials_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
@@ -117,15 +116,15 @@
     </div>
 
     <br />
-    <div class="control-group">
-      <label class="control-label">Studio</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:studio].any? %>">
+      <label class="control-label required">Studio</label>
       <div class="controls">
         <%= strategy.input :studio, :as => :select, :label => false, :disabled => disabled_options %>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Description</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:studio_description].any? %>" id="strategy_studio">
+      <label class="control-label required">Description</label>
       <div class="controls">
         <%= strategy.input :studio_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
@@ -133,15 +132,15 @@
     </div>
 
     <br />
-    <div class="control-group">
-      <label class="control-label">Blended/online</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:assessment].any? %>">
+      <label class="control-label required">Blended/online</label>
       <div class="controls">
         <%= strategy.input :blended_online, :as => :select, :label => false, :disabled => disabled_options %>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Description</label>
+    <div class="control-group <%= 'error' if strategy.object.errors[:blended_online_description].any? %>" id="strategy_blended_online">
+      <label class="control-label required">Description</label>
       <div class="controls">
         <%= strategy.input :blended_online_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <!-- <p class="help-block"><small>Type description of student expectations in the component here.</small></p> -->
@@ -149,7 +148,7 @@
     </div>
 
     <br />
-    <div class="control-group">
+    <div class="control-group <%= 'error' if strategy.object.errors[:teaching_philosophy].any? %>">
       <label class="control-label required">Teaching philosophy</label>
       <div class="controls">
         <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>

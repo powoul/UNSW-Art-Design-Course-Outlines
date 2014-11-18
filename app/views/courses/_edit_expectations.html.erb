@@ -1,5 +1,5 @@
 <h3>ASSESSMENT</h3><br />
-<div class="control-group">
+<div class="control-group <%= 'error' if f.object.errors[:assessment].any? %>">
   <div class="controls">
     <%= f.input :assessment, :label => false, :input_html => { :rows => '5', :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
     <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
@@ -26,7 +26,7 @@
         <%= mm.link_to_remove icon("trash"), :class => "btn btn-mini" %>
       </div>             
 
-      <div class="control-group">
+      <div class="control-group <%= 'error' if mm.object.errors[:description].any? %>">
         
         <label class="control-label">Improvement</label>
         <div class="controls">

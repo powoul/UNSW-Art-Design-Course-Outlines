@@ -18,7 +18,7 @@
             <li><a href="#course_information">Information</a></li>
             <li><a href="#staff">Staff</a></li>
             <li><a href="#overview">Course Overview</a></li>
-            <li><a href="#expectations">Stduent Expectations</a></li>
+            <li><a href="#expectations">Student Expectations</a></li>
             <li><a href="#assessments">Assessment</a></li>
             <li><a href="#topics">Topics and Dates</a></li>
             <li><a href="#resources">Resources for Students</a></li>
@@ -133,77 +133,77 @@ $(document).ready(function() {
   $('#FeedbackPopOver').popover();
 
   if($("select#course_teaching_strategy_attributes_lectures").val() == "true") {
-    $("#course_teaching_strategy_attributes_lectures_description").show();
+    $("#strategy_lectures").show();
   } else {
-    $("#course_teaching_strategy_attributes_lectures_description").hide();
+    $("#strategy_lectures").hide();
   }
 
   if($("select#course_teaching_strategy_attributes_seminars").val() == "true") {
-    $("#course_teaching_strategy_attributes_seminars_description").show();
+    $("#strategy_seminars").show();
   } else {
-    $("#course_teaching_strategy_attributes_seminars_description").hide();
+    $("#strategy_seminars").hide();
   }
 
   if($("select#course_teaching_strategy_attributes_tutorials").val() == "true") {
-    $("#course_teaching_strategy_attributes_tutorials_description").show();
+    $("#strategy_tutorials").show();
   } else {
-    $("#course_teaching_strategy_attributes_tutorials_description").hide();
+    $("#strategy_tutorials").hide();
   }
 
   if($("select#course_teaching_strategy_attributes_studio").val() == "true") {
-    $("#course_teaching_strategy_attributes_studio_description").show();
+    $("#strategy_studio").show();
   } else {
-    $("#course_teaching_strategy_attributes_studio_description").hide();
+    $("#strategy_studio").hide();
   }
 
   if($("select#course_teaching_strategy_attributes_blended_online").val() == "true") {
-    $("#course_teaching_strategy_attributes_blended_online_description").show();
+    $("#strategy_blended_online").show();
   } else {
-    $("#course_teaching_strategy_attributes_blended_online_description").hide();
+    $("#strategy_blended_online").hide();
   }
 
 $("select#course_teaching_strategy_attributes_lectures").change(function() {
   var thisCheck = $(this);
   if (thisCheck.val() == 'true') {
-    $("#course_teaching_strategy_attributes_lectures_description").show();
+    $("#strategy_lectures").show();
   } else {
-    $("#course_teaching_strategy_attributes_lectures_description").hide();
+    $("#strategy_lectures").hide();
   };
 });
 
 $("select#course_teaching_strategy_attributes_seminars").change(function() {
   var thisCheck = $(this);
   if (thisCheck.val() == 'true') {
-    $("#course_teaching_strategy_attributes_seminars_description").show();
+    $("#strategy_seminars").show();
   } else {
-    $("#course_teaching_strategy_attributes_seminars_description").hide();
+    $("#strategy_seminars").hide();
   };
 });
 
 $("select#course_teaching_strategy_attributes_tutorials").change(function() {
   var thisCheck = $(this);
   if (thisCheck.val() == 'true') {
-    $("#course_teaching_strategy_attributes_tutorials_description").show();
+    $("#strategy_tutorials").show();
   } else {
-    $("#course_teaching_strategy_attributes_tutorials_description").hide();
+    $("#strategy_tutorials").hide();
   };
 });
 
 $("select#course_teaching_strategy_attributes_studio").change(function() {
   var thisCheck = $(this);
   if (thisCheck.val() == 'true') {
-    $("#course_teaching_strategy_attributes_studio_description").show();
+    $("#strategy_studio").show();
   } else {
-    $("#course_teaching_strategy_attributes_studio_description").hide();
+    $("#strategy_studio").hide();
   };
 });
 
 $("select#course_teaching_strategy_attributes_blended_online").change(function() {
   var thisCheck = $(this);
   if (thisCheck.val() == 'true') {
-    $("#course_teaching_strategy_attributes_blended_online_description").show();
+    $("#strategy_blended_online").show();
   } else {
-    $("#course_teaching_strategy_attributes_blended_online_description").hide();
+    $("#strategy_blended_online").hide();
   };
 });
 

@@ -11,21 +11,21 @@
 
     <div class="form-inputs">
 
-      <div class="control-group">
+      <div class="control-group <%= 'error' if f.object.errors[:title].any? %>">
         <label class="control-label required">Title</label>
         <div class="controls">
           <%= assess.input :title, :label => false, :disabled => !current_user.convenor?(f.object) %>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group <%= 'error' if f.object.errors[:due].any? %>">
         <label class="control-label required">Due</label>
         <div class="controls">
           <%= assess.input :due, :label => false, :collection => weeks_list(f.object), :disabled => !current_user.convenor?(f.object) %>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group <%= 'error' if f.object.errors[:weighting].any? %>">
         <label class="control-label required">Weighting (%)</label>
         <div class="controls">
           <%= assess.input :weighting, :label => false, :disabled => !current_user.convenor?(f.object) %>
@@ -34,7 +34,7 @@
       </div>
 
       <br />
-      <div class="control-group">
+      <div class="control-group <%= 'error' if f.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">
           <%= assess.input :synopsis, :label => false, :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
@@ -103,7 +103,7 @@
             <%= outcome.link_to_remove icon("trash"), :class => "btn btn-mini" %>
           </div>
           
-          <div class="control-group">
+          <div class="control-group <%= 'error' if f.object.errors[:course_learning_outcome_id].any? %>">
             <label class="control-label">Outcome</label>
             <div class="controls">
               <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor?(f.object) %>
@@ -141,7 +141,7 @@
             <%= resource.link_to_remove icon("trash"), :class => "btn btn-mini" %>
           </div>
           
-          <div class="control-group">
+          <div class="control-group <%= 'error' if f.object.errors[:resource].any? %>">
             <label class="control-label">Resource</label>
             <div class="controls">
               <%= resource.input :resource, :label => false, :disabled => !current_user.convenor?(f.object) %>
@@ -153,7 +153,7 @@
 
             <%= staff.input :role, :as => :hidden, :input_html => { :value => "TECHNICAL STAFF" } %>
 
-            <div class="control-group">
+            <div class="control-group <%= 'error' if f.object.errors[:member_name].any? %>">
               <label class="control-label">Technical Staff</label>
               <div class="controls">
                 <%= staff.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'}, :disabled => !current_user.convenor?(f.object) %>
@@ -205,7 +205,7 @@
       <p class="help-block"><small>Please list any proficiencies students need to obtain to complete the assessment. Do they need to be trained in using equipment (bandsaw for example) or performing certain tasks (developing film in a darkroom)? Listing these here will help us plan how to support workshops for students and staff better. Please relate proficiencies to the resources above. NOTE this may not be in the final course outline but will be used to gather requirements for planning purposes, and for helping to developed flipped learning support for students.</small></p>
 
       <hr>
-      <div class="control-group">
+      <div class="control-group <%= 'error' if f.object.errors[:feedback].any? %>">
         <label class="control-label">Feedback<i class="icon-info-sign" id="FeedbackPopOver" data-toggle="popover" title="Help for completing this section" data-content="<p></p><br /><h4>Grading and Giving Feedback</h4><a href='https://teaching.unsw.edu.au/grading-assessment-feedback'>https://teaching.unsw.edu.au/grading-assessment-feedback</a><br /><br /><h4>Giving Assessment Feedback</h4><a href='http://teaching.unsw.edu.au/assessment-feedback'>http://teaching.unsw.edu.au/assessment-feedback</a></p>"></i></label>
         <div class="controls">
           <%= assess.input :feedback, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>                    
@@ -221,7 +221,7 @@
 
 <div style="text-align: center;">
   <br />
-  <p style="text-align: center;">You made add assessments here</p>
+  <p style="text-align: center;">You may add assessments here</p>
   <%= f.link_to_add "Add assessment", :assessment_tasks, :data => { :target => "#assessments_div"}, :class => "btn btn-primary" %>
 </div>
 

@@ -1,15 +1,15 @@
 <div class="form-inputs">
 
-  <div class="control-group">
-    <label class="control-label">Course Code</label>
+  <div class="control-group <%= 'error' if f.object.errors[:code].any? %>">
+    <label class="control-label required">Course Code</label>
     <div class="controls">
       <%= f.input :code, :label => false, :disabled => !current_user.admin? %>
     </div>
   </div>
 
    <br />
-  <div class="control-group">
-    <label class="control-label">Course Name</label>
+  <div class="control-group <%= 'error' if f.object.errors[:name].any? %>">
+    <label class="control-label required">Course Name</label>
     <div class="controls">
       <%= f.input :name, :label => false, :disabled => !current_user.admin? %>
     </div>
@@ -24,23 +24,23 @@
   </div>  -->
 
   <br />
-  <div class="control-group">
-    <label class ="control-label">Semester</label>
+  <div class="control-group <%= 'error' if f.object.errors[:semester_name].any? %>">
+    <label class ="control-label required">Semester</label>
     <div class="controls">
       <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year }, :disabled => !current_user.admin? %>
     </div>
   </div>
 
   <br />
-  <div class="control-group">
-    <label class="control-label">Units of Credit</label>
+  <div class="control-group <%= 'error' if f.object.errors[:units_of_credit].any? %>">
+    <label class="control-label required">Units of Credit</label>
     <div class="controls">
       <%= f.input :units_of_credit, :label => false, :disabled => !current_user.admin? %>
     </div>
   </div>
 
   <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:teaching_times_and_locations].any? %>">
     <label class="control-label">Teaching Times and Locations</label>
     <div class="controls">
       <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
@@ -48,7 +48,7 @@
   </div>
 
   <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:online_course_support].any? %>">
     <label class="control-label">Online Course Support</label>
     <div class="controls">
       <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
@@ -58,7 +58,7 @@
   </div>
 
   <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:parallel_teaching].any? %>">
     <label class="control-label">Parallel Teaching</label>
     <div class="controls">
       <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>

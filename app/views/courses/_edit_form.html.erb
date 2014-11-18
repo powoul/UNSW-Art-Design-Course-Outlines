@@ -1,4 +1,8 @@
+<%- if Rails.env.production? %>
+<%= tinymce :production %>
+<% else %>
 <%= tinymce %>
+<% end %>
 <!-- Course Information
 ============================ -->
 
@@ -199,7 +203,7 @@
 
   <div style="text-align: center;">
     <br />
-    <p style="text-align: center;">Please add upto 5 learning outcomes</p>
+    <p style="text-align: center;">Please add up to 5 learning outcomes</p>
     <%= f.link_to_add "Add a learning outcome", :course_learning_outcomes, :data => { :target => "#outcomes"}, :class => "btn btn-primary" %>
   </div>
 
