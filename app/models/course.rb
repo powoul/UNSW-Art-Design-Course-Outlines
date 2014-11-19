@@ -48,6 +48,7 @@ class Course < ActiveRecord::Base
   validate :uniqueness_of_lecturers, :presence_of_convenor_attributes, :on => :update
   validate :presence_of_teaching_staff_attributes, :on => :update
   validate :number_of_assessment_tasks, :on => :update
+  validate :task_total_wighting, :on => :update
   validates_associated :assessment_tasks, :message => "Error in assessment tasks"
 
   STATUS = {
@@ -184,6 +185,18 @@ class Course < ActiveRecord::Base
     staff.each do |s|
       if s.consultation_times.blank?        
         errors.add :lecturers, "consultation times can't be blank"
+      end
+    end
+  end
+
+  def task_total_wighting
+    if self.assessment_tasks.present?
+      weight = 0
+      self.assessment_tasks.reject(&:marked_for_destruction?).map(&:weighting).each do |w|
+        weight = weight + w
+      end
+      if weight > 100
+        errors.add :assessment_tasks, "Total weighting can not be greatear than 100%"
       end
     end
   end

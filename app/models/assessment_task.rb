@@ -17,11 +17,12 @@ class AssessmentTask < ActiveRecord::Base
   accepts_nested_attributes_for :criteria, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :assessment_task_resources, :allow_destroy => true, :reject_if => proc { |a| a["resource"].blank? }
   accepts_nested_attributes_for :assessment_task_proficiencies, :allow_destroy => true, :reject_if => proc { |a| a["proficiency"].blank? }
-  accepts_nested_attributes_for :task_outcomes, :allow_destroy => true, :reject_if => proc { |a| a["course_learning_outcome_id"].blank? }
+  accepts_nested_attributes_for :task_outcomes, :allow_destroy => true, :reject_if => proc { |a| a["course_learning_outcome_id"].nil? }
 
   validates_presence_of :title, :due, :weighting, :synopsis, :feedback
 
   validate :number_of_criteria
+  validate :maximum_wighting
   validates_associated :criteria, :message => "Error in assessment criteria"
   validate :uniqueness_of_task_outcomes
 
@@ -31,16 +32,22 @@ class AssessmentTask < ActiveRecord::Base
 
   private
 
+  def maximum_wighting
+    if self.weighting.present? && self.weighting > 65
+      errors.add :weighting, "can not be greater than 65%."
+    end
+  end
+
   def number_of_criteria
     if self.criteria.reject(&:marked_for_destruction?).size > 5
-      errors.add :criteria, 'Maximum 5 criteria is accepted.'
+      errors.add :criteria, 'maximum 5 criteria is accepted.'
     end
   end
 
   def uniqueness_of_task_outcomes
-    ids = self.task_outcomes.reject_if(&:marked_for_destruction?).map(&:course_learning_outcome_id)
-    if ids.compact.uniq.count != self.task_outcomes.reject_if(&:marked_for_destruction?).map(&:course_learning_outcome_id).size
-      errors.add :self, 'Duplicate course learning outcomes. Please remove the duplicates.'
+    ids = self.task_outcomes.reject(&:marked_for_destruction?).map(&:course_learning_outcome_id)
+    if ids && (ids.compact.uniq.count != self.task_outcomes.reject(&:marked_for_destruction?).map(&:course_learning_outcome_id).size)
+      errors.add :task_outcomes, 'duplicate course learning outcomes. Please remove the duplicates.'
     end
   end
 

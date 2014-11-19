@@ -12,10 +12,14 @@
   <%# end %>
 
   <% if f.object.assessment_tasks.present? %>
-	  <p><strong><i>Assessments:</strong></i></p>
-	  <% f.object.assessment_tasks.map { | t | t.errors.full_messages.to_sentence }.flatten.each do |msg| %>
-	    <p><%= msg %></p>
-	  <% end %>
+    <% counter = 1 %>
+    <% f.object.assessment_tasks.each do |task| %>
+  	  <p><strong><i>Assessment Task <%= counter %>:</strong></i></p>
+  	  <% f.object.assessment_tasks.map { | t | t.errors.full_messages.to_sentence }.flatten.each do |msg| %>
+  	    <p><%= msg %></p>
+  	  <% end %>
+      <% counter = counter + 1 %>
+    <% end %>
   <% end %>
 
 </div>

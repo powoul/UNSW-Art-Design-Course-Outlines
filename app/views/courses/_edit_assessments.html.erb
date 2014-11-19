@@ -11,21 +11,21 @@
 
     <div class="form-inputs">
 
-      <div class="control-group <%= 'error' if f.object.errors[:title].any? %>">
+      <div class="control-group <%= 'error' if assess.object.errors[:title].any? %>">
         <label class="control-label required">Title</label>
         <div class="controls">
           <%= assess.input :title, :label => false, :disabled => !current_user.convenor?(f.object) %>
         </div>
       </div>
 
-      <div class="control-group <%= 'error' if f.object.errors[:due].any? %>">
+      <div class="control-group <%= 'error' if assess.object.errors[:due].any? %>">
         <label class="control-label required">Due</label>
         <div class="controls">
           <%= assess.input :due, :label => false, :collection => weeks_list(f.object), :disabled => !current_user.convenor?(f.object) %>
         </div>
       </div>
 
-      <div class="control-group <%= 'error' if f.object.errors[:weighting].any? %>">
+      <div class="control-group <%= 'error' if assess.object.errors[:weighting].any? %>">
         <label class="control-label required">Weighting (%)</label>
         <div class="controls">
           <%= assess.input :weighting, :label => false, :disabled => !current_user.convenor?(f.object) %>
@@ -34,7 +34,7 @@
       </div>
 
       <br />
-      <div class="control-group <%= 'error' if f.object.errors[:synopsis].any? %>">
+      <div class="control-group <%= 'error' if assess.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">
           <%= assess.input :synopsis, :label => false, :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
@@ -47,7 +47,7 @@
       <div class="headings">
             
               <div class="input string optional criteria_criteria">
-                Criteria
+                <label class="require">Criteria</label>
               </div>
               <div class="input string optional criteria_fail">
                 FAIL <p><small>Unsatisfactory performance, below minimum expected level. Poor or incomplete work, which shows a significant lack of understanding of the topic or its context.</small></p>
