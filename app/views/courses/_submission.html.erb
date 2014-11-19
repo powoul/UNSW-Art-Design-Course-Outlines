@@ -1,7 +1,7 @@
 <div class="form-actions">              
 	<%= f.submit "Save", :class => 'btn btn-primary', :name => "status", :value => "SAVE" %>&nbsp;&nbsp;&nbsp;
 	<% if current_user.convenor?(f.object) %>
-		<%= f.submit "Submit", :class => "btn btn-primary", :name => "status", :value => "SUBMIT" %>&nbsp;&nbsp;&nbsp;
+		<%= f.submit "Submit", :class => "btn btn-primary", :name => "status", :value => "SUBMIT FOR APPROVAL" %>&nbsp;&nbsp;&nbsp;
 	<% end %>
 	<% if current_user.program_director?(f.object) %>
 		<%= f.submit "Approve", :class => "btn btn-success", :name => "status", :value => "APPROVE" %>&nbsp;&nbsp;&nbsp;

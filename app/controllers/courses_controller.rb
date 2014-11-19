@@ -157,7 +157,7 @@ class CoursesController < ApplicationController
     
     @course.status = Course::STATUS[params[:status]]
     @course.attributes = params[:course]
-    validate = params[:status] && (params[:status] == "SUBMIT" || params[:status] == "APPROVE")
+    validate = params[:status] && (params[:status] == "SUBMIT FOR APPROVAL" || params[:status] == "APPROVE")
     
     respond_to do |format|
       if @course.save(:validate => validate)
