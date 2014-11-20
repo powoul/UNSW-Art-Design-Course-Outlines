@@ -1,5 +1,7 @@
 default:
   theme: modern
+  plugins:
+    - link
 
 production:
   skin_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/skins/lightgray/

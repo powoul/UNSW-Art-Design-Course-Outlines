@@ -12,11 +12,12 @@
 .dl-horizontal dt {
     text-align: left;
     margin-bottom: 1em;
-    width: 210px;
+    width: 28%;
     padding-right: 1em;
 }
 
 .dl-horizontal dd {
+  width: 72%;
     margin-left: 0;
     margin-bottom: 1em;
 }

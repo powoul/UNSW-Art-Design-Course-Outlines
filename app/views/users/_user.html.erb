@@ -3,11 +3,17 @@
 		<div class="tab-content">
 			<dl class="dl-horizontal">
 				<dt>ZID</dt>
-				<dd><%= user.zid %></dd>
+				<dd><%= user.zid.present? ? user.zid : '-' %></dd>
 				<dt>Full name</dt>
-				<dd><%= user.fullname %></dd>
+				<dd><%= user.fullname.present? ? user.fullname : '-' %></dd>
 				<dt>Email</dt>
 				<dd><a href="mailto:<%= user.email %>"><%= user.email %></a></dd>
+				<dt>Phone</dt>
+				<dd><%= user.phone_number.present? ? user.phone_number : '-' %></dd>
+				<dt>Room</dt>
+				<dd><%= user.room.present? ? user.room : '-' %></dd>
+				<dt>Role</dt>
+				<dd><%= user.role %></dd>
 			</dl>
 		</div>
   	</div>

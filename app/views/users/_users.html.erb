@@ -5,6 +5,8 @@
       <th>ZID</th>
       <th>Name</th>
       <th>Email</th>
+      <th>Phone</th>
+      <th>Room</th>
       <th>Action</th>
     </tr>
     </thead>  
@@ -12,8 +14,10 @@
   <% users.each do |user| %>
     <tr>
       <td><%= link_to user.zid, user_path(user, :role => params[:role]) %></td>
-      <td><%= user.fullname %></td>
-      <td><%= user.email %></td>
+      <td><%= user.fullname.present? ? user.fullname : '-' %></td>
+      <td><%= user.email.present? ? user.email : '-' %></td>
+      <td><%= user.phone_number.present? ? user.phone_number : '-' %></td>
+      <td><%= user.room.present? ? user.room : '-' %></td>
       <td><%= link_to "Show", user_path(user, :role => params[:role]), :class => "btn btn-mini btn-primary"%></td>
     </tr>
   <% end %>
