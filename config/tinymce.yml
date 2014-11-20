@@ -8,3 +8,6 @@ production:
   theme_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/themes/modern/theme.js
   remove_script_host: false
   theme: modern
+  plugins:
+  	- table
+  	- link
