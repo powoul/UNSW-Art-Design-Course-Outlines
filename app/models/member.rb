@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
   attr_accessible :member_name, :role, :consultation_times, :phone_number, :room
 
-  belongs_to :user
+  belongs_to :user, :autosave => true
   belongs_to :associate, :polymorphic => true
   belongs_to :course
   belongs_to :assessment_task_resource

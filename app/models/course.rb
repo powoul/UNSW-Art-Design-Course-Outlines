@@ -17,7 +17,7 @@ class Course < ActiveRecord::Base
   has_many :lecturers, :as => :associate, :class_name => "Member", :conditions => "members.role = 'LECTURER'", :dependent => :destroy
   has_one :convenor, :as => :associate, :class_name => "Member", :conditions => "members.role = 'CONVENOR'", :dependent => :destroy
   has_one :program_director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy
-  has_many :course_learning_outcomes, :dependent => :destroy
+  has_many :course_learning_outcomes, :dependent => :destroy, :order => "name ASC"
   has_one :teaching_strategy
   has_many :course_improvements, :dependent => :destroy
   has_many :topics, :dependent => :destroy
