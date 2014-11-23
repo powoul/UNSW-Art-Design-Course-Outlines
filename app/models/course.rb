@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
       :parallel_teaching, :summary, :course_aims, :assessment, :resources
   
   attr_accessible :convenor_attributes
-  attr_accessible :program_director_attributes
+  # attr_accessible :program_director_attributes
   attr_accessible :lecturers_attributes
   attr_accessible :course_learning_outcomes_attributes
   attr_accessible :teaching_strategy_attributes
@@ -16,8 +16,8 @@ class Course < ActiveRecord::Base
   has_many :users, :through => :members, :uniq => true
   has_many :lecturers, :as => :associate, :class_name => "Member", :conditions => "members.role = 'LECTURER'", :dependent => :destroy
   has_one :convenor, :as => :associate, :class_name => "Member", :conditions => "members.role = 'CONVENOR'", :dependent => :destroy
-  has_one :program_director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy
-  has_many :course_learning_outcomes, :dependent => :destroy, :order => "name ASC"
+  # has_one :program_director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy
+  has_many :course_learning_outcomes, :dependent => :destroy, :order => "order_number ASC"
   has_one :teaching_strategy
   has_many :course_improvements, :dependent => :destroy
   has_many :topics, :dependent => :destroy
@@ -26,9 +26,9 @@ class Course < ActiveRecord::Base
   belongs_to :semester
   belongs_to :program
 
-  accepts_nested_attributes_for :lecturers, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? }
-  accepts_nested_attributes_for :convenor, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? }
-  accepts_nested_attributes_for :program_director, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? }
+  accepts_nested_attributes_for :lecturers, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? && a['id'].blank? }
+  accepts_nested_attributes_for :convenor, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? && a['id'].blank? }
+  # accepts_nested_attributes_for :program_director, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? }
   accepts_nested_attributes_for :course_learning_outcomes, :allow_destroy => true, :reject_if => proc { |a| a["name"].blank? }
   accepts_nested_attributes_for :teaching_strategy, :allow_destroy => true
   accepts_nested_attributes_for :topics, :allow_destroy => true
@@ -40,7 +40,7 @@ class Course < ActiveRecord::Base
 
   before_validation :initialize_associate, :on => :create
 
-  validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program_director, :program, :on => :create
+  validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program, :on => :create
   validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :on => :update
   validates :resources, :presence => {:message => "Resources for students can't be blank."}, :on => :update
   validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester" 
@@ -49,10 +49,11 @@ class Course < ActiveRecord::Base
   validate :presence_of_teaching_staff_attributes, :on => :update
   validate :number_of_assessment_tasks, :on => :update
   validate :task_total_wighting, :on => :update
+  validate :presence_of_program_director, :on => :update
   validates_associated :assessment_tasks, :message => "Error in assessment tasks"
 
   STATUS = {
-    'SUBMIT'  => 'SUBMITTED',
+    'SUBMIT FOR APPROVAL'  => 'SUBMITTED',
     'SAVE'    => 'DRAFT',
     'APPROVE' => 'APPROVED'
   }
@@ -91,9 +92,9 @@ class Course < ActiveRecord::Base
       convenor.associate = self
     end
 
-    if program_director.present?
-      program_director.associate = self
-    end
+    # if program_director.present?
+    #   program_director.associate = self
+    # end
 
     if members.present?
       members.each { |p| p.associate = self }
@@ -149,8 +150,8 @@ class Course < ActiveRecord::Base
   end
 
   def number_of_assessment_tasks
-    if !self.assessment_tasks.present? || self.assessment_tasks.reject(&:marked_for_destruction?).size < 1
-      errors.add :assessment_tasks, 'No assessment task has been added.'.html_safe
+    if !self.assessment_tasks.present? || self.assessment_tasks.reject(&:marked_for_destruction?).size < 2
+      errors.add :assessment_tasks, 'At least 2 assessment tasks are required.'.html_safe
     elsif self.assessment_tasks.reject(&:marked_for_destruction?).size > 3
       errors.add :assessment_tasks, 'Maximum <strong>three</strong> assessment tasks are allowed.'.html_safe
     end
@@ -198,6 +199,12 @@ class Course < ActiveRecord::Base
       if weight > 100
         errors.add :assessment_tasks, "Total weighting can not be greatear than 100%"
       end
+    end
+  end
+
+  def presence_of_program_director
+    if self.program.present? && self.program.director.blank?
+      errors.add :course, "Prgoram director is undefined for the affiliated program"
     end
   end
 

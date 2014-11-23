@@ -8,7 +8,7 @@
 	<dd><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></dd>
 
 	<dt>Program Director</dt>
-	<dd><%= @course.program_director.present? ? @course.program_director.member_fullname : '<i>undefined</i>'.html_safe %></dd>
+	<dd><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
 	<hr>	
 
 	<dt>Course Aims</dt>

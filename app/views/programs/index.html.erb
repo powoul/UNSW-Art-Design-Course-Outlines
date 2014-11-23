@@ -19,14 +19,22 @@
     <tr>
       <th>Number</th>
       <th>Description</th>
+      <th>Program Director</th>
+      <th>Program Active?</th>
       <th>Action</th>
     </tr>
 
   <% @programs.each do |program| %>
     <tr>
+      <% puts "Program ID => #{program.id}"  %>
       <td><%= program.number %></td>
       <td><%= program.description %></td>
-      <td><%= link_to 'Show', program %></td>
+      <td><%= program.director.present? ? program.director.user.fullname : '<i>undefined</i>'.html_safe %></td>
+      <td><%= program.active ? 'active' : 'inactive' %></td>
+      <td>
+        <%= link_to 'View', program_path(program), :class => 'btn btn-mini btn-primary' %>
+          <%= link_to 'Edit', edit_program_path(program), :class => 'btn btn-mini btn-success' %>
+      </td>
     </tr>
   <% end %>
   </table>

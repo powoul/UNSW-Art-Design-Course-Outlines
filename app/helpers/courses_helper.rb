@@ -4,7 +4,7 @@ module CoursesHelper
 	end
 
 	def weeks_list(course)
-		return course.topics.all.reject { |s| s.week.blank? }.map {|t| "Week " + t.week.to_s } #{|t| t.date.strftime("%Y-%m-%d")}
+		return course.topics.all.reject { |s| s.week.blank? }.map {|t| ["Week " + t.week.to_s, t.date.strftime("%Y-%m-%d") ] }# {|t| "Week " + t.week.to_s } #{|t| t.date.strftime("%Y-%m-%d")}
 	end
 
 	def text_color(status)

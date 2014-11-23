@@ -11,7 +11,9 @@
     <p>You are the course covenor for <%= @course.code%> - <%= @course.name %>.<br/></p>
     <p>
       Please follow this link to complete the course outlines:
-      <%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>
+      <a href="<%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>">
+        <%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>
+      </a>
     </p>
     <p>Thank you and have a great day!</p><br/>
     <p>

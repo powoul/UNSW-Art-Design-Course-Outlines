@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141101223628) do
+ActiveRecord::Schema.define(:version => 20141121085432) do
 
   create_table "assessment_task_proficiencies", :force => true do |t|
     t.string   "proficiency"
@@ -55,8 +55,9 @@ ActiveRecord::Schema.define(:version => 20141101223628) do
   create_table "course_learning_outcomes", :force => true do |t|
     t.string   "name"
     t.integer  "course_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
   end
 
   add_index "course_learning_outcomes", ["course_id"], :name => "index_course_learning_outcomes_on_course_id"
@@ -114,8 +115,9 @@ ActiveRecord::Schema.define(:version => 20141101223628) do
   create_table "programs", :force => true do |t|
     t.integer  "number"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "active",      :default => true
   end
 
   create_table "semesters", :force => true do |t|

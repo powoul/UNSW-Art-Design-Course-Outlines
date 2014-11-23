@@ -4,7 +4,7 @@
   <div class="control-group <%= 'error' if convenor.object.errors[:member_name].any? %>">
     <label class="control-label required">Full name</label>
     <div class="controls">
-      <%= convenor.input :member_name, :as => :hidden %><%= convenor.object.member_fullname %>
+      <%= convenor.object.member_fullname %>
     </div>
   </div>
 

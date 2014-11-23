@@ -4,6 +4,11 @@
 <% end -%>
 
 <div class="page-header">
+	<div class="btn-toolbar pull-right">
+		        <div class="btn-group">
+		            <%= link_to 'Edit', edit_parameter_path(@parameter, :category => params[:category]), :class => 'btn' %>
+		        </div>
+		    </div>
   <h1><%= @parameter.name %></h1>
 </div>
 

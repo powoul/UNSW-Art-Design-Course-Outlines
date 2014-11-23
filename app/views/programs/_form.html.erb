@@ -1,12 +1,36 @@
-<%= simple_form_for(@program) do |f| %>
-  <%= f.error_notification %>
+<div class="form-inputs">
+	<div class="control-group <%= 'error' if f.object.errors[:number].any? %>">
+		<label class="control-label required">Program Number</label>
+		<div class="ceontols">
+			<%= f.input :number, :label => false %>
+		</div>
+	</div>
 
-  <div class="form-inputs">
-    <%= f.input :number %>
-    <%= f.input :description %>
-  </div>
+	<div class="control-group <%= 'error' if f.object.errors[:description].any? %>">
+		<label class="control-label required">Program Name</label>
+		<div class="ceontols">
+			<%= f.input :description, :label => false %>
+		</div>
+	</div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+	<%= f.simple_fields_for :director do |director| %>
+		<%= director.input :role, :as => :hidden, :input_html => { :value => "PROGRAM DIRECTOR" } %>
+		<div class="controls <%= 'error' if director.object.errors[:member_name].any? %>">
+			<label class="control-label required">Program Director</label>
+			<div class="controls">
+			<%= director.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
+			</div>
+		</div>
+	<% end %>
+
+	<br />
+	<div class="control-group <%= 'error' if f.object.errors[:status].any? %>">
+		<label class="control-label required">Is this program Active?</label>
+		<div class="ceontols">
+			<%= f.input :active, :as => :radio, :label => false %>
+		</div>
+	</div>
+
+</div>
+
+  

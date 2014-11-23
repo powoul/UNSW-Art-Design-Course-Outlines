@@ -1,13 +1,24 @@
-<p id="notice"><%= notice %></p>
+<header class="page-header">
+	<div class="btn-toolbar pull-right">
+	    <div class="btn-group">
+	        <%= link_to 'Edit', edit_program_path(@program, :category => params[:category]), :class => 'btn btn-primary' %>
+	    </div>
+	</div>
+	<h1><%= @program.number.to_s %> - <%= @program.description.upcase %></h1>
+	<p class="lead">You are viewing <%= @program.number.to_s %> - <%= @program.description.upcase %></p><br />
+</header>
 
-<p>
-  <b>Number:</b>
-  <%= @program.number %>
-</p>
+<dl class="dl-horizontal">
+	
+	<dt>Program Number</dt>
+	<dd><%= @program.number.present? ? @program.number : '<i>undefined</i>'.html_safe %></dd>
 
-<p>
-  <b>Description:</b>
-  <%= @program.description %>
-</p>
+	<dt>Program Name</dt>
+	<dd><%= @program.description.present? ? @program.description : '<i>undefined</i>'.html_safe %></dd>
 
-<%= link_to 'Back', programs_path %>
+	<dt>Program Director</dt>
+	<dd><%= @program.director.present? ? @program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
+
+	<dt>Program Status</dt>
+	<dd><%= @program.active ? 'Active' : 'Inactive' %></dd>
+</dl>

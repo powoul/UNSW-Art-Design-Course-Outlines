@@ -22,7 +22,7 @@ class AssessmentTask < ActiveRecord::Base
   validates_presence_of :title, :due, :weighting, :synopsis, :feedback
 
   validate :number_of_criteria
-  validate :maximum_wighting
+  validate :maximum_weighting
   validates_associated :criteria, :message => "Error in assessment criteria"
   validate :uniqueness_of_task_outcomes
 
@@ -32,15 +32,15 @@ class AssessmentTask < ActiveRecord::Base
 
   private
 
-  def maximum_wighting
+  def maximum_weighting
     if self.weighting.present? && self.weighting > 65
-      errors.add :weighting, "can not be greater than 65%."
+      errors.add :weighting, "can not be greater than 65%"
     end
   end
 
   def number_of_criteria
     if self.criteria.reject(&:marked_for_destruction?).size > 5
-      errors.add :criteria, 'maximum 5 criteria is accepted.'
+      errors.add :criteria, 'maximum 5 criteria is accepted'
     end
   end
 

@@ -3,5 +3,5 @@ class CourseLearningOutcome < ActiveRecord::Base
   has_many :task_outcomes
   has_many :assessment_tasks, :through => :task_outcomes
 
-  attr_accessible :name
+  attr_accessible :name, :order_number
 end

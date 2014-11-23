@@ -12,7 +12,7 @@
 <dt>Affiliated Program</dt>
 <dd><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></dd>
 <dt>Program Director</dt>
-<dd><%= @course.program_director.member_name %></dd>
+<dd><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
 </dl><br />
 
 <h3>COURSE AIMS</h3> <br />
@@ -40,9 +40,23 @@
       <div class="controls">
         <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
       </div>
+      <%= outcome.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
     </div>
 
 <% end %>
+<script type="text/javascript">
+$(document).on('nested:fieldAdded', function(event){
+  // this field was just inserted into your form
+  var field = event.field; 
+  // it's a jQuery object already! Now you can find date input
+  field.find('input').each(function(index, input) {
+    if ($(input).hasClass('order_number_input')) {
+      $(input).val(new Date().getTime() % 1000000)
+    }
+  });
+  
+})
+</script>
 
 </div>
 

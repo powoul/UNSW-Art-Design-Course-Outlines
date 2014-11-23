@@ -30,17 +30,40 @@ class ProgramsController < ApplicationController
   # GET /programs/new
   # GET /programs/new.json
   def new
-    @program = Program.new
+    if current_user.admin?
+      @program = Program.new
+      @program.director = Member.new(:role => 'PROGRAM DIRECTOR')
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @program }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @program }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to programs_url }
+        format.json { head :no_content }
+      end
     end
   end
 
   # GET /programs/1/edit
   def edit
-    @program = Program.find(params[:id])
+    if current_user.admin?
+      @program = Program.find(params[:id])
+      @program.director ||= Member.new(:role => 'PROGRAM DIRECTOR')
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @program }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to program_url(@course) }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /programs

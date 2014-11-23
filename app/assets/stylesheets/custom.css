@@ -31,15 +31,15 @@
 .headings .criteria_criteria {
   width: 14%;
 }
-#criteria .input {
+.criteria .input {
   float: left;
   width: 13%;
   padding-left: 0.5%;
   padding-right: 0.5%;
 }
-#criteria .input.delete-btn {
+.criteria .input.delete-btn {
   margin-left: 10px;
 }
-#criteria .input input {
+.criteria .input input {
   max-width: 100%;
 }

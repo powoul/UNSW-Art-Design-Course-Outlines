@@ -1,9 +1,9 @@
 class CoursesController < ApplicationController
-  autocomplete :program, :description, :full => true, :display_value => :number_with_description, :extra_data => [:number, :description], :scopes => [:search_by_number_and_description]
+  #autocomplete :program, :description, :full => true, :display_value => :number_with_description, :extra_data => [:number, :description], :scopes => [:search_by_number_and_description], :where => { :status => true }
   
-  def get_autocomplete_items(parameters)
-    items = Program.search_by_number_and_description(params[:term])    
-  end
+  # def get_autocomplete_items(parameters)
+  #   items = Program.search_by_number_and_description(params[:term])  
+  # end
 
 
   # GET /courses
@@ -51,14 +51,11 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.pdf do
-        pdf = ReportPdf.new(@course, @course_convenor, @teaching_staff) 
-                     #:page_layout => :portrait, 
-                     #:left_margin => 10.mm,    # different
-                     #:right_margin => 1.cm,    # units
-                     #:top_margin => 0.1.dm,    # work
-                     #:bottom_margin => 0.01.m, # well 
-                     #:page_size => 'A4')
-        send_data pdf.render, :filename => 'report.pdf', :type => 'application/pdf', :disposition => 'inline'
+        render :pdf => "#{@course.name}",
+          :layout => 'authenticated.pdf',
+          :show_as_html => params[:debug].present? && Rails.env.development?,
+          :page_size    => 'A4',
+          :dpi          => 177
       end
       format.json { render :json => @course }
     end
@@ -70,7 +67,7 @@ class CoursesController < ApplicationController
     if current_user.admin? && Semester.count >= 1 
         @course = Course.new
         @course.convenor = Member.new(:role => 'CONVENOR')
-        @course.program_director = Member.new(:role => 'PROGRAM DIRECTOR')
+        # @course.program_director = Member.new(:role => 'PROGRAM DIRECTOR')
 
         respond_to do |format|
           format.html # new.html.erb
@@ -133,7 +130,7 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(params[:course])
-    @course.status = params[:status]
+    @course.status = Course::STATUS[params[:status]]
     
     respond_to do |format|
       if @course.save
@@ -143,7 +140,7 @@ class CoursesController < ApplicationController
         format.json { render :json => @course, :status=> :created, :location => @course }
       else
         @course.convenor ||= Member.new(:role => 'CONVENOR')
-        @course.program_director ||= Member.new(:role => 'PROGRAM DIRECTOR')
+        # @course.program_director ||= Member.new(:role => 'PROGRAM DIRECTOR')
         format.html { render :action => "new" }
         format.json { render :json => @course.errors, :status => :unprocessable_entity }
       end
@@ -161,7 +158,7 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       if @course.save(:validate => validate)
-        if params[:status] == "SUBMIT"
+        if @course.status == "SUBMIT"
           UserMailer.program_director(@course.program_director.user, @course).deliver
         end
         format.html { redirect_to course_path(@course, :section_id => params[:section_id]), :notice => 'Course was successfully updated.' }

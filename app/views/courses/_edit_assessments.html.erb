@@ -67,7 +67,7 @@
               <div class="input delete-btn"></div>
       </div>                  
   
-      <div id="criteria">
+      <div id="criteria_<%= assess.object_id %>" class="criteria">
         <%= assess.simple_fields_for :criteria, :html => { :class => 'form-horizontal' } do |criterion| %>
           <%#= render :partial => "criteria/row", :collection => @course.assessment_tasks.criteria, :as => :criterion %>
           <div id="criterion_<%= assess.object.id %>">
@@ -86,7 +86,7 @@
         <div>
           <div colspan="6" class="empty" style="text-align: center;">
             <p>You may add criteria here.</p>
-            <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria" }, :class => "btn btn-primary" %>
+            <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria_#{assess.object_id}" }, :class => "btn btn-primary" %>
           </div>
         </div>
       </div>

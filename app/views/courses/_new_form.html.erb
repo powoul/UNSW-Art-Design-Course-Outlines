@@ -2,7 +2,7 @@
 ============================ -->
 
 <div class="form-inputs">
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:code].any? %>">
     <label class="control-label required">Course Code</label>
     <div class="controls">
       <%= f.input :code, :label => false %>
@@ -10,7 +10,7 @@
   </div>
 
    <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:name].any? %>">
     <label class="control-label required">Course Name</label>
     <div class="controls">
       <%= f.input :name, :label => false, :input_html => { :class => 'span5' } %>
@@ -18,7 +18,7 @@
   </div>
 
   <br />
-  <div class="control-group">
+  <div class="control-group  <%= 'error' if f.object.errors[:semester].any? %>">
     <label class ="control-label required" >Semester</label>
     <div class="controls">
       <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year } %>
@@ -26,14 +26,14 @@
   </div>
 
   <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:units_of_credit].any? %>">
     <label class="control-label required">Units of Credit</label>
     <div class="controls">
-      <%= f.input :units_of_credit, :label => false %>
+      <%= f.input :units_of_credit, :label => false, :collection => [6, 12, 18, 24], :default => 6 %>
     </div>
   </div>
   <br />
-  <div class="control-group">
+  <div class="control-group <%= 'error' if f.object.errors[:summary].any? %>">
     <label class="control-label required">Course Summary</label>
     <div class="controls">
       <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11' %>
@@ -46,7 +46,7 @@
   <br />
   <%= f.simple_fields_for :convenor do |convenor| %>
      <%= convenor.input :role, :as => :hidden, :input_html => { :value => "CONVENOR" } %>
-    <div class="controls">
+    <div class="controls <%= 'error' if f.object.errors[:convenor].any? %>">
       <label class="control-label required">Convenor</label>
       <div class="controls">
         <%= convenor.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
@@ -60,25 +60,27 @@
   <h3>Program Affiliation</h3>
   <br />
 
-  <div class="controls">
-      <label class="control-label required">This course is affiliated with the following program/s:</label>
+  <div class="controls <%= 'error' if f.object.errors[:program].any? %>">
+      <label class="control-label required">This course is affiliated with the following program:</label>
       <div class="controls">
-        <%= f.input :program_name, :label => "Program", :url => autocomplete_program_description_courses_path, :as => :autocomplete, :placeholder => "Type program name", :input_html => {:"data-update-elements" => "[]", :class => 'span4'}, :class => "controls" %>
+        <%= f.input :program_name, :label => false, :collection => Program.all.reject{ |s| !s.active }.map { |s| s.number_with_description } %>
+    
+        <%#= f.input :program_name, :label => "Program", :url => autocomplete_program_description_courses_path, :as => :autocomplete, :placeholder => "Type program name", :input_html => {:"data-update-elements" => "[]", :class => 'span4'}, :class => "controls" %>
       </div>
     </div>
 
-  <%= f.simple_fields_for :program_director do |director| %>
+  <!-- <%#= f.simple_fields_for :program_director do |director| %>
 
-    <%= director.input :role, :as => :hidden, :input_html => { :value => "PROGRAM DIRECTOR" } %>
+    <%#= director.input :role, :as => :hidden, :input_html => { :value => "PROGRAM DIRECTOR" } %>
 
     <br />
     <div class="controls">
       <label class="control-label required">Program Director</label>
       <div class="controls">
-        <%= director.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
+        <%#= director.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
       </div>
     </div>
     
-  <% end %>
+  <%# end %> -->
 
 </div>
