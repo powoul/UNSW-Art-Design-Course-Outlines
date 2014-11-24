@@ -4,16 +4,16 @@ class Program < ActiveRecord::Base
 
   has_many :courses
   has_many :users, :through => :members, :uniq => true
-  has_one :director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy, :autosave => true 
+  has_one :director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy
 
-  accepts_nested_attributes_for :director, :allow_destroy => true
+  accepts_nested_attributes_for :director, :allow_destroy => true, :reject_if => proc { |a| a["member_name"].blank? }
 
   scope :search_by_number_and_description, lambda { |q|
    (q ? where(["number LIKE ? or description LIKE ? or concat(number, ' - ', description) like ?", '%'+ q + '%', '%'+ q + '%','%'+ q + '%' ]).order(:description).limit(10)  : {})
  }
 
  before_validation :initialize_associate, :on => :create
- after_initialize :initialize_director
+ # after_initialize :initialize_director
 
  define_index do
   	indexes number, :sortable => true
@@ -30,8 +30,8 @@ class Program < ActiveRecord::Base
    director.associate = self
  end
 
- def initialize_director
-   director ||= Member.new(:role => "PROGRAM DIRECTOR")
- end
+ # def initialize_director
+ #   director ||= Member.new(:role => "PROGRAM DIRECTOR")
+ # end
 
 end

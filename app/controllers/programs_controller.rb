@@ -51,7 +51,6 @@ class ProgramsController < ApplicationController
   def edit
     if current_user.admin?
       @program = Program.find(params[:id])
-      @program.director ||= Member.new(:role => 'PROGRAM DIRECTOR')
 
       respond_to do |format|
         format.html # new.html.erb
