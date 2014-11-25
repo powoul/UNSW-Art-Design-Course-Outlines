@@ -194,7 +194,7 @@ class Course < ActiveRecord::Base
     if self.assessment_tasks.present?
       weight = 0
       self.assessment_tasks.reject(&:marked_for_destruction?).map(&:weighting).each do |w|
-        weight = weight + w
+        weight = weight + w.to_i
       end
       if weight > 100
         errors.add :assessment_tasks, "Total weighting can not be greatear than 100%"
