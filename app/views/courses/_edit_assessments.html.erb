@@ -96,7 +96,7 @@
 
       <hr>
       <h4>Course Learning Outcomes addressed in this task:</h4><br />
-      <div id="task_outcomes">
+      <div id="task_outcomes_<%= assess.object_id %>">
         <%= assess.simple_fields_for :task_outcomes do |outcome| %>
 
           <div class="pull-right">
@@ -116,7 +116,7 @@
       <br /><br />
       <div style="text-align: center;">                  
         <p style="text-align: center;">You may select learning outcomes for this task here</p>
-        <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :data => { :target => "#task_outcomes"}, :class => "btn btn-primary", :id => "add_learning_outcome_btn" %>
+        <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :data => { :target => "#task_outcomes_#{assess.object_id}"}, :class => "btn btn-primary", :id => "add_learning_outcome_btn" %>
       </div>
       <% if @course.course_learning_outcomes.blank? %>
       <script>
@@ -134,7 +134,7 @@
       <hr>
       <h4>Resources required for this task:</h4><br />
 
-      <div id="task_resources">
+      <div id="task_resources_<%= assess.object_id %>">
         <%= assess.simple_fields_for :assessment_task_resources do |resource| %>
 
           <div class="pull-right">
@@ -147,8 +147,8 @@
               <%= resource.input :resource, :label => false, :disabled => !current_user.convenor?(f.object) %>
             </div>
           </div>
-          <% resource.object.technical_staff = Member.new(:role => 'TECHNICAL STAFF') %>
-
+    
+          <% resource.object.build_technical_staff unless resource.object.technical_staff %>
           <%= resource.simple_fields_for :technical_staff do |staff| %>
 
             <%= staff.input :role, :as => :hidden, :input_html => { :value => "TECHNICAL STAFF" } %>
@@ -168,7 +168,7 @@
       <br /><br/>
       <div style="text-align: center;">                  
         <p style="text-align: center;">You may add resources for this task here</p>
-        <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :data => { :target => "#task_resources"}, :class => "btn btn-primary" %>
+        <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :data => { :target => "#task_resources_#{assess.object_id}"}, :class => "btn btn-primary" %>
       </div>
 
       <p class="help-block"><small>Please list the type of equipment or software etc students will need to complete the assessment IF RELEVANT (eg. Cameras, certain types of software etc). This data will help us plan the support of resource better, and improve service to the students. If no equipment is required please leave blank. NOTE however that courses must list required equipment or they may not be guaranteed an equipment allocation during semester.</small></p>
@@ -179,7 +179,7 @@
       <hr>
       <h4>Proficiencies required for this task:</h4><br />
 
-      <div id="task_proficiencies">
+      <div id="task_proficiencies_<%= assess.object_id %>">
         <%= assess.simple_fields_for :assessment_task_proficiencies do |proficiency| %>
 
           <div class="pull-right">
@@ -199,7 +199,7 @@
       <br /><br />
       <div style="text-align: center;">                  
         <p style="text-align: center;">You may add proficiencies for this task here</p>
-        <%= assess.link_to_add "Add a required proficiency", :assessment_task_proficiencies, :data => { :target => "#task_proficiencies"}, :class => "btn btn-primary" %>
+        <%= assess.link_to_add "Add a required proficiency", :assessment_task_proficiencies, :data => { :target => "#task_proficiencies_#{assess.object_id}"}, :class => "btn btn-primary" %>
       </div>
 
       <p class="help-block"><small>Please list any proficiencies students need to obtain to complete the assessment. Do they need to be trained in using equipment (bandsaw for example) or performing certain tasks (developing film in a darkroom)? Listing these here will help us plan how to support workshops for students and staff better. Please relate proficiencies to the resources above. NOTE this may not be in the final course outline but will be used to gather requirements for planning purposes, and for helping to developed flipped learning support for students.</small></p>

@@ -59,8 +59,10 @@
 			<br />
 			<% if assessment.assessment_task_resources.present? %>
 				<% assessment.assessment_task_resources.each do |resource| %>
-					<dt>&nbsp;</dt>
+					<dt>Resource</dt>
 					<dd><%= resource.resource.present? ? resource.resource : '<i>undefined</i>'.html_safe %></dd>
+					<dt>Technical Staff</dt>
+					<dd><%= resource.technical_staff.present? ? resource.technical_staff.member_name : '<i>undefined</i>'.html_safe %></dd>
 				<% end %>
 	        <% else %>
 	        	<dt>&nbsp;</dt>

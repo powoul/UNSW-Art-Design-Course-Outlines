@@ -1,6 +1,6 @@
 class AssessmentTaskResource < ActiveRecord::Base
   attr_accessible :resource
-  attr_accessible :technical_managers_attributes
+  attr_accessible :technical_staff_attributes
 
   belongs_to :assessment_task
   has_many :users, :through => :members, :uniq => true

@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   end
 
   def program_director?(course)
-    course.members.each do |m|
-      return true if (self == m.user && m.role == "PROGRAM DIRECTOR")
+    if course.program.director.present?
+      return true if self == course.program.director.user
     end
     false
   end
