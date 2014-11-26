@@ -81,16 +81,12 @@
           </div>
         <% end %>                    
       </div>
-      <br /><br /><br />
-      <div>
-        <div>
-          <div colspan="6" class="empty" style="text-align: center;">
-            <p>You may add criteria here.</p>
-            <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria_#{assess.object_id}" }, :class => "btn btn-primary" %>
-          </div>
-        </div>
+      
+      <div colspan="7" class="empty" style="text-align: center;">
+        <p>You must add criteria here</p>
+        <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria_#{assess.object_id}" }, :class => "btn btn-primary" %>
       </div>
-
+        
       <p class="help-block"><small><strong>NOTE - </strong>Stduents MUST be issued a copy of a filled in rubric along with written or recorded feedback for EACH assessment. You should list what you will be actually assessing in tehe Criteria column (eg. 1. Solution addresses all of the requirements of the brief, 2. Evidence of experimentation in the development of a final solution.</small></p><br />
       <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#criteria_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
