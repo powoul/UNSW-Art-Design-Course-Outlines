@@ -1,6 +1,5 @@
-<h3>COURSE SUMMARY</h3> <br />
 <div class="control-group <%= 'error' if f.object.errors[:summary].any? %>">
-  <label class="control-label required">&nbsp;</label>
+  <label class="control-label required">COURSE SUMMARY</label>
   <div class="controls">
     <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
     <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
@@ -15,9 +14,8 @@
 <dd><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
 </dl><br />
 
-<h3>COURSE AIMS</h3> <br />
 <div class="control-group <%= 'error' if f.object.errors[:course_aims].any? %>">
-  <label class="control-label required">&nbsp;</label>
+  <label class="control-label required">COURSE AIMS</label>
   <div class="controls">
     <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
     <p class="help-block" align="justify"><small>This is designed to make explicit to the students what YOU as the lecturer wish to achieve by teaching this course. They should express why this course is important to the learner and provide an overall big picture vision for student learning. Course aims should be clearly aligned with the curriculum learning and assessment outcomes of the course components. It is highly recommended that no more than TWO aims be provided. Too many aims suggest a scattergun approach. </small></p>
