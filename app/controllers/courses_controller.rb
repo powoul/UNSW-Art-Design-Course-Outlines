@@ -134,7 +134,8 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       if @course.save
-        UserMailer.course_convenor(@course.convenor.user, @course).deliver
+        # Suppress email notification for now. 
+        # UserMailer.course_convenor(@course.convenor.user, @course).deliver
 
         format.html { redirect_to @course, :notice => 'Course was successfully created.' }
         format.json { render :json => @course, :status=> :created, :location => @course }
@@ -159,7 +160,8 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.save(:validate => validate)
         if @course.status == "SUBMIT"
-          UserMailer.program_director(@course.program_director.user, @course).deliver
+          # Suppress email notification for now.
+          # UserMailer.program_director(@course.program_director.user, @course).deliver
         end
         format.html { redirect_to course_path(@course, :section_id => params[:section_id]), :notice => 'Course was successfully updated.' }
         format.json { head :no_content }
