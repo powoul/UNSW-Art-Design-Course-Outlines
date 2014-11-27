@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <%= wicked_pdf_stylesheet_link_tag :application, :media => "all" %>
+    <%= wicked_pdf_stylesheet_link_tag :pdf, :media => "all" %>
+  </head>
+
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">&nbsp;</div>
+      </div>
+      <div class="row-fluid">
+        <div class="span10">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
