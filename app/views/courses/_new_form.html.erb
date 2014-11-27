@@ -61,26 +61,10 @@
   <br />
 
   <div class="controls <%= 'error' if f.object.errors[:program].any? %>">
-      <label class="control-label required">This course is affiliated with the following program:</label>
-      <div class="controls">
-        <%= f.input :program_name, :label => false, :collection => Program.all.reject{ |s| !s.active }.map { |s| s.number_with_description } %>
-    
-        <%#= f.input :program_name, :label => "Program", :url => autocomplete_program_description_courses_path, :as => :autocomplete, :placeholder => "Type program name", :input_html => {:"data-update-elements" => "[]", :class => 'span4'}, :class => "controls" %>
-      </div>
-    </div>
-
-  <!-- <%#= f.simple_fields_for :program_director do |director| %>
-
-    <%#= director.input :role, :as => :hidden, :input_html => { :value => "PROGRAM DIRECTOR" } %>
-
-    <br />
+    <label class="control-label required">This course is affiliated with the following program:</label>
     <div class="controls">
-      <label class="control-label required">Program Director</label>
-      <div class="controls">
-        <%#= director.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'} %>
-      </div>
+      <%= f.input :program_name, :label => false, :collection => Program.all.reject{ |s| !s.active }.map { |s| s.number_with_description } %>
     </div>
-    
-  <%# end %> -->
+  </div>
 
 </div>

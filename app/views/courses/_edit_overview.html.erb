@@ -6,13 +6,12 @@
   </div>
 </div>
 
-<h3>PROGRAM AFFILIATION</h3> <br />
-<dl class="dl-horizontal">  
-<dt>Affiliated Program</dt>
-<dd><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></dd>
-<dt>Program Director</dt>
-<dd><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
-</dl><br />
+<div class="control-group <%= 'error' if f.object.errors[:program].any? %>">
+  <label class="control-label required">Affiliated program:</label>
+  <div class="controls">
+    <%= f.input :program_name, :label => false, :collection => Program.all.reject{ |s| !s.active }.map { |s| s.number_with_description } %>
+  </div>
+</div>
 
 <div class="control-group <%= 'error' if f.object.errors[:course_aims].any? %>">
   <label class="control-label required">COURSE AIMS</label>
