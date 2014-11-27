@@ -1,0 +1,84 @@
+<div>
+<p><%= @course.assessment %></p>
+
+<% if @course.assessment_tasks.present? %>
+  <% @course.assessment_tasks.each_with_index do |assessment, index| %>
+    <h4>Assessment Task <%= (index + 1).to_s %></h4>
+
+    <b>Title: </b>
+    <span><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></span>
+    <br />
+
+    <b>Due: </b>
+    <span><%= assessment.due.present? ? assessment.due : '<i>undefined</i>'.html_safe %></span>
+    <br />
+
+    <b>Weighting: </b>
+    <span><%= assessment.weighting.present? ? assessment.weighting : '<i>undefined</i>'.html_safe %></span>
+    <br />
+
+    <b>Assessment Synopsis (full brief available in course): </b>
+    <span><%= assessment.synopsis.present? ? assessment.synopsis : '<i>undefined</i>'.html_safe %></span>
+
+    <h4>Assessment Criteria With Marking Rubric: </h4>
+    <% if assessment.criteria.present? %>
+      <table class="table table-bordered">
+      <thead>
+      <tr>
+      <th>Criteria</th>
+      <th>FAIL <p><small>Unsatisfactory performance, below minimum expected level. Poor or incomplete work, which shows a significant lack of understanding of the topic or its context.</small></p></th>
+      <th>PASS <p><small>Satisfactory performance. Aspanresses assessment requirements and demonstrates acceptable understanding of the issues entailed.</small></p></th>
+      <th>CREDIT <p><small>Good performance. Demonstrates analysis and contextual thinking. Understands/presents alternative points of view/perspectives and supporting evidence.</p></small></th>
+      <th>DISTINCTION <p><small>Very Good performance. Demonstrates superior ability to consider the course and its assessment requirements from a number of perspectives and to explore their interrelation</small></p></th>
+      <th>HIGH DISTINCTION <p><small>Outstanding performance. Indicates the student has produced excellent work, and demonstrates a high level of understanding, application and synthesis of the assessable criteria.</small></p></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <%= render :partial => "criteria/row", :collection => assessment.criteria, :as => :criterion %>
+      </tbody>
+      </table>
+    <% else %>
+      <span><i>undefined</i></span>
+    <% end %>
+
+    <br />
+    <h4>Course Learning Oucomes addressed in this task:</h4>
+    <br />
+    <% if assessment.course_learning_outcomes.present? %>
+      <ol>
+        <% assessment.course_learning_outcomes.each do |outcome| %>
+          <li><%= outcome.name.present? ? outcome.name : '<i>undefined</i>'.html_safe %></li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p><i>undefined</i></p>
+    <% end %>
+
+    <% if assessment.assessment_task_resources.present? %>
+      <h4>Resources required for this task:</h4>
+      <ol>
+        <% assessment.assessment_task_resources.each do |resource| %>
+          <li><%= resource.resource.present? ? resource.resource : '<i>undefined</i>'.html_safe %></li>
+        <% end %>
+      </ol>
+    <% end %>
+
+    <% if assessment.assessment_task_proficiencies.present? %>
+      <h4>Proficiencies required for this task:</h4>
+      <ol>
+        <% assessment.assessment_task_proficiencies.each do |proficiency| %>
+          <li><%= proficiency.proficiency.present? ? proficiency.proficiency : '<i>undefined</i>'.html_safe %></li>
+        <% end %>
+      </ol>
+    <% end %>
+
+    <br />
+    <h4>Feedback strategy for this task: </h4>
+    <p><%= assessment.feedback.present? ? assessment.feedback : '<i>undefined</i>'.html_safe %></p>
+  <% end %>
+
+<% else %>
+  <i>undefined</i>
+<% end %>
+</div>

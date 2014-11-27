@@ -1,0 +1,84 @@
+<div class="logo">
+  <%= image_tag(Rails.application.assets.find_asset('Faculty Landscape Col pos_COFA_artdesign.png').pathname, :alt => 'cover page', :width => 775, :height => 'auto') %>
+</div>
+<div class="row-fluid">
+    <section id="course_information">
+      <div class="">
+        <h1><%= @course.code.upcase %></h1>
+        <h1><%= @course.name %></h1>
+      </div>
+    </section>
+
+    <div class="">
+      <h3>SEMESTER <%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></h3>
+      <p>
+        Students are advised to read this Course Outline in conjunction with the <b>General Student Information</b> guide, which provides essential information for all students and is available under 'Students' on Art & Design website <a href="http://artdesign.unsw.edu.au">artdesign.unsw.edu.au</a>
+      </p>
+    </div>
+
+    <section id="course_information">
+      <h2>COURSE INFORMATION</h2>
+      <%= render :partial => 'information'%>
+    </section>
+
+    <section id="staff">
+      <div class="">
+        <h2>COURSE STAFF</h2>
+      </div>
+      <%= render :partial => 'staff'%>
+    </section>
+
+    <section id="overview">
+      <div class="">
+        <h2>COURSE OVERVIEW</h2>
+      </div>
+      <%= render :partial => 'overview'%>
+    </section>
+
+    <section id="expectations">
+      <div class="">
+        <h2>EXPECTATIONS OF STUDENTS IN THIS COURSE</h2>
+      </div>
+      <%= render :partial => 'expectations'%>
+    </section>
+
+    <section id="assessments">
+      <div class="">
+        <h2>ASSESSMENT</h2>
+      </div>
+      <%= render :partial => 'assessments'%>
+    </section>
+
+    <section id="topics">
+      <div class="">
+        <h2>TOPICS AND DATES</h2>
+      </div>
+      <%= render :partial => 'topics'%>
+    </section>
+
+    <section id="resources">
+      <div class="">
+        <h2>RESOURCES FOR STUDENTS</h2>
+      </div>
+      <%= render :partial => 'resources'%>
+    </section>
+
+  </div>
+</div>
+<script type="text/javascript">
+$(document).scroll(function(){
+  // If has not activated (has no attribute "data-top"
+  if (!$('.subnav').attr('data-top')) {
+    // If already fixed, then do nothing
+    if ($('.subnav').hasClass('subnav-fixed')) return;
+    // Remember top position
+    var offset = $('.subnav').offset()
+    $('.subnav').attr('data-top', offset.top);
+  }
+
+  if ($('.subnav').attr('data-top') - $('.subnav').outerHeight() <= $(this).scrollTop())
+    $('.subnav').addClass('subnav-fixed');
+  else
+    $('.subnav').removeClass('subnav-fixed');
+});
+</script>

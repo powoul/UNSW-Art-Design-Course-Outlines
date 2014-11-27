@@ -1,0 +1,32 @@
+<p>
+	<b>Units of Credit</b>
+	<span><%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %></span>
+</p>
+<p>
+	<b>Teaching Times and Locations</b>
+	<span><%= @course.teaching_times_and_locations.present? ? @course.teaching_times_and_locations : '<i>undefined</i>'.html_safe %></span>
+</p>
+<p>
+	<b>Online Course Support</b>
+	<span><%= @course.online_course_support.present? ? @course.online_course_support : '<i>undefined</i>'.html_safe %></span>
+</p>
+<p>
+	<b>Parallel Teaching</b>
+	<span><%= @course.parallel_teaching.present? ? @course.parallel_teaching : '<i>undefined</i>'.html_safe %></span>
+</p>
+<p>
+	<% if @resources_required.present? %>
+    <h4>Resources Required</h4>
+		<% @resources_required.each do |resource| %>
+			<p><%= resource %></p>
+		<% end %>
+	<% end %>
+</p>
+<p>
+	<% if @proficiencies_required.present? %>
+    <h4>Proficiencies Required</h4>
+		<% proficiencies_required.each do |proficiency| %>
+			<p><%= proficiency %></p>
+		<% end %>
+	<% end %>
+</p>

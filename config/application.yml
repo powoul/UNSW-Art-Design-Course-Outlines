@@ -1,0 +1,15 @@
+# config/application.yml
+defaults: &defaults
+  risk_of_failure_warnings: |
+    <b>risk_of_failure_warnings</b> <br> change me at config/application.yml
+  late_submission_penalties: |
+    <i>late_submission_penalties</i> change me at config/application.yml
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

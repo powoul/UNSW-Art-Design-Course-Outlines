@@ -1,0 +1,24 @@
+<h4>Satisfactory student participation</h4>
+<% if @course.assessment.present? %>
+  <h4>Assessment</h4>
+  <p><%= @course.assessment.html_safe %></p>
+<% end %>
+
+<h4>Risk of failure warnings</h4>
+<p><%= Settings.risk_of_failure_warnings.html_safe %></p>
+<h4>Late submisssion penalties</h4>
+<p><%= Settings.late_submission_penalties.html_safe %></p>
+
+<h2>Continual Course Improvement</h2>
+<p>Student responses to Course and Teaching Evaluation & Improvement (CATEI) surveys are gathered every time this course is taught, using online evaluation form. Student responses are taken seriously, and continual improvements are made to the course based in part on such feedback. Significant changes to the course will be communicated to subsequence cohorts of students taking the course</p>
+<p>It is important that students complete the CATEI course and teaching surveys for this course. This is completely anonymous and provides important student observations and suggestions to ensure that the course is continually improved.</p>
+<% if @course.course_improvements.present? %>
+  <p>Over the past semesters we have, for example: </p>
+  <ol>
+    <% @course.course_improvements.each do |i| %>
+      <li><%= i.description %></li>
+    <% end %>
+  </ol>
+<% else %>
+  <p><%= '<i>undefined</i>'.html_safe %></p>
+<% end %>

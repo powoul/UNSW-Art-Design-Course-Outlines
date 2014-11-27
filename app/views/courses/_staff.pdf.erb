@@ -1,0 +1,40 @@
+<% if @course.convenor.present? %>
+<p>
+  <b>Course Convenor:</b>
+  <span><%= @course.convenor.user.fullname.present? ? @course.convenor.user.fullname : '<i>undefined</i>'.html_safe %></span>
+  </p><p>
+  <b>Email:</b>
+  <span><%= @course.convenor.email.present? ? @course.convenor.email : '<i>undefined</i>'.html_safe %></span>
+  </p><p>
+  <b>Phone:</b>
+  <span><%= @course.convenor.phone_number.present? ? @course.convenor.phone_number : '<i>undefined</i>'.html_safe %></span>
+  </p><p>
+  <b>Room:</b>
+  <span><%= @course.convenor.room.present? ? @course.convenor.room : '<i>undefined</i>'.html_safe %></span>
+</p>
+<p>
+  <b>Consultation times:</b>
+  <span><%= @course.convenor.consultation_times.present? ? @course.convenor.consultation_times : '<i>undefined</i>'.html_safe %></span>
+</p>
+<% else %>
+  <b>Course Convenor:</b>
+  <i>undefined</i>
+<% end %>
+
+<% if @course.lecturers.present? %>
+  <p> </p>
+  <p> </p>
+  <h4>Other Teaching Staff</h4>
+  <% @course.lecturers.each do |stf| %>
+    <p>
+      <b>Name:</b>
+      <span><%= stf.user.try(:fullname).present? ? stf.user.try(:fullname) : '<i>undefined</i>'.html_safe %></span>
+      </p><p>
+      <b>Email:</b>
+      <span><%= stf.user.try(:email).present? ? stf.user.try(:email) : '<i>undefined</i>'.html_safe %></span>
+      </p><p>
+      <b>Consultation times:</b>
+      <span><%= stf.consultation_times.present? ? stf.consultation_times : '<i>undefined</i>'.html_safe %></span>
+    </p>
+  <% end %>
+<% end %>

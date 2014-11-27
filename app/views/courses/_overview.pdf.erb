@@ -1,0 +1,88 @@
+<h3>Course Summary</h3>
+<p><%= @course.summary.present? ? @course.summary.html_safe : '<i>undefined</i>'.html_safe %></p>
+
+<h3>PROGRAM AFFILIATION</h3>
+
+<p>This course is affiliated with the following program/s</p>
+<p><%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %></p>
+
+<span>Program Director:</span>
+<span><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></span>
+
+<h3>Course Aims</h3>
+<p><%= @course.course_aims.present? ? @course.course_aims : '<i>undefined</i>'.html_safe %></p>
+
+<h3>STUDENT LEARNING OUTCOMES</h3>
+<p>At the conclusion of this course, students should be able to:</p>
+
+<% if @course.course_learning_outcomes.present? %>
+  <ol>
+    <% @course.course_learning_outcomes.each do |outcome| %>
+      <li><%= outcome.name.present? ? outcome.name : '<i>undefined</i>'.html_safe %></li>
+    <% end %>
+  </ol>
+<% else %>
+  <p><i>undefined</i></p>
+<% end %>
+
+<h3>Alignment with Program Learning Outcomes</h3>
+<p>Each course in a program is designed to help students achieve some of the Program Learning Outcomes - that is what students undertaking the program should achieve by its conclusion. The table below illustrates how the course learning outcomes relate to course activities and assessment, and the learning out come of <%= @course.code.upcase %></p>
+
+<p><%= @course.course_aims.present? ? @course.course_aims : '<i>undefined</i>'.html_safe %></p>
+
+<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3>
+
+<% if @course.teaching_strategy.present?  %>
+  <table>
+    <tr>
+      <td valign="top"><b>Lectures: </b></td>
+      <td>
+        <div><%= @course.teaching_strategy.lectures == true ? 'Yes' : 'No' %></div>
+        <div><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description : '<i>undefined</i>'.html_safe if @course.teaching_strategy.lectures == true %></div>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Seminars: </b></td>
+      <td>
+        <div><%= @course.teaching_strategy.seminars == true ? 'Yes' : 'No' %></div>
+        <% if @course.teaching_strategy.seminars == true %>
+          <div><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description : '<i>undefined</i>'.html_safe %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Tutorials: </b></td>
+      <td>
+        <div><%= @course.teaching_strategy.tutorials == true ? 'Yes' : 'No' %></div>
+        <% if @course.teaching_strategy.tutorials == true %>
+          <div><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description : '<i>undefined</i>'.html_safe %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Studio: </b></td>
+      <td>
+        <div><%= @course.teaching_strategy.studio == true ? 'Yes' : 'No' %></div>
+        <% if @course.teaching_strategy.studio == true %>
+          <div><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description : '<i>undefined</i>'.html_safe %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Blended/online: </b></td>
+      <td>
+        <div><%= @course.teaching_strategy.blended_online == true ? 'Yes' : 'No' %></div>
+        <% if @course.teaching_strategy.blended_online == true %>
+          <div><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description : '<i>undefined</i>'.html_safe %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Teaching Philosophy: </b></td>
+      <td><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy : '<i>undefined</i>'.html_safe %></td>
+    </tr>
+</table>
+<% else %>
+  <p><i>undefined</i></p>
+<% end %>
+
