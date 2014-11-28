@@ -1,6 +1,12 @@
 <%- if Rails.env.production? %>
+<script type="text/javascript">
+	tinyMCE.baseURL = "http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/"
+</script>
 <%= tinymce :production %>
 <% else %>
+<script type="text/javascript">
+	tinyMCE.baseURL = "http://localhost:3000/assets/tinymce/"
+</script>
 <%= tinymce %>
 <% end %>
 
