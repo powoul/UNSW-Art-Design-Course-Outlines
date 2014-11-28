@@ -3,8 +3,11 @@ default:
   plugins:
     - link
 
+
 production:
   skin_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/skins/lightgray/
   theme_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/themes/modern/theme.js
   remove_script_host: false
   theme: modern
+  plugins:
+    - link
