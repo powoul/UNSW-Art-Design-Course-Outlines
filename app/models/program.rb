@@ -13,7 +13,6 @@ class Program < ActiveRecord::Base
  }
 
  before_validation :initialize_associate, :on => :create
- # after_initialize :initialize_director
 
  define_index do
   	indexes number, :sortable => true
@@ -27,11 +26,9 @@ class Program < ActiveRecord::Base
  end
 
  def initialize_associate
-   director.associate = self
+  if director.present?
+    director.associate = self
+  end
  end
-
- # def initialize_director
- #   director ||= Member.new(:role => "PROGRAM DIRECTOR")
- # end
 
 end
