@@ -244,7 +244,7 @@ $(document).on('nested:fieldAdded', function(event){
   // it's a jQuery object already! Now you can find date input
   field.find('input').each(function(index, input) {
     if ($(input).hasClass('order_number_input')) {
-      $(input).val(new Date().getTime() % 1000000)
+      $(input).val(new Date().getTime() % 10000000)
     }
   });
   
