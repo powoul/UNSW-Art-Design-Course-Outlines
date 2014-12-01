@@ -150,7 +150,7 @@
             <div class="control-group <%= 'error' if f.object.errors[:member_name].any? %>">
               <label class="control-label">Technical Staff</label>
               <div class="controls">
-                <%= staff.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span11'}, :disabled => !current_user.convenor?(f.object) %>
+                <%= staff.input :member_name, :label => false, :collection => User.all.reject{|u| u.role != "TECHNICAL STAFF"}.map { |s| s.zid_with_fullname },:placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span3'}, :disabled => !current_user.convenor?(f.object) %>
               </div>
             </div>
 
