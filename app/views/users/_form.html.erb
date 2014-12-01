@@ -1,10 +1,11 @@
-<%= simple_form_for(@user) do |f| %>
-  <%= f.error_notification %>
+<div class="form-inputs">
+	<div class="control-group <%= 'error' if f.object.errors[:role].any? %>">
+		<label class="control-label required">User Role</label>
+		<div class="ceontols">
+			<%= f.input :role, :label => false, :collection => User::ROLES %>
+		</div>
+	</div>
 
-  <div class="form-inputs">
-  </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+  

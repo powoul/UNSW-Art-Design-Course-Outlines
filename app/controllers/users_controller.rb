@@ -40,7 +40,20 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    if current_user.admin?
+      @user = User.find(params[:id])
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @user }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to user_url(@user) }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /users

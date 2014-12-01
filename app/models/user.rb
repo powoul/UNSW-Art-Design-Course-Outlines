@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
-  attr_accessible :zid, :fullname, :email, :phone_number, :room
+  attr_accessible :zid, :fullname, :email, :phone_number, :room, :role
 
   has_many :members
   belongs_to :affiliated_program
 
-  ROLES = ['CONVENOR', 'TEACHING STAFF']
+  ROLES = ['ADMIN', 'TECHNICAL STAFF']
 
   define_index  do
   	indexes fullname, :sortable => true
