@@ -1,13 +1,12 @@
 <%- if Rails.env.production? %>
-<%= tinymce :production %>
+  <script type="text/javascript">
+    tinyMCE.baseURL = "http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/"
+  </script>
+  <%= tinymce :production %>
 <% else %>
-<%= tinymce %>
+  <%= tinymce %>
 <% end %>
 
-<!-- <%#= content_for(:breadcrumbs) do -%>
-	<li><span class="divider">/</span><%#= link_to "Courses", courses_path %></li>
-  <li><span class="divider">/</span><%#= @course.code.upcase %> - <%#= @course.name.titleize %></li>
-<%# end -%> -->
 <div class="row-fluid">
 	<div class="span11">
 		<header class="jumbotron subhead">
@@ -238,6 +237,18 @@ function getUrlVars()
     }
     return vars;
 }
+
+$(document).on('nested:fieldAdded', function(event){
+  // this field was just inserted into your form
+  var field = event.field; 
+  // it's a jQuery object already! Now you can find date input
+  field.find('input').each(function(index, input) {
+    if ($(input).hasClass('order_number_input')) {
+      $(input).val(new Date().getTime() % 1000000)
+    }
+  });
+  
+})
 
 </script>
 

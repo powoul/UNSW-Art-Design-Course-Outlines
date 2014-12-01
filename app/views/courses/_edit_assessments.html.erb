@@ -9,13 +9,12 @@
     <br />
     <h3>ASSESSMENT Task</h3><br />
 
-    <div class="form-inputs">
-
       <div class="control-group <%= 'error' if assess.object.errors[:title].any? %>">
         <label class="control-label required">Title</label>
         <div class="controls">
           <%= assess.input :title, :label => false, :disabled => !current_user.convenor?(f.object) %>
         </div>
+        <%= assess.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
       </div>
 
       <div class="control-group <%= 'error' if assess.object.errors[:due].any? %>">
@@ -28,7 +27,7 @@
       <div class="control-group <%= 'error' if assess.object.errors[:weighting].any? %>">
         <label class="control-label required">Weighting (%)</label>
         <div class="controls">
-          <%= assess.input :weighting, :label => false, :disabled => !current_user.convenor?(f.object) %>
+          <%= assess.input :weighting, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor?(f.object) %>
           <p class="help-block"><small>No task should be more than 65%, with most tasks it is desirable to limit the size (and risk) to 50% weighting. Wigthing should reflect the complexity of the task. A larger weighting might mean more criteria being assessed, while a smaller wighting should have less criteria (see bellow).</small></p>
         </div>
       </div>
@@ -37,7 +36,7 @@
       <div class="control-group <%= 'error' if assess.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">
-          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 10, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
           <p class="help-block"><small>This can be a <u>summary</u> of the project brief that outlines teh aims of the task, what you want students to do and where they need to submit). Keep this short and to the point. Usually one paragraph.</small></p>
         </div>
       </div>
@@ -65,11 +64,10 @@
                 HIGH DISTINCTION <p><small>Outstanding performance. Indicates the student has produced excellent work, and demonstrates a high level of understanding, application and synthesis of the assessable criteria.</small></p>
               </div>
               <div class="input delete-btn"></div>
-      </div>                  
+      </div>                 
   
       <div id="criteria_<%= assess.object_id %>" class="criteria">
         <%= assess.simple_fields_for :criteria, :html => { :class => 'form-horizontal' } do |criterion| %>
-          <%#= render :partial => "criteria/row", :collection => @course.assessment_tasks.criteria, :as => :criterion %>
           <div id="criterion_<%= assess.object.id %>">
             <div><%= criterion.input :criteria, :label => false %></div>
             <div><%= criterion.input :fail, :label => false %></div>
@@ -77,14 +75,14 @@
             <div><%= criterion.input :credit, :label => false %></div>
             <div><%= criterion.input :distinction, :label => false %></div>
             <div><%= criterion.input :high_distinction, :label => false %></div>
+            <div><%= criterion.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %></div>
             <div class="input delete-btn"><%= criterion.link_to_remove icon('trash'), :class => "btn" %></div>
           </div>
-        <% end %>                    
-      </div>
-      
-      <div colspan="7" class="empty" style="text-align: center;">
-        <p>You must add criteria here</p>
-        <%= assess.link_to_add "Add criteria", :criteria, :data => { :target => "#criteria_#{assess.object_id}" }, :class => "btn btn-primary" %>
+        <% end %>
+        <%= assess.link_to_add "Add criteria", :criteria, :class => "btn btn-primary btn-add-assessment-associates" %>
+        <div colspan="7" class="empty" style="text-align: center;">
+          <p>You must add criteria here</p>
+        </div>                
       </div>
         
       <p class="help-block"><small><strong>NOTE - </strong>Stduents MUST be issued a copy of a filled in rubric along with written or recorded feedback for EACH assessment. You should list what you will be actually assessing in tehe Criteria column (eg. 1. Solution addresses all of the requirements of the brief, 2. Evidence of experimentation in the development of a final solution.</small></p><br />
@@ -104,16 +102,15 @@
             <div class="controls">
               <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor?(f.object) %>
             </div>
+            <%= outcome.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
-
         <% end %>
+        <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :class => "btn btn-primary btn-add-assessment-associates", :id => "add_learning_outcome_btn" %>
+        <div class="empty" style="text-align: center;">                  
+          <p>You may select learning outcomes for this task here</p>          
+        </div>
       </div>
 
-      <br /><br />
-      <div style="text-align: center;">                  
-        <p style="text-align: center;">You may select learning outcomes for this task here</p>
-        <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :data => { :target => "#task_outcomes_#{assess.object_id}"}, :class => "btn btn-primary", :id => "add_learning_outcome_btn" %>
-      </div>
       <% if @course.course_learning_outcomes.blank? %>
       <script>
         $(document).ready(function() {
@@ -140,8 +137,9 @@
           <div class="control-group <%= 'error' if f.object.errors[:resource].any? %>">
             <label class="control-label">Resource</label>
             <div class="controls">
-              <%= resource.input :resource, :label => false, :disabled => !current_user.convenor?(f.object) %>
+              <%= resource.input :resource, :label => false, :input_html => { :class => "span11"}, :disabled => !current_user.convenor?(f.object) %>
             </div>
+            <%= resource.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
     
           <% resource.object.build_technical_staff unless resource.object.technical_staff %>
@@ -152,19 +150,17 @@
             <div class="control-group <%= 'error' if f.object.errors[:member_name].any? %>">
               <label class="control-label">Technical Staff</label>
               <div class="controls">
-                <%= staff.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'}, :disabled => !current_user.convenor?(f.object) %>
+                <%= staff.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span11'}, :disabled => !current_user.convenor?(f.object) %>
               </div>
             </div>
 
           <% end %>
 
         <% end %>
-      </div>
-
-      <br /><br/>
-      <div style="text-align: center;">                  
-        <p style="text-align: center;">You may add resources for this task here</p>
-        <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :data => { :target => "#task_resources_#{assess.object_id}"}, :class => "btn btn-primary" %>
+        <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :class => "btn btn-primary btn-add-assessment-associates" %>
+        <div style="text-align: center;">                  
+          <p style="text-align: center;">You may add resources for this task here</p>
+        </div>
       </div>
 
       <p class="help-block"><small>Please list the type of equipment or software etc students will need to complete the assessment IF RELEVANT (eg. Cameras, certain types of software etc). This data will help us plan the support of resource better, and improve service to the students. If no equipment is required please leave blank. NOTE however that courses must list required equipment or they may not be guaranteed an equipment allocation during semester.</small></p>
@@ -185,17 +181,16 @@
           <div class="control-group">
             <label class="control-label">Proficiency</label>
             <div class="controls">
-              <%= proficiency.input :proficiency, :label => false, :disabled => !current_user.convenor?(f.object) %>
+              <%= proficiency.input :proficiency, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
             </div>
+            <%= proficiency.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
 
         <% end %>
-      </div>
-
-      <br /><br />
-      <div style="text-align: center;">                  
-        <p style="text-align: center;">You may add proficiencies for this task here</p>
-        <%= assess.link_to_add "Add a required proficiency", :assessment_task_proficiencies, :data => { :target => "#task_proficiencies_#{assess.object_id}"}, :class => "btn btn-primary" %>
+        <%= assess.link_to_add "Add a required proficiency", :assessment_task_proficiencies, :class => "btn btn-primary btn-add-assessment-associates" %>
+        <div>                  
+          <p style="text-align: center;">You may add proficiencies for this task here</p>          
+        </div>
       </div>
 
       <p class="help-block"><small>Please list any proficiencies students need to obtain to complete the assessment. Do they need to be trained in using equipment (bandsaw for example) or performing certain tasks (developing film in a darkroom)? Listing these here will help us plan how to support workshops for students and staff better. Please relate proficiencies to the resources above. NOTE this may not be in the final course outline but will be used to gather requirements for planning purposes, and for helping to developed flipped learning support for students.</small></p>
@@ -204,13 +199,13 @@
       <div class="control-group <%= 'error' if f.object.errors[:feedback].any? %>">
         <label class="control-label required">Feedback</label>
         <div class="controls">
-          <%= assess.input :feedback, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>                    
+          <%= assess.input :feedback, :label => false, :input_html => { :rows => 10, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>                    
         </div>
       </div>
       <p class="help-block"><small>You must provide feedback for every assessment, and you should provide students with information here on how they will get feedback on this task. Provide here information on whether feedback will be written or spoken, and when it will be given. NOTE – Feedback should be delivered in a timely manner (no more than two weeks from the date of submission), be succinct and clear, and also personalised for each student.</small></p><br />
       <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#feedback_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
-    </div>
+    
     <hr>
   <% end %>
 </div>

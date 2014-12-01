@@ -1,7 +1,7 @@
 <div class="control-group <%= 'error' if f.object.errors[:summary].any? %>">
   <label class="control-label required">COURSE SUMMARY</label>
   <div class="controls">
-    <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11', :disabled => !current_user.admin? %>
+    <%= f.text_area :summary, :label => false, :rows => 10, :class => 'span11 tinymce', :disabled => !current_user.admin? %>
     <p class="help-block"><small>This must be the exact course handbook entry approved in AIMS.</small></p>
   </div>
 </div>
@@ -16,7 +16,7 @@
 <div class="control-group <%= 'error' if f.object.errors[:course_aims].any? %>">
   <label class="control-label required">COURSE AIMS</label>
   <div class="controls">
-    <%= f.input :course_aims, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+    <%= f.input :course_aims, :label => false, :input_html => { :rows => 10, :class => 'span11 tinymce' }, :disabled => !current_user.convenor?(f.object) %>
     <p class="help-block" align="justify"><small>This is designed to make explicit to the students what YOU as the lecturer wish to achieve by teaching this course. They should express why this course is important to the learner and provide an overall big picture vision for student learning. Course aims should be clearly aligned with the curriculum learning and assessment outcomes of the course components. It is highly recommended that no more than TWO aims be provided. Too many aims suggest a scattergun approach. </small></p>
   </div>
 </div>
@@ -41,19 +41,6 @@
     </div>
 
 <% end %>
-<script type="text/javascript">
-$(document).on('nested:fieldAdded', function(event){
-  // this field was just inserted into your form
-  var field = event.field; 
-  // it's a jQuery object already! Now you can find date input
-  field.find('input').each(function(index, input) {
-    if ($(input).hasClass('order_number_input')) {
-      $(input).val(new Date().getTime() % 1000000)
-    }
-  });
-  
-})
-</script>
 
 </div>
 
@@ -90,7 +77,7 @@ $(document).on('nested:fieldAdded', function(event){
     <div class="control-group <%= 'error' if strategy.object.errors[:lectures_description].any? %>" id="strategy_lectures">
       <label class="control-label required">Description</label>
       <div class="controls">
-        <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <%= strategy.input :lectures_description, :label => false, :placeholder => 'Type description of student expectations in the component here', :input_html => { :rows => 4, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
       </div>
     </div>
     <br />
@@ -157,7 +144,7 @@ $(document).on('nested:fieldAdded', function(event){
     <div class="control-group <%= 'error' if strategy.object.errors[:teaching_philosophy].any? %>">
       <label class="control-label required">Teaching philosophy</label>
       <div class="controls">
-        <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+        <%= strategy.input :teaching_philosophy, :label => false, :rows => 6, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
         <p class="help-block"><small>Indicate the teaching strategies used in the course (e.g. lectures, seminars, tutorials, studios, blended learning, practicum) and how the students are expected to participate and learn in these various components. In terms of the approach to learning, briefly describe the values and beliefs you bring to your teaching and how these have informed the course design. This should indicate the way course content enhances the experiences of learning for the student.</small></p><br />        
       </div>
     </div>

@@ -29,7 +29,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:units_of_credit].any? %>">
     <label class="control-label required">Units of Credit</label>
     <div class="controls">
-      <%= f.input :units_of_credit, :label => false, :collection => [6, 12, 18, 24], :default => 6 %>
+      <%= f.input :units_of_credit, :label => false, :collection => [6, 12, 18, 24], :default => 6, :input_html => { :class => "span1" } %>
     </div>
   </div>
   <br />

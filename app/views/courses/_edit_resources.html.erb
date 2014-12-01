@@ -3,7 +3,7 @@
 <div class="control-group">
   <label class="control-label required">Resources</label>
   <div class="controls">
-    <%= f.input :resources, :label => false, :input_html => { :class => 'span11', :rows => 10 }, :disabled => !current_user.convenor?(f.object) %>
+    <%= f.input :resources, :label => false, :input_html => { :class => 'span11 tinymce', :rows => 20 }, :disabled => !current_user.convenor?(f.object) %>
     <p class="help-block">
       <small>Provide a list of required and/or useful resources that can include amongst others:
         <ul>
@@ -23,8 +23,6 @@
     
   </div>
 </div>
-
-
 
 <div>
   <h2><small>GENERAL INFORMATION</small></h2>

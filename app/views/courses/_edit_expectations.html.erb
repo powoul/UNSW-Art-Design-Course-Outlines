@@ -1,7 +1,7 @@
 <div class="control-group <%= 'error' if f.object.errors[:assessment].any? %>">
   <label class="control-label">ASSESSMENT</label>
   <div class="controls">    
-    <%= f.input :assessment, :label => false, :input_html => { :rows => '5', :class => 'span11' }, :disabled => !current_user.convenor?(f.object) %>
+    <%= f.input :assessment, :label => false, :input_html => { :rows => 10, :class => 'span11 tinymce' }, :disabled => !current_user.convenor?(f.object) %>
     <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
   </div>
 </div>          
@@ -32,6 +32,7 @@
         <div class="controls">
           <%= mm.input :description, :label => false, :disabled => !current_user.convenor?(f.object) %>          
         </div>
+        <%= mm.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
       </div>
   <% end %>
 </div>

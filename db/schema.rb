@@ -10,13 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141121085432) do
+ActiveRecord::Schema.define(:version => 20141201005924) do
 
   create_table "assessment_task_proficiencies", :force => true do |t|
     t.string   "proficiency"
     t.integer  "assessment_task_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "order_number"
   end
 
   add_index "assessment_task_proficiencies", ["assessment_task_id"], :name => "index_assessment_task_proficiencies_on_assessment_task_id"
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20141121085432) do
     t.integer  "assessment_task_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "order_number"
   end
 
   add_index "assessment_task_resources", ["assessment_task_id"], :name => "index_assessment_task_resources_on_assessment_task_id"
@@ -37,8 +39,9 @@ ActiveRecord::Schema.define(:version => 20141121085432) do
     t.text     "synopsis"
     t.text     "feedback"
     t.integer  "course_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
   end
 
   add_index "assessment_tasks", ["course_id"], :name => "index_assessment_tasks_on_course_id"
@@ -46,8 +49,9 @@ ActiveRecord::Schema.define(:version => 20141121085432) do
   create_table "course_improvements", :force => true do |t|
     t.string   "description"
     t.integer  "course_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
   end
 
   add_index "course_improvements", ["course_id"], :name => "index_course_improvements_on_course_id"
@@ -91,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20141121085432) do
     t.integer  "assessment_task_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "order_number"
   end
 
   add_index "criteria", ["assessment_task_id"], :name => "index_criteria_on_assessment_task_id"
@@ -146,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20141121085432) do
     t.integer  "course_learning_outcome_id"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.integer  "order_number"
   end
 
   create_table "teaching_strategies", :force => true do |t|

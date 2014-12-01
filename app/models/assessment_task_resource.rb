@@ -1,5 +1,5 @@
 class AssessmentTaskResource < ActiveRecord::Base
-  attr_accessible :resource
+  attr_accessible :resource, :order_number
   attr_accessible :technical_staff_attributes
 
   belongs_to :assessment_task

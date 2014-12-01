@@ -43,3 +43,13 @@
 .criteria .input input {
   max-width: 100%;
 }
+.criteria .fields {
+  overflow: hidden;
+}
+.btn-add-assessment-associates {
+  margin: 10px auto;
+  display: block;
+  width: 158px;
+  height: 17px;
+  clear: both;
+}
