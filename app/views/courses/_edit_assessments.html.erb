@@ -17,13 +17,6 @@
         <%= assess.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
       </div>
 
-      <div class="control-group <%= 'error' if assess.object.errors[:due].any? %>">
-        <label class="control-label required">Due</label>
-        <div class="controls">
-          <%= assess.input :due, :label => false, :collection => weeks_list(f.object), :disabled => !current_user.convenor?(f.object) %>
-        </div>
-      </div>
-
       <div class="control-group <%= 'error' if assess.object.errors[:weighting].any? %>">
         <label class="control-label required">Weighting (%)</label>
         <div class="controls">
@@ -32,7 +25,45 @@
         </div>
       </div>
 
-      <br />
+      <hr>
+      <h4>Due dates for this task:</h4><br />
+
+      <div id="assessment_dates_<%= assess.object_id %>">
+        <%= assess.simple_fields_for :assessment_dates do |due_dates| %>
+
+          <div class="pull-right">
+            <%= due_dates.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+          </div>
+
+          <div class="control-group <%= 'error' if due_dates.object.errors[:due].any? %>">
+            <label class="control-label">Due</label>
+            <div class="controls">
+               <%= due_dates.input :due, :label => false, :collection => weeks_list(f.object), :input_html => { :class => 'span2'}, :disabled => !current_user.convenor?(f.object) %>
+            </div>
+            <%= due_dates.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
+          </div>
+
+          <div class="control-group <%= 'error' if due_dates.object.errors[:description].any? %>">
+            <label class="control-label">Description</label>
+            <div class="controls">
+               <%= due_dates.input :description, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor?(f.object) %>
+            </div>
+          </div>
+        <% end %>
+        <%= assess.link_to_add "Add a due date", :assessment_dates, :class => "btn btn-primary btn-add-assessment-associates" %>
+        <div>                  
+          <p style="text-align: center;">You may add due dates for this task here</p>          
+        </div>
+      </div>
+
+      <!-- <div class="control-group <%#= 'error' if assess.object.errors[:due].any? %>">
+        <label class="control-label required">Due</label>
+        <div class="controls">
+          <%#= assess.input :due, :label => false, :collection => weeks_list(f.object), :disabled => !current_user.convenor?(f.object) %>
+        </div>
+      </div> -->      
+
+      <hr>
       <div class="control-group <%= 'error' if assess.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">

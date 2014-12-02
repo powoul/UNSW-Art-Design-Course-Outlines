@@ -7,6 +7,11 @@ module CoursesHelper
 		return course.topics.all.reject { |s| s.week.blank? }.map {|t| ["Week " + t.week.to_s, t.date.strftime("%Y-%m-%d") ] }# {|t| "Week " + t.week.to_s } #{|t| t.date.strftime("%Y-%m-%d")}
 	end
 
+	def week_number(course, date)
+		week = course.topics.find(:all, :conditions => { :date => date}).first
+		return week.present? ? ("Week " + week.week.to_s) : ""
+	end
+
 	def text_color(status)
 		case status
 		when "DRAFT"

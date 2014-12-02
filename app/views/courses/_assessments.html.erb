@@ -5,13 +5,25 @@
 			<h3>Assessment Task <%= (index + 1).to_s %></h3>
 
 			<dt>Title</dt>
-			<dd><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></dd>
-
-			<dt>Due</dt>
-			<dd><%= assessment.due.present? ? assessment.due : '<i>undefined</i>'.html_safe %></dd>
+			<dd><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></dd>			
 
 			<dt>Weighting</dt>
 			<dd><%= assessment.weighting.present? ? assessment.weighting : '<i>undefined</i>'.html_safe %></dd>
+
+			<h4>Due Date(s)</h4><br />
+			<% if assessment.assessment_dates.present? %>
+				<div>
+					<% assessment.assessment_dates.each do |due_date| %>
+						<dt style="text-align: right;">Description</dt>
+						<dd><%= due_date.description.present? ? due_date.description : '<i>undefined</i>'.html_safe %></dd>
+						<dt style="text-align: right;">Week</dt>
+						<dd><%= due_date.due.present? ? week_number(@course, due_date.due) : '<i>undefined</i>'.html_safe %></dd>
+					<% end %>
+				</div>				
+			<% else %>
+				<dt>&nbsp;</dt>
+				<dd><i>undefined</i></dd>
+			<% end %>
 
 			<dt>Assessment Synopsis</dt>
 			<dd><%= assessment.synopsis.present? ? assessment.synopsis : '<i>undefined</i>'.html_safe %></dd>
