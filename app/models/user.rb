@@ -38,4 +38,8 @@ class User < ActiveRecord::Base
     false
   end
 
+  def convenor_or_director?(course)
+    (self == course.convenor.user) || (course.program.director.present? && self == course.program.director.user)
+  end
+
 end

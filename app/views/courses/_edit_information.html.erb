@@ -43,7 +43,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:teaching_times_and_locations].any? %>">
     <label class="control-label">Teaching Times and Locations</label>
     <div class="controls">
-      <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+      <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:online_course_support].any? %>">
     <label class="control-label">Online Course Support</label>
     <div class="controls">
-      <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+      <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
 
       <p class="help-block"><small>Does this course have any online support associated with it such as Moodle, Omnium, a course blog etc. Please add a descriptor.</small></p>
     </div>
@@ -61,7 +61,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:parallel_teaching].any? %>">
     <label class="control-label">Parallel Teaching</label>
     <div class="controls">
-      <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor?(f.object) %>
+      <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
 
       <p class="help-block"><small>Put the codes and names of any courses taught in the same class(es) as this courses here.</small></p>
     </div>

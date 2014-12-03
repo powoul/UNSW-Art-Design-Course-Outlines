@@ -1,7 +1,8 @@
 <div class="control-group <%= 'error' if f.object.errors[:assessment].any? %>">
   <label class="control-label">ASSESSMENT</label>
-  <div class="controls">    
-    <%= f.input :assessment, :label => false, :input_html => { :rows => 10, :class => 'span11 tinymce' }, :disabled => !current_user.convenor?(f.object) %>
+  <div class="controls">
+    <% tinymceStr = current_user.convenor_or_director?(f.object) ? 'tinymce' : '' %>   
+    <%= f.input :assessment, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director?(f.object) %>
     <p class="help-block"><small>Describe any specific assessment requirements or expectations from students related to assessment for the course, especially in cases where it deviates from standard (such as choice of different assessment payways etc).</small></p>
   </div>
 </div>          
@@ -20,17 +21,18 @@
 <h3>CONTINUAL COURSE IMPROVEMENT</h3>
 <p class="help-block">Student responses to Course and Teaching Evaluation & Improvement (CATEI) surveys are gathered every time this course is taught, using online evaluation forms. Student responses are taken seriously, and continual improvements are made to the course based in part on such feedback. Significant changes to the course will be communicated to subsequent cohorts of students taking the course. It is important that students complete the CATEI course and teaching surveys for this course.  This is completely anonymous and provides important student observations and suggestions to ensure that the course is continually improved.</p><br />
 <div id="improvements">
+  <% course_improvement_add_button_id = !current_user.convenor_or_director?(f.object) ? "courseImprovementAddButton" : "" %>
   <p>Over the past semesters, we have improved the course by:</p>
   <%= f.simple_fields_for :course_improvements do |mm| %>
       <div class="pull-right">
-        <%= mm.link_to_remove icon("trash"), :class => "btn btn-mini" %>
+        <%= mm.link_to_remove icon("trash"), :class => "btn btn-mini", :id => "#{course_improvement_add_button_id}" %>
       </div>             
 
       <div class="control-group <%= 'error' if mm.object.errors[:description].any? %>">
         
         <label class="control-label">Improvement</label>
         <div class="controls">
-          <%= mm.input :description, :label => false, :disabled => !current_user.convenor?(f.object) %>          
+          <%= mm.input :description, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>          
         </div>
         <%= mm.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
       </div>
@@ -41,5 +43,13 @@
 <div style="text-align: center;">
   <br />
   <p style="text-align: center;">You may add course improvemets here</p>
-  <%= f.link_to_add "Add course improvement", :course_improvements, :data => { :target => "#improvements"}, :class => "btn btn-primary" %>
+  
+  <%= f.link_to_add "Add course improvement", :course_improvements, :data => { :target => "#improvements"}, :class => "btn btn-primary", :id => "#{course_improvement_add_button_id}" %>
 </div>
+
+<script type="text/javascript">
+  $("*[id*='courseImprovementAddButton']").each(function() {
+    $(this).addClass('disabled');
+    $(this).prop('disabled', true);
+  });
+</script>

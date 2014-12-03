@@ -20,7 +20,7 @@
   <div class="control-group <%= 'error' if convenor.object.errors[:phone_number].any? %>">
     <label class="control-label required">Phone Number</label>
     <div class="controls">
-      <%= convenor.input :phone_number, :label => false %>
+      <%= convenor.input :phone_number, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
   <div class="control-group <%= 'error' if convenor.object.errors[:room].any? %>">
     <label class="control-label required">Room Number</label>
     <div class="controls">
-      <%= convenor.input :room, :label => false %>
+      <%= convenor.input :room, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>
     </div>
   </div>    
 
@@ -36,7 +36,7 @@
   <div class="control-group <%= 'error' if convenor.object.errors[:consultation_times].any? %>">
     <label class="control-label required">Consultation Times</label>
     <div class="controls">
-      <%= convenor.input :consultation_times, :label => false, :input_html => { :class => 'span5' } %>
+      <%= convenor.input :consultation_times, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director?(f.object) %>
     </div>
   </div>
 <% end %>
