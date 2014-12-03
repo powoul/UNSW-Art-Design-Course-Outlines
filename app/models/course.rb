@@ -1,7 +1,7 @@
 class Course < ActiveRecord::Base
 
   attr_accessible :code, :name, :semester_id, :semester_name, :program_id, :program_name, :units_of_credit, :teaching_times_and_locations, :online_course_support,
-      :parallel_teaching, :summary, :course_aims, :assessment, :resources
+      :parallel_teaching, :summary, :course_aims, :assessment, :resources, :late_submission_allowed
   
   attr_accessible :convenor_attributes
   # attr_accessible :program_director_attributes
@@ -41,7 +41,7 @@ class Course < ActiveRecord::Base
   before_validation :initialize_associate, :on => :create
 
   validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program, :on => :create
-  validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :on => :update
+  validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :late_submission_allowed, :on => :update
   validates :resources, :presence => {:message => "Resources for students can't be blank."}, :on => :update
   validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester" 
   validate :uniqueness_of_learning_outcomes, :number_of_learning_outcomes, :on => :update

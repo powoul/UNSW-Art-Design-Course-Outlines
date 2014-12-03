@@ -2,6 +2,9 @@
 	<dt>Assessment</dt>
 	<dd><%= @course.assessment.present? ? @course.assessment : '<i>undefined</i>'.html_safe %></dd>
 
+	<dt>Late Submission Allowed?</dt>
+	<dd><%= @course.late_submission_allowed.nil? ? '<i>undefined</i>'.html_safe : yesno(@course.late_submission_allowed)  %></dd>
+
 	<h3>Continual Course Improvement</h3>
 	<% if @course.course_improvements.present? %>
 		<% @course.course_improvements.each do |i| %>

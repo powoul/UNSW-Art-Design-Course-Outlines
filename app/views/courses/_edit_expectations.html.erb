@@ -7,6 +7,15 @@
   </div>
 </div>          
 
+<h5>Is Late Submission Allowed?</h5>
+<% late_submission_disabled_options = [] %>
+<% late_submission_disabled_options = [true, false] unless current_user.convenor_or_director?(f.object) %>
+<div class="control-group <%= 'error' if f.object.errors[:late_submission_allowed].any? %>">
+  <div class="controls">
+    <%= f.input :late_submission_allowed, :as => :radio, :label => false, :disabled => late_submission_disabled_options %>
+  </div>
+</div> 
+
 <div>
   <h3>RISK OF FAILURE WARNINGS</h3>
   <p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>

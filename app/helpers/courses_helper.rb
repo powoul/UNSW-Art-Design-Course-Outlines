@@ -22,5 +22,9 @@ module CoursesHelper
 			return "green"
 		end
 	end
+
+	def yesno(bool)
+		return bool ? 'Yes' : 'No'
+	end
 	
 end

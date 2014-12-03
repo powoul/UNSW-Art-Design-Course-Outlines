@@ -10,7 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141201005924) do
+ActiveRecord::Schema.define(:version => 20141203010839) do
+
+  create_table "assessment_dates", :force => true do |t|
+    t.date     "due"
+    t.string   "description"
+    t.integer  "assessment_task_id"
+    t.integer  "order_number"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "assessment_dates", ["assessment_task_id"], :name => "index_assessment_dates_on_assessment_task_id"
 
   create_table "assessment_task_proficiencies", :force => true do |t|
     t.string   "proficiency"
@@ -34,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20141201005924) do
 
   create_table "assessment_tasks", :force => true do |t|
     t.string   "title"
-    t.date     "due"
     t.integer  "weighting"
     t.text     "synopsis"
     t.text     "feedback"
@@ -83,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20141201005924) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.string   "status"
+    t.boolean  "late_submission_allowed"
   end
 
   create_table "criteria", :force => true do |t|
