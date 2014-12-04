@@ -1,14 +1,5 @@
 <dl class="dl-horizontal">
 	
-	<dt>Course Code</dt>
-	<dd><%= @course.code.present? ? @course.code : '<i>undefined</i>'.html_safe %></dd>
-
-	<dt>Course Name</dt>
-	<dd><%= @course.name.present? ? @course.name : '<i>undefined</i>'.html_safe %></dd>
-
-	<dt>Semester</dt>
-	<dd><%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></dd>
-
 	<dt>Units of Credit</dt>
 	<dd><%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %></dd>
 

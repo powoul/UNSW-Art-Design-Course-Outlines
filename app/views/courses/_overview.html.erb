@@ -1,7 +1,7 @@
+<h3>Course Summary</h3>
+<p><%= @course.summary.present? ? @course.summary.html_safe : '<i>undefined</i>'.html_safe %></p>
+
 <dl class="dl-horizontal">
-	<dt>Course Summary</dt>
-	<dd><%= @course.summary.present? ? @course.summary.html_safe : '<i>undefined</i>'.html_safe %></dd>
-	<br />
 	<h3>PROGRAM AFFILIATION</h3><br />
 
 	<dt>Affiliated Program</dt>
@@ -9,67 +9,57 @@
 
 	<dt>Program Director</dt>
 	<dd><%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %></dd>
-	<hr>	
+</dl>
 
-	<dt>Course Aims</dt>
-	<dd><%= @course.course_aims.present? ? @course.course_aims : '<i>undefined</i>'.html_safe %></dd>
+<br />
+<h3>Course Aims</h3>
+<p><%= @course.course_aims.present? ? @course.course_aims.html_safe : '<i>undefined</i>'.html_safe %></p>
 
-	<br />
-	<h3>STUDENT LEARNING OUTCOMES</h3>
-	<br />
+<br />
+<h3>STUDENT LEARNING OUTCOMES</h3>
+<p>On completion of this course, the student should be able to:</p>
 
-	<% if @course.course_learning_outcomes.present? %>
+<% if @course.course_learning_outcomes.present? %>
+	<ol>
 		<% @course.course_learning_outcomes.each do |outcome| %>
-			<dt>&nbsp;</dt>
-			<dd><%= outcome.name.present? ? outcome.name : '<i>undefined</i>'.html_safe %></dd>
+			<li><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></li>
 		<% end %>
-	<% else %>
-		<dt>&nbsp;</dt>
-		<dd><i>undefined</i></dd>
-	<% end %>
-
-	<br />
+	</ol>
+<% else %>
+	<p><i>undefined</i></p>
+<% end %>
+<dl class="dl-horizontal">
 	<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3>
 	<br />
 
 	<% if @course.teaching_strategy.present?  %>
-		<dt>Lectures</dt>
-		<dd><%= @course.teaching_strategy.lectures == true ? 'Yes' : 'No' %></dd>
 		<% if @course.teaching_strategy.lectures == true %>
-			<dt>&nbsp;</dt>
-			<dd><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Lectures</dt>
+			<dd><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
 		<% end %>
 
-		<dt>Seminars</dt>
-		<dd><%= @course.teaching_strategy.seminars == true ? 'Yes' : 'No' %></dd>
 		<% if @course.teaching_strategy.seminars == true %>
-			<dt>&nbsp;</dt>
-			<dd><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Seminars</dt>
+			<dd><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
 		<% end %>
 
-		<dt>Tutorials</dt>
-		<dd><%= @course.teaching_strategy.tutorials == true ? 'Yes' : 'No' %></dd>
 		<% if @course.teaching_strategy.tutorials == true %>
-			<dt>&nbsp;</dt>
-			<dd><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Tutorials</dt>
+			<dd><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
 		<% end %>
 
-		<dt>Studio</dt>
-		<dd><%= @course.teaching_strategy.studio == true ? 'Yes' : 'No' %></dd>
 		<% if @course.teaching_strategy.studio == true %>
-			<dt>&nbsp;</dt>
-			<dd><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Studio</dt>
+			<dd><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
 		<% end %>
 
-		<dt>Blended/online</dt>
-		<dd><%= @course.teaching_strategy.blended_online == true ? 'Yes' : 'No' %></dd>
 		<% if @course.teaching_strategy.blended_online == true %>
-			<dt>&nbsp;</dt>
-			<dd><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description : '<i>undefined</i>'.html_safe %></dd>
+			<dt>Blended/online</dt>
+			<dd><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
 		<% end %>
 
 		<dt>Teaching Philosophy</dt>
-		<dd><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy : '<i>undefined</i>'.html_safe %></dd>
+		<dd><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy.html_safe : '<i>undefined</i>'.html_safe %></dd>
 	<% else %>
 		<dt>&nbsp;</dt>
 		<dd><i>undefined</i></dd>

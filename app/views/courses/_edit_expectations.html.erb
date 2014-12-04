@@ -16,16 +16,6 @@
   </div>
 </div> 
 
-<div>
-  <h3>RISK OF FAILURE WARNINGS</h3>
-  <p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-</div>
-
-<div>
-  <h3>LATE SUBMISSION PENALTIES</h3>
-  <p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-</div>
-
 <br />
 <h3>CONTINUAL COURSE IMPROVEMENT</h3>
 <p class="help-block">Student responses to Course and Teaching Evaluation & Improvement (CATEI) surveys are gathered every time this course is taught, using online evaluation forms. Student responses are taken seriously, and continual improvements are made to the course based in part on such feedback. Significant changes to the course will be communicated to subsequent cohorts of students taking the course. It is important that students complete the CATEI course and teaching surveys for this course.  This is completely anonymous and provides important student observations and suggestions to ensure that the course is continually improved.</p><br />

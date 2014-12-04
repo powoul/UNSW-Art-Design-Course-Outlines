@@ -24,18 +24,3 @@
     
   </div>
 </div>
-
-<div>
-  <h2><small>GENERAL INFORMATION</small></h2>
-  <p><%= Parameter.find_by_name('general information').present? ? Parameter.find_by_name('general information').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-</div>
-
-<div>
-  <h2><small>HEALTH AND SAFETY</small></h2>
-  <p><%= Parameter.find_by_name('health and safety').present? ? Parameter.find_by_name('health and safety').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-</div>
-
-<div>
-  <h2><small>ADDITIONAL SUPPORT FOR STUDENTS</small></h2>
-  <p><%= Parameter.find_by_name('additional support for students').present? ? Parameter.find_by_name('additional support for students').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-</div>

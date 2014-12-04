@@ -1,7 +1,6 @@
+<h3>Assessment</h3>
+<p><%= @course.assessment.present? ? @course.assessment.html_safe : '<i>undefined</i>'.html_safe %></p>
 <dl class="dl-horizontal">
-	<dt>Assessment</dt>
-	<dd><%= @course.assessment.present? ? @course.assessment : '<i>undefined</i>'.html_safe %></dd>
-
 	<dt>Late Submission Allowed?</dt>
 	<dd><%= @course.late_submission_allowed.nil? ? '<i>undefined</i>'.html_safe : yesno(@course.late_submission_allowed)  %></dd>
 
@@ -13,5 +12,10 @@
 		<% end %>
 	<% else %>
 		<dd><%= '<i>undefined</i>'.html_safe %></dd>
-	<% end %>	
+	<% end %>
 </dl>
+
+<h3>RISK OF FAILURE WARNINGS</h3>
+<p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+<h3>LATE SUBMISSION PENALTIES</h3>
+<p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '' %></p>
