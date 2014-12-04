@@ -12,7 +12,7 @@ class AssessmentTaskResource < ActiveRecord::Base
 
   after_initialize :initialize_technical_staff
 
-  validates_presence_of :resource
+  validates_presence_of :resource, :technical_staff
 
   def initialize_associate
   	technical_staff.associate = self

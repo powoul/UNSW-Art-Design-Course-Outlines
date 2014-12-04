@@ -140,7 +140,7 @@
         <% end %>
         <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :class => "btn btn-primary btn-add-assessment-associates", :id => "#{task_outcomes_add_button_id}" %>
         <div class="empty" style="text-align: center;">                  
-          <p>You may select learning outcomes for this task here</p>          
+          <p>You must add learning outcomes here</p>          
         </div>
       </div>
 
@@ -168,7 +168,7 @@
           </div>
           
           <div class="control-group <%= 'error' if f.object.errors[:resource].any? %>">
-            <label class="control-label">Resource</label>
+            <label class="control-label required">Resource</label>
             <div class="controls">
               <%= resource.input :resource, :label => false, :input_html => { :class => "span11"}, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
@@ -180,8 +180,8 @@
 
             <%= staff.input :role, :as => :hidden, :input_html => { :value => "TECHNICAL STAFF" } %>
 
-            <div class="control-group <%= 'error' if f.object.errors[:member_name].any? %>">
-              <label class="control-label">Technical Staff</label>
+            <div class="control-group <%= 'error' if resource.object.errors[:technical_staff].any? %>">
+              <label class="control-label required">Technical Staff</label>
               <div class="controls">
                 <%= staff.input :member_name, :label => false, :collection => User.all.reject{|u| u.role != "TECHNICAL STAFF"}.map { |s| s.zid_with_fullname },:placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span3'}, :disabled => !current_user.convenor_or_director?(f.object) %>
               </div>
