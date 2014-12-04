@@ -1,20 +1,35 @@
 <h3>Course specific expectations</h3>
 <p><%= @course.assessment.present? ? @course.assessment.html_safe : '<i>undefined</i>'.html_safe %></p>
+
+<br />
+<h3>RISK OF FAILURE WARNINGS</h3>
+<p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+
+<br />
+<h3>LATE SUBMISSION PENALTIES</h3>
 <dl class="dl-horizontal">
 	<dt>Late Submission Allowed?</dt>
 	<dd><%= @course.late_submission_allowed.nil? ? '<i>undefined</i>'.html_safe : yesno(@course.late_submission_allowed)  %></dd>
-
-	<% if @course.course_improvements.present? %>
-		<h3>Continual Course Improvement</h3>
-		<ul>
-			<% @course.course_improvements.each do |i| %>
-				<li><%= i.description %></li>
-			<% end %>
-		</ul>
-	<% end %>
 </dl>
 
-<h3>RISK OF FAILURE WARNINGS</h3>
-<p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
-<h3>LATE SUBMISSION PENALTIES</h3>
-<p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '' %></p>
+<% unless @course.late_submission_allowed.nil? %>
+	<% if @course.late_submission_allowed == true %>
+		<p><%= Parameter.find_by_name('late submission penalties').present? ? Parameter.find_by_name('late submission penalties').body.html_safe : '' %></p>
+	<% else %>
+		<p><%= Parameter.find_by_name('No Late Submission').present? ? Parameter.find_by_name('No Late Submission').body.html_safe : '' %></p>
+
+	<% end %>
+<% end %>
+
+<h3>Continual Course Improvement</h3>
+<p><%= Parameter.find_by_name('Continual Course Improvement').present? ? Parameter.find_by_name('Continual Course Improvement').body.html_safe : '' %></p>
+<% if @course.course_improvements.present? %>
+	<p>Over the past semesters, we have improved the course by:</p>
+	<ul>
+		<% @course.course_improvements.each do |i| %>
+			<li><%= i.description %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+
