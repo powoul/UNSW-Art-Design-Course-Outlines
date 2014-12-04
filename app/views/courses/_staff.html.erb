@@ -17,11 +17,8 @@
 		<i>undefined</i>
 	<% end %>
 
-	<br />
-	<h3>Other Teaching Staff</h3>
-	<br />
-	
-	<% if @course.lecturers.present? %>		
+	<% if @course.lecturers.present? %>
+		<h3>Other Teaching Staff</h3>			
 		<% @course.lecturers.each do |stf| %>
 			<dt>Full Name</dt>
 			<dd><%= stf.user.try(:fullname).present? ? stf.user.try(:fullname) : '<i>undefined</i>'.html_safe %></dd>
@@ -31,7 +28,5 @@
 			<dd><%= stf.consultation_times.present? ? stf.consultation_times : '<i>undefined</i>'.html_safe %></dd>
 			<br />
 		<% end %>
-	<% else %>
-		<i>undefined</i>
 	<% end %>	
 </dl>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141203010839) do
+ActiveRecord::Schema.define(:version => 20141204050116) do
 
   create_table "assessment_dates", :force => true do |t|
     t.date     "due"
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(:version => 20141203010839) do
     t.string   "parallel_teaching"
     t.text     "summary"
     t.text     "course_aims"
-    t.text     "teaching_philosophy"
     t.text     "assessment"
     t.text     "resources"
     t.integer  "program_id"
@@ -176,7 +175,7 @@ ActiveRecord::Schema.define(:version => 20141203010839) do
     t.string   "studio_description"
     t.boolean  "blended_online",             :default => false
     t.string   "blended_online_description"
-    t.string   "teaching_philosophy"
+    t.text     "teaching_philosophy"
     t.integer  "course_id"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false

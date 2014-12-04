@@ -148,7 +148,8 @@
     <div class="control-group <%= 'error' if strategy.object.errors[:teaching_philosophy].any? %>">
       <label class="control-label required">Teaching philosophy</label>
       <div class="controls">
-        <%= strategy.input :teaching_philosophy, :as => :text, :label => false, :input_html => { :rows => 5, :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+        <% tinymceStr = current_user.convenor_or_director?(f.object) ? 'tinymce' : '' %>
+        <%= strategy.input :teaching_philosophy, :label => false, :input_html => { :rows => 5, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director?(f.object) %>
         <p class="help-block"><small>Indicate the teaching strategies used in the course (e.g. lectures, seminars, tutorials, studios, blended learning, practicum) and how the students are expected to participate and learn in these various components. In terms of the approach to learning, briefly describe the values and beliefs you bring to your teaching and how these have informed the course design. This should indicate the way course content enhances the experiences of learning for the student.</small></p><br />        
       </div>
     </div>

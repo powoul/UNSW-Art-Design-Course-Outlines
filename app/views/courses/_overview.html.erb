@@ -15,7 +15,6 @@
 <h3>Course Aims</h3>
 <p><%= @course.course_aims.present? ? @course.course_aims.html_safe : '<i>undefined</i>'.html_safe %></p>
 
-<br />
 <h3>STUDENT LEARNING OUTCOMES</h3>
 <p>On completion of this course, the student should be able to:</p>
 
@@ -28,41 +27,42 @@
 <% else %>
 	<p><i>undefined</i></p>
 <% end %>
-<dl class="dl-horizontal">
-	<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3>
-	<br />
 
-	<% if @course.teaching_strategy.present?  %>
-		<% if @course.teaching_strategy.lectures == true %>
-			<dt>Lectures</dt>
-			<dd><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
-		<% end %>
+<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3>
 
-		<% if @course.teaching_strategy.seminars == true %>
-			<dt>Seminars</dt>
-			<dd><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
-		<% end %>
+<% if @course.teaching_strategy.present?  %>
+	<dl class="dl-horizontal">
+	<% if @course.teaching_strategy.lectures == true %>
+		<dt>Lectures</dt>
+		<dd><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
 
-		<% if @course.teaching_strategy.tutorials == true %>
-			<dt>Tutorials</dt>
-			<dd><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
-		<% end %>
+	<% if @course.teaching_strategy.seminars == true %>
+		<dt>Seminars</dt>
+		<dd><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
 
-		<% if @course.teaching_strategy.studio == true %>
-			<dt>Studio</dt>
-			<dd><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
-		<% end %>
+	<% if @course.teaching_strategy.tutorials == true %>
+		<dt>Tutorials</dt>
+		<dd><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
 
-		<% if @course.teaching_strategy.blended_online == true %>
-			<dt>Blended/online</dt>
-			<dd><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
-		<% end %>
+	<% if @course.teaching_strategy.studio == true %>
+		<dt>Studio</dt>
+		<dd><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
 
-		<dt>Teaching Philosophy</dt>
-		<dd><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy.html_safe : '<i>undefined</i>'.html_safe %></dd>
-	<% else %>
+	<% if @course.teaching_strategy.blended_online == true %>
+		<dt>Blended/online</dt>
+		<dd><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : '<i>undefined</i>'.html_safe %></dd>
+	<% end %>
+	</dl>
+
+	<h3 class="subheading">Teaching Philosophy</h3>
+	<p><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy.html_safe : '<i>undefined</i>'.html_safe %></p>
+<% else %>
+	<dl class="dl-horizontal">
 		<dt>&nbsp;</dt>
 		<dd><i>undefined</i></dd>
-	<% end %>
-	
-</dl>
+	</dl>
+<% end %>

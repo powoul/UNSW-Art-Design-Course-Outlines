@@ -67,7 +67,7 @@
       <div class="control-group <%= 'error' if assess.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">
-          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 10, :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 10, :class => 'span11 tinymce' }, :disabled => !current_user.convenor_or_director?(f.object) %>
           <p class="help-block"><small>This can be a <u>summary</u> of the project brief that outlines teh aims of the task, what you want students to do and where they need to submit). Keep this short and to the point. Usually one paragraph.</small></p>
         </div>
       </div>
@@ -232,7 +232,8 @@
       <div class="control-group <%= 'error' if f.object.errors[:feedback].any? %>">
         <label class="control-label required">Feedback</label>
         <div class="controls">
-          <%= assess.input :feedback, :label => false, :input_html => { :rows => 10, :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>                    
+          <% tinymceStr = current_user.convenor_or_director?(f.object) ? 'tinymce' : '' %>
+          <%= assess.input :feedback, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director?(f.object) %>                    
         </div>
       </div>
       <p class="help-block"><small>You must provide feedback for every assessment, and you should provide students with information here on how they will get feedback on this task. Provide here information on whether feedback will be written or spoken, and when it will be given. NOTE – Feedback should be delivered in a timely manner (no more than two weeks from the date of submission), be succinct and clear, and also personalised for each student.</small></p><br />

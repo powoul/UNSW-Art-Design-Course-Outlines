@@ -39,49 +39,49 @@
 					<dd><%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></dd>
 				</dl>
 				<p><%= Parameter.find_by_name('General Information').present? ? Parameter.find_by_name('General Information').body.html_safe : '' %></p>
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>COURSE INFORMATION</h1>
 			</div>
 			<%= render :partial => 'information'%>
 		</section>
 
 		<section id="staff">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>COURSE STAFF</h1>
 			</div>
 			<%= render :partial => 'staff'%>
 		</section>
 
 		<section id="overview">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>COURSE OVERVIEW</h1>
 			</div>
 			<%= render :partial => 'overview'%>
 		</section>
 
 		<section id="expectations">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>EXPECTATIONS OF STUDENTS IN THIS COURSE</h1>
 			</div>
 			<%= render :partial => 'expectations'%>
 		</section>
 
 		<section id="assessments">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>ASSESSMENT</h1>
 			</div>
 			<%= render :partial => 'assessments'%>
 		</section>
 
 		<section id="topics">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>TOPICS AND DATES</h1>
 			</div>
 			<%= render :partial => 'topics'%>
 		</section>
 
 		<section id="resources">
-			<div class="page-header">
+			<div class="page-header" style="text-align: center;">
 				<h1>RESOURCES FOR STUDENTS</h1>
 			</div>
 			<%= render :partial => 'resources'%>
