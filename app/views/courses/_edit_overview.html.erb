@@ -40,7 +40,13 @@
       <div class="controls">
         <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>
       </div>
-      <%= outcome.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label required">Order number</label>
+      <div class="controls">
+        <%= outcome.input :order_number, :label => false, :input_html => { :class => 'span1' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+      </div>      
     </div>
 
 <% end %>

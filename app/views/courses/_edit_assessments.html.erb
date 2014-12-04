@@ -14,7 +14,13 @@
         <div class="controls">
           <%= assess.input :title, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>
         </div>
-        <%= assess.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label required">Order</label>
+        <div class="controls">
+          <%= assess.input :order_number, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor_or_director?(f.object) %>
+        </div>
       </div>
 
       <div class="control-group <%= 'error' if assess.object.errors[:weighting].any? %>">
@@ -40,7 +46,6 @@
             <div class="controls">
                <%= due_dates.input :due, :label => false, :collection => weeks_list(f.object), :input_html => { :class => 'span2'}, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
-            <%= due_dates.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
 
           <div class="control-group <%= 'error' if due_dates.object.errors[:description].any? %>">
@@ -49,6 +54,14 @@
                <%= due_dates.input :description, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
           </div>
+
+          <div class="control-group">
+            <label class="control-label">Order</label>
+            <div class="controls">
+               <%= due_dates.input :order_number, :label => false, :input_html => { :class => 'span1'}, :disabled => !current_user.convenor_or_director?(f.object) %>
+            </div>
+          </div>
+
         <% end %>
         <%= assess.link_to_add "Add a due date", :assessment_dates, :class => "btn btn-primary btn-add-assessment-associates", :id => "#{assessment_dates_add_button_id}" %>
         <div>                  
@@ -135,8 +148,15 @@
             <div class="controls">
               <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
-            <%= outcome.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
+
+          <div class="control-group">
+            <label class="control-label">Order</label>
+            <div class="controls">
+              <%= outcome.input :order_number, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor_or_director?(f.object) %>
+            </div>
+          </div>
+
         <% end %>
         <%= assess.link_to_add "Select a learning outcome", :task_outcomes, :class => "btn btn-primary btn-add-assessment-associates", :id => "#{task_outcomes_add_button_id}" %>
         <div class="empty" style="text-align: center;">                  
@@ -172,7 +192,6 @@
             <div class="controls">
               <%= resource.input :resource, :label => false, :input_html => { :class => "span11"}, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
-            <%= resource.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
           </div>
     
           <% resource.object.build_technical_staff unless resource.object.technical_staff %>
@@ -188,6 +207,13 @@
             </div>
 
           <% end %>
+
+          <div class="control-group">
+            <label class="control-label required">Order</label>
+            <div class="controls">
+              <%= resource.input :order_number, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor_or_director?(f.object) %>
+            </div>
+          </div>
 
         <% end %>
         <%= assess.link_to_add "Add a required resource", :assessment_task_resources, :class => "btn btn-primary btn-add-assessment-associates", :id => "#{task_resources_add_button_id}" %>
@@ -216,7 +242,13 @@
             <div class="controls">
               <%= proficiency.input :proficiency, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>
             </div>
-            <%= proficiency.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Order</label>
+            <div class="controls">
+              <%= proficiency.input :order_number, :label => false, :input_html => { :class => 'span1' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+            </div>
           </div>
 
         <% end %>

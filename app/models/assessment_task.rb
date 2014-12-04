@@ -10,11 +10,11 @@ class AssessmentTask < ActiveRecord::Base
   attr_accessible :assessment_dates_attributes
 
   has_many :criteria, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
-  has_many :assessment_task_proficiencies, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
-  has_many :assessment_task_resources, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
-  has_many :task_outcomes, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
+  has_many :assessment_task_proficiencies, :dependent => :destroy, :order => "order_number ASC"
+  has_many :assessment_task_resources, :dependent => :destroy, :order => "order_number ASC"
+  has_many :task_outcomes, :dependent => :destroy, :order => "order_number ASC"
   has_many :course_learning_outcomes, :through => :task_outcomes
-  has_many :assessment_dates, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
+  has_many :assessment_dates, :dependent => :destroy, :order => "order_number ASC"
 
   accepts_nested_attributes_for :criteria, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :assessment_task_resources, :allow_destroy => true, :reject_if => proc { |a| a["resource"].blank? }

@@ -49,10 +49,10 @@
 
 		<dl class="dl-horizontal">
 			<h4>Course Learning Oucomes addressed in this task:</h4>
-			<% if assessment.course_learning_outcomes.present? %>
-				<% assessment.course_learning_outcomes.each do |outcome| %>
+			<% if assessment.task_outcomes.present? %>
+				<% assessment.task_outcomes.each do |outcome| %>
 					<dt>&nbsp;</dt>
-					<dd><%= outcome.name.present? ? outcome.name : '<i>undefined</i>'.html_safe %></dd>
+					<dd><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></dd>
 				<% end %>
 			<% else %>
 				<dt>&nbsp;</dt>
@@ -63,7 +63,7 @@
 				<h4>Resources required for this task:</h4>
 				<% assessment.assessment_task_resources.each do |resource| %>
 					<dt>Resource</dt>
-					<dd><%= resource.resource.present? ? resource.resource : '<i>undefined</i>'.html_safe %></dd>
+					<dd><%= resource.resource.present? ? resource.resource.html_safe : '<i>undefined</i>'.html_safe %></dd>
 					<dt>Technical Staff</dt>
 					<dd><%= resource.technical_staff.present? ? resource.technical_staff.member_name : '<i>undefined</i>'.html_safe %></dd>
 				<% end %>
@@ -74,7 +74,7 @@
 				<h4>Proficiencies required for this task:</h4>
 				<% assessment.assessment_task_proficiencies.each do |proficiency| %>
 					<dt>&nbsp;</dt>
-					<dd><%= proficiency.proficiency.present? ? proficiency.proficiency : '<i>undefined</i>'.html_safe %></dd>
+					<dd><%= proficiency.proficiency.present? ? proficiency.proficiency.html_safe : '<i>undefined</i>'.html_safe %></dd>
 				<% end %>
 			<% end %>
 		</dl>
