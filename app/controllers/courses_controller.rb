@@ -40,10 +40,12 @@ class CoursesController < ApplicationController
       task.assessment_task_resources.each do |resource|
         @resources_required << resource.resource
       end
-      task.assessment_task_proficiencies do |proficiency|
+      task.assessment_task_proficiencies.each do |proficiency|
         @proficiencies_required << proficiency.proficiency
       end
     end
+    @resources_required = @resources_required.compact.uniq
+    @proficiencies_required = @proficiencies_required.compact.uniq
     
     # @course_convenor = @course.members.where(:role => "CONVENOR").first
     # @teaching_staff = @course.members.where(:role => "TEACHING STAFF")

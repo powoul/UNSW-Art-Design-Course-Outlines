@@ -11,25 +11,20 @@
 	
 	<dt>Parallel Teaching</dt>
 	<dd><%= @course.parallel_teaching.present? ? @course.parallel_teaching : '<i>undefined</i>'.html_safe %></dd>
-	<h5>Resources Required</h5>
+	
 	<% if @resources_required.present? %>
+		<h5>Resources Required</h5>
 		<% @resources_required.each do |resource| %>
 			<dt>&nbsp;</dt>
 			<dd><%= resource %></dd>
 		<% end %>
-	<% else %>
-		<dt>&nbsp;</dt>
-		<dd><%= '<i>undefined</i>'.html_safe %></dd>
-	<% end %> 
-
-	<h5>Proficiencies Required</h5>
+	<% end %>
+	
 	<% if @proficiencies_required.present? %>
-		<% proficiencies_required.each do |proficiency| %>
+	<h5>Proficiencies Required</h5>
+		<% @proficiencies_required.each do |proficiency| %>
 			<dt>&nbsp;</dt>
 			<dd><%= proficiency %></dd>
 		<% end %>
-	<% else %>
-		<dt>&nbsp;</dt>
-		<dd><%= '<i>undefined</i>'.html_safe %></dd>
 	<% end %>
 </dl>
