@@ -4,6 +4,10 @@
 <h2><small>GENERAL INFORMATION</small></h2>
 <p><%= Parameter.find_by_name('Digital and Research Literacy').present? ? Parameter.find_by_name('Digital and Research Literacy').body.html_safe : '<i>undefined</i>'.html_safe %></p>
 
+
+<h2><small>ART & DESIGN ANNUAL</small></h2>
+<p><%= Parameter.find_by_name('Art & Design Annual').present? ? Parameter.find_by_name('Art & Design Annual').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+
 <h2><small>HEALTH AND SAFETY</small></h2>
 <p><%= Parameter.find_by_name('health and safety').present? ? Parameter.find_by_name('health and safety').body.html_safe : '<i>undefined</i>'.html_safe %></p>
 
