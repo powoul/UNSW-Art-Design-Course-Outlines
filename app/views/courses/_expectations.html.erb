@@ -1,17 +1,16 @@
-<h3>Assessment</h3>
+<h3>Course specific expectations</h3>
 <p><%= @course.assessment.present? ? @course.assessment.html_safe : '<i>undefined</i>'.html_safe %></p>
 <dl class="dl-horizontal">
 	<dt>Late Submission Allowed?</dt>
 	<dd><%= @course.late_submission_allowed.nil? ? '<i>undefined</i>'.html_safe : yesno(@course.late_submission_allowed)  %></dd>
 
-	<h3>Continual Course Improvement</h3>
 	<% if @course.course_improvements.present? %>
-		<% @course.course_improvements.each do |i| %>
-			<dt>Improvement</dt>
-			<dd><%= i.description %></dd>
-		<% end %>
-	<% else %>
-		<dd><%= '<i>undefined</i>'.html_safe %></dd>
+		<h3>Continual Course Improvement</h3>
+		<ul>
+			<% @course.course_improvements.each do |i| %>
+				<li><%= i.description %></li>
+			<% end %>
+		</ul>
 	<% end %>
 </dl>
 

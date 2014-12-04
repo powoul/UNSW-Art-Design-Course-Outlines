@@ -1,5 +1,5 @@
 <div class="control-group <%= 'error' if f.object.errors[:assessment].any? %>">
-  <label class="control-label">ASSESSMENT</label>
+  <label class="control-label">Course specific expectations</label>
   <div class="controls">
     <% tinymceStr = current_user.convenor_or_director?(f.object) ? 'tinymce' : '' %>   
     <%= f.input :assessment, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director?(f.object) %>
