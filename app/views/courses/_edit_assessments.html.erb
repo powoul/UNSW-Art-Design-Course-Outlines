@@ -133,8 +133,7 @@
       <p class="help-block"><small><strong>NOTE - </strong>Stduents MUST be issued a copy of a filled in rubric along with written or recorded feedback for EACH assessment. You should list what you will be actually assessing in tehe Criteria column (eg. 1. Solution addresses all of the requirements of the brief, 2. Evidence of experimentation in the development of a final solution.</small></p><br />
       <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#criteria_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
-      <hr>
-      <h4>Course Learning Outcomes addressed in this task:</h4><br />
+      <h4>Course Learning Outcomes addressed in this task:</h4>
       <% task_outcomes_add_button_id = !current_user.convenor_or_director?(f.object) ? "taskOutcomeAddButton" : "" %>
       <div id="task_outcomes_<%= assess.object_id %>">
         <%= assess.simple_fields_for :task_outcomes do |outcome| %>
@@ -177,7 +176,12 @@
 
       <p class="help-block"><small>All assessments within the course must be aligned to the stated learning outcomes of the course. You do not however have to link all of your learning outcomes to each assessment – use only those that the assessment is testing or building capacity within. Betweek all of your assessments however, all course learning outcoes must be represented.</small></p>
 
-      <hr>
+      <h4>UNSW Graduate Attribtes addressed in this task:</h4>
+      <p class="help-block" align="justify"><small>Your assessment criteria should each directly relate to a UNSW Graduate Attribute <a href="https://my.unsw.edu.au/student/atoz/GraduateAttributes.html" target="_blank">https://my.unsw.edu.au/student/atoz/GraduateAttributes.html</a>. This ensures that you and your students can understand how one assessment contributes to the larger picture of the overall assessment in your course. In addition, it allows course convenors and program directors to ensure that all attributes are being addressed across the courses within a program.</small></p>
+      <p class="help-block" align="justify"><small><strong>REVIEW GRADING SOFTWARE TO SIMPLIFY ASSESSMENT –</strong> Once you have aligned your criteria to UNSW Graduate Attributes, you can VERY QUICKLY quickly set up your assessment marking in the grading software ‘Review’. This enables you to manage your marking quickly and easily online, greatly reducing the marking workload. To get your course set up in Review please speak to our educational developer Paul Rogers <a href="mailto:paul.rogers@unsw.edu.au">paul.rogers@unsw.edu.au</a>. We will also run workshops before semester for helping people get set up in Review. Watch demonstration videos of how Review works here <a href="http://bit.ly/1pISeJ0" target="_blank">http://bit.ly/1pISeJ0</a></small></p><br />
+
+      <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#graduate_attributes_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
+
       <h4>Resources required for this task:</h4><br />
       <% task_resources_add_button_id = !current_user.convenor_or_director?(f.object) ? "taskResourcesAddButton" : "" %>
       <div id="task_resources_<%= assess.object_id %>">
@@ -295,6 +299,19 @@
       &nbsp;&nbsp;&nbsp;&nbsp;<strong>More information on assessment rubrics</strong><br />
       &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://teaching.unsw.edu.au/assessment-rubrics" target="_blank">http://teaching.unsw.edu.au/assessment-rubrics</a>
       </p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">      
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
+  <div class="modal fade hide" id="graduate_attributes_help">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Help for completing this section:</h3>
+    </div>      
+    <div class="modal-body">
+      <p><strong>For help understanding how to align your assessable criteria with UNSW Graduate Attributes</strong> please download the guide called Example of how to relate assessable criteria to UNSW Graduate Attributes from the Review help website <a href="http://cofalearning.unsw.wikispaces.net/Home#Review" target="_blank">cofalearning.unsw.wikispaces.net/Home#Review</a>. For additional support please contact Simon McIntyre <a href="mailto:s.mcintyre@unsw.edu.au">s.mcintyre@unsw.edu.au</a>.</p><br />
     </div>
     <div class="modal-footer" style="text-align: center;">      
       <a href="#" class="btn" data-dismiss="modal">Close</a>

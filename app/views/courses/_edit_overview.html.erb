@@ -63,10 +63,15 @@
 <p class="help-block" align="justify"><small>Learning outcomes specify what the <strong>STUDENTS</strong> who are undertaking your course will achieve by its conclusion. Learning outcomes could cover content based (knowledge), cognitive (attitudes, analysis and interpretation) and application (skills based) outcomes. <strong>Learning Outcomes are also what your assessment tasks test and each task must be linked to one or more outcomes, so think carefully about what students are achieving by completing this course</strong>. It is recommended that no more than <strong>THREE</strong> or <strong>FOUR</strong> learning outcomes be provided.</small></p><br />
 <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#course_learning_outcomes_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
-<!-- <hr>
+<hr>
 <h3>ALIGNMENT WITH PROGRAM LEARNING OUTCOMES</h3><br />
-<p class="help-block" align="justify">Each course in a program is designed to help students achieve some of teh Program Learning OUtcomes - that is what students undertaking the program should achieve by its conclusion. The table bellow illustrates how the course learning outcomes relate to course activities and assessments, and the learning outcome of the <strong><%#= f.object.program.try(:description) %></strong></p><br />
-<p><a class="btn btn-info btn-mini" data-toggle="modal" href="#alignment_help"><%#= icon('info-sign','') %> Help for completing this section</a></p><br /> -->
+<p class="help-block" align="justify">Each course in a program is designed to help students achieve some of the Program Learning Outcomes - that is what students undertaking the program should achieve by its conclusion. The table bellow illustrates how the course learning outcomes relate to course activities and assessments, and the learning outcome of the <strong><%= f.object.program.try(:description) %></strong>.</p><br />
+
+<p class="help-block" align="justify"><small>Program learning outcomes (PLOs) prescribe the knowledge, attitudes, skills and practices that students are expected to demonstrate in completing a program of study at UNSW. PLOs are specific to a student’s area of specialisation, and are explicitly aligned with any relevant professional accreditation requirements.
+</small></p>
+<p class="help-block" align="justify"><small>You should complete the table above to illustrate the alignment of program learning outcomes with course learning outcomes and course components such as: support, resources, learning activities and assessment. This will be used to determine whether the course is contributing to helping the achievement of the Program Learning Outcomes effectively.</small></p><br />
+
+<p><a class="btn btn-info btn-mini" data-toggle="modal" href="#alignment_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
 <hr>
 <h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3><br /><br />
