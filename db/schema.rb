@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141206105437) do
+ActiveRecord::Schema.define(:version => 20141207221230) do
+
+  create_table "assessment_attributes", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "graduate_attribute_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "assessment_attributes", ["course_id"], :name => "index_assessment_attributes_on_course_id"
+  add_index "assessment_attributes", ["graduate_attribute_id"], :name => "index_assessment_attributes_on_graduate_attribute_id"
 
   create_table "assessment_dates", :force => true do |t|
     t.date     "due"
@@ -109,6 +119,12 @@ ActiveRecord::Schema.define(:version => 20141206105437) do
   end
 
   add_index "criteria", ["assessment_task_id"], :name => "index_criteria_on_assessment_task_id"
+
+  create_table "graduate_attributes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "members", :force => true do |t|
     t.integer  "associate_id"

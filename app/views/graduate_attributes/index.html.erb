@@ -1,0 +1,29 @@
+<div class="page-header">
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <%= link_to icon('folder-open', 'New Graduate attribute'), new_graduate_attribute_path, :class => 'btn' %>
+        </div>
+    </div>
+    <h1>Graduate attributes</h1>
+</div>
+
+<% if @graduate_attributes.present? %>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+
+  <% @graduate_attributes.each do |graduate_attribute| %>
+    <tr>
+      <td><%= graduate_attribute.name %></td>
+      <td><%= link_to 'Show', graduate_attribute, :class => "btn btn-mini btn-primary" %>
+        <%= link_to 'Edit', edit_graduate_attribute_path(graduate_attribute), :class => "btn btn-mini btn-success" %>
+        <%= link_to 'Destroy', graduate_attribute, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <p>No graduate attributes in this listing. </p>
+<% end %>

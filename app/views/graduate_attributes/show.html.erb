@@ -1,0 +1,17 @@
+<div class="page-header">
+	<div class="btn-toolbar pull-right">
+		        <div class="btn-group">
+		            <%= link_to 'Edit', edit_graduate_attribute_path(@graduate_attribute, :category => params[:category]), :class => 'btn' %>
+		        </div>
+		    </div>
+  <h1><%= @graduate_attribute.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <br />
+  <dt>Name</dt>
+  <dd><%= @graduate_attribute.name.present? ? @graduate_attribute.name : '<i>undefined</i>'.html_safe %></dd>
+</dl>
+
+
+<%= link_to 'Back', graduate_attributes_path, :class => 'btn' %>

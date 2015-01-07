@@ -1,5 +1,7 @@
 Courseoutlines::Application.routes.draw do
 
+  resources :graduate_attributes
+
   resources :parameters
 
   resources :comments

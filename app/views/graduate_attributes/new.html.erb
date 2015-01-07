@@ -1,0 +1,14 @@
+<div class="page-header">
+	<h1>New graduate attribute</h1>
+</div>
+
+<%= simple_form_for @graduate_attribute do |f| %>
+
+	<%= render :partial => 'graduate_attributes/form', :locals => { :f => f } %>
+	<br />
+	<div class="form-actions" style="text-align: center;">
+		<%= f.submit "Create", :class => 'btn btn-primary' %>
+	    <%= link_to "Cancel", graduate_attributes_path, :class => 'btn' %>
+	</div>
+
+<% end %>

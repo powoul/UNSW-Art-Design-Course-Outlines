@@ -1,0 +1,16 @@
+<div class="span11">
+		<header class="jumbotron subhead">
+			<h1>Editing <%= @graduate_attribute.name.titleize %></h1>
+		</header>
+
+		<%= simple_form_for @graduate_attribute do |f| %>
+
+			<%= render :partial => 'graduate_attributes/form', :locals => { :f => f } %>
+			<br />
+			<div class="form-actions" style="text-align: center;">
+				<%= f.submit "Update graduate attribute", :class => 'btn btn-primary' %>
+			    <%= link_to "Cancel", graduate_attributes_path, :class => 'btn' %>
+			</div>
+
+		<% end %>
+</div>

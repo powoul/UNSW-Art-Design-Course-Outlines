@@ -1,0 +1,10 @@
+<%= f.error_notification %>
+
+<div class="form-inputs">
+	<div class="control-group <%= 'error' if f.object.errors[:name].any? %>">
+		<label class="control-label required">Name</label>
+		<div class="controls">
+			<%= f.input :name, :label => false %>	
+		</div>
+	</div>
+</div>
