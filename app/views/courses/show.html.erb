@@ -27,21 +27,21 @@
 		</header>
 		
 		<section id="course_information">
-			
-				<dl class="dl-horizontal">	
-					<dt>Course Code</dt>
-					<dd><%= @course.code.present? ? @course.code : '<i>undefined</i>'.html_safe %></dd>
-
-					<dt>Course Name</dt>
-					<dd><%= @course.name.present? ? @course.name : '<i>undefined</i>'.html_safe %></dd>
-
-					<dt>Semester</dt>
-					<dd><%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></dd>
-				</dl>
-				<p><%= Parameter.find_by_name('General Information').present? ? Parameter.find_by_name('General Information').body.html_safe : '' %></p>
 			<div class="page-header" style="text-align: center;">
 				<h1>COURSE INFORMATION</h1>
 			</div>
+			<dl class="dl-horizontal">	
+				<dt>Course Code</dt>
+				<dd><%= @course.code.present? ? @course.code : '<i>undefined</i>'.html_safe %></dd>
+
+				<dt>Course Name</dt>
+				<dd><%= @course.name.present? ? @course.name : '<i>undefined</i>'.html_safe %></dd>
+
+				<dt>Semester</dt>
+				<dd><%= @course.semester_id.present? ? Semester.find(@course.semester_id).try(:name) + ', ' + Semester.find(@course.semester_id).try(:year) : '<i>undefined</i>'.html_safe %></dd>
+			</dl>
+			<p><%= Parameter.find_by_name('General Information').present? ? Parameter.find_by_name('General Information').body.html_safe : '' %></p>
+			
 			<%= render :partial => 'information'%>
 		</section>
 

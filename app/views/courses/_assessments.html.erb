@@ -59,6 +59,14 @@
 				<dd><i>undefined</i></dd>
 			<% end %>
 
+			<% if assessment.graduate_attributes.present? %>
+				<h4>UNSW Graduate Attributes addressed in this task:</h4>
+				<% assessment.graduate_attributes.each do |attribute| %>
+					<dt>&nbsp;</dt>
+					<dd><%= attribute.name %></dd>
+				<% end %>
+			<% end %>
+
 			<% if assessment.assessment_task_resources.present? %>
 				<h4>Resources required for this task:</h4>
 				<% assessment.assessment_task_resources.each do |resource| %>
@@ -69,7 +77,6 @@
 				<% end %>
 			<% end %>
 
-			<br />
 			<% if assessment.assessment_task_proficiencies.present? %>
 				<h4>Proficiencies required for this task:</h4>
 				<% assessment.assessment_task_proficiencies.each do |proficiency| %>

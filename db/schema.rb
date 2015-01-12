@@ -13,14 +13,9 @@
 ActiveRecord::Schema.define(:version => 20141207221230) do
 
   create_table "assessment_attributes", :force => true do |t|
-    t.integer  "course_id"
-    t.integer  "graduate_attribute_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.integer "assessment_task_id"
+    t.integer "graduate_attribute_id"
   end
-
-  add_index "assessment_attributes", ["course_id"], :name => "index_assessment_attributes_on_course_id"
-  add_index "assessment_attributes", ["graduate_attribute_id"], :name => "index_assessment_attributes_on_graduate_attribute_id"
 
   create_table "assessment_dates", :force => true do |t|
     t.date     "due"

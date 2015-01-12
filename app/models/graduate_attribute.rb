@@ -1,6 +1,5 @@
 class GraduateAttribute < ActiveRecord::Base
-  has_many :assessment_tasks, :through => :assessment_attributes
-  has_many :assessment_attributes
+  has_and_belongs_to_many :assessment_attributes, :join_table => 'assessment_attributes'
   
   attr_accessible :name
 

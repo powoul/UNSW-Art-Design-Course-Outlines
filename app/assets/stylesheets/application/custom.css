@@ -58,11 +58,12 @@ h3, h4, h5 {
   margin-top: 3%;
   margin-bottom: 1%;
 }
-.course_assessment_tasks_assessment_attributes {
+.course_assessment_tasks_graduate_attributes {
   overflow:hidden;
 }
-.course_assessment_tasks_assessment_attributes .checkbox {
+.course_assessment_tasks_graduate_attributes .checkbox {
   margin-left: 10px;
 }
-.course_assessment_tasks_assessment_attributes label.check_boxes {
+.course_assessment_tasks_graduate_attributes label.check_boxes {
   float: none;
+}

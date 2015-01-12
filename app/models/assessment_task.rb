@@ -1,14 +1,13 @@
 class AssessmentTask < ActiveRecord::Base
   
   belongs_to :course
-  attr_accessible :title, :weighting, :synopsis, :feedback, :order_number
+  attr_accessible :title, :weighting, :synopsis, :feedback, :order_number, :graduate_attribute_ids
 
   attr_accessible :criteria_attributes
   attr_accessible :assessment_task_proficiencies_attributes
   attr_accessible :assessment_task_resources_attributes
   attr_accessible :task_outcomes_attributes
   attr_accessible :assessment_dates_attributes
-  attr_accessible :assessment_attributes_attributes
 
   has_many :criteria, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
   has_many :assessment_task_proficiencies, :dependent => :destroy, :order => "order_number ASC"
@@ -16,15 +15,13 @@ class AssessmentTask < ActiveRecord::Base
   has_many :task_outcomes, :dependent => :destroy, :order => "order_number ASC"
   has_many :course_learning_outcomes, :through => :task_outcomes
   has_many :assessment_dates, :dependent => :destroy, :order => "order_number ASC"
-  has_many :assessment_attributes, :dependent => :destroy
-  has_many :graduate_attributes, :through => :assessment_attributes
+  has_and_belongs_to_many :graduate_attributes, :join_table => 'assessment_attributes'
 
   accepts_nested_attributes_for :criteria, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :assessment_task_resources, :allow_destroy => true, :reject_if => proc { |a| a["resource"].blank? }
   accepts_nested_attributes_for :assessment_task_proficiencies, :allow_destroy => true, :reject_if => proc { |a| a["proficiency"].blank? }
   accepts_nested_attributes_for :task_outcomes, :allow_destroy => true, :reject_if => proc { |a| a["course_learning_outcome_id"].nil? }
   accepts_nested_attributes_for :assessment_dates, :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :assessment_attributes, :allow_destroy => true, :reject_if => :all_blank
 
   validates_presence_of :title, :weighting, :synopsis, :feedback, :assessment_dates
 
