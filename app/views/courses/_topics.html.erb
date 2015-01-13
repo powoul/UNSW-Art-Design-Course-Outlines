@@ -14,7 +14,16 @@
 				<td style="text-align: center;"><%= topic.week.present? ? topic.week : '' %></td>
 				<td style="text-align: center;"><%= topic.date.present? ? topic.date.strftime("%d %B") : '' %></td>
 				<td><%= topic.topic_name.present? ? topic.topic_name : '' %></td>
-				<td><%= topic.tasks_due.present? ? topic.tasks_due : '' %></td>		
+				<td><%= topic.tasks_due.present? ? topic.tasks_due : '' %></td>
+				<td>
+					<% @course.assessment_tasks.each do |task| %>
+			            <% task.assessment_dates.each do |date| %>            
+			              <% if date.due == topic.date %>
+			                <%= date.description + "; s" %>
+			              <% end %>
+			            <% end %>
+		          	<% end %>
+				</td>	
 			</tr>
 		<% end %>
 	</tbody>
