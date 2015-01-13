@@ -11,10 +11,10 @@ class AssessmentTask < ActiveRecord::Base
 
   has_many :criteria, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
   has_many :assessment_task_proficiencies, :dependent => :destroy, :order => "order_number ASC"
-  has_many :assessment_task_resources, :dependent => :destroy, :order => "order_number ASC"
-  has_many :task_outcomes, :dependent => :destroy, :order => "order_number ASC"
+  has_many :assessment_task_resources, :dependent => :destroy#, :order => "order_number ASC"
+  has_many :task_outcomes, :dependent => :destroy#, :order => "order_number ASC"
   has_many :course_learning_outcomes, :through => :task_outcomes
-  has_many :assessment_dates, :dependent => :destroy, :order => "order_number ASC"
+  has_many :assessment_dates, :dependent => :destroy#, :order => "order_number ASC"
   has_and_belongs_to_many :graduate_attributes, :join_table => 'assessment_attributes'
 
   accepts_nested_attributes_for :criteria, :reject_if => :all_blank, :allow_destroy => true
