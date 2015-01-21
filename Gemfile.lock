@@ -151,6 +151,8 @@ GEM
     rubycas-client (2.3.9)
       activesupport
     rubyzip (0.9.9)
+    rvm-capistrano (1.4.1)
+      capistrano (>= 2.0.0)
     sass (3.2.14)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -200,7 +202,7 @@ DEPENDENCIES
   airbrake
   bluecloth
   bootstrap-sass (~> 2.0.3)
-  capistrano (~> 2.9.0)
+  capistrano
   coffee-rails (~> 3.2.1)
   compass-rails
   debugger
@@ -218,6 +220,7 @@ DEPENDENCIES
   ruby-ldap (= 0.9.12)
   rubycas-client
   rubyzip (= 0.9.9)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   settingslogic
   simple_form

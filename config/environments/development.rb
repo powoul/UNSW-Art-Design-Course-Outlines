@@ -49,4 +49,4 @@ CASClient::Frameworks::Rails::Filter.configure(
   :enable_single_sign_out => true
   )
 
-MY_COFA_ROOT_APPLICATION_URL = "http://dev.my.local"
+MY_ARTDESIGN_ROOT_APPLICATION_URL = "http://dev.my.local"

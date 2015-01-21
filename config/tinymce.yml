@@ -5,9 +5,9 @@ default:
 
 
 production:
-  skin_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/skins/lightgray/
-  theme_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/themes/modern/theme.js
-  plugin_url: http://my.cofa.unsw.edu.au/course-outline/assets/tinymce/plugins/link/plugin.js
+  skin_url: http://my.artdesign.unsw.edu.au/course-outline/assets/tinymce/skins/lightgray/
+  theme_url: http://my.artdesign.unsw.edu.au/course-outline/assets/tinymce/themes/modern/theme.js
+  plugin_url: http://my.artdesign.unsw.edu.au/course-outline/assets/tinymce/plugins/link/plugin.js
   remove_script_host: false
   theme: modern
   plugins:

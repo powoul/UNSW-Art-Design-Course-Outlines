@@ -71,7 +71,7 @@ Courseoutlines::Application.configure do
     :port                 => 25,
     :domain               => 'www.unsw.edu.au'
   }
-  config.action_mailer.default_url_options = { :host => "my.cofa.unsw.edu.au/course-outline" }
+  config.action_mailer.default_url_options = { :host => "my.artdesign.unsw.edu.au/course-outline" }
 end
 
 require 'casclient'
@@ -81,10 +81,10 @@ cas_logger = CASClient::Logger.new(Rails.root.join('log','cas.log'))
 cas_logger.level = Logger::DEBUG
 
 CASClient::Frameworks::Rails::Filter.configure(
-  :cas_base_url => "https://my.cofa.unsw.edu.au/",
+  :cas_base_url => "https://my.artdesign.unsw.edu.au/",
   :logger => cas_logger,
   :username_session_key => :current_user,
   :enable_single_sign_out => true
 )
 
-MY_COFA_ROOT_APPLICATION_URL = "http://my.cofa.unsw.edu.au"
+MY_ARTDESIGN_ROOT_APPLICATION_URL = "http://my.artdesign.unsw.edu.au"

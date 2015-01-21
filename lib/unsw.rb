@@ -1,9 +1,9 @@
-# Author::    James Hill
-# Copyright:: Copyright (c) 2011
+# Authors::    James Hill & Hamid Samani
+# Copyright:: Copyright (c) 2011 - 2015
 #
 # == Description:
 # This library wraps the UNSW AD server and the ruby ldap library into an accessable place for
-# my.cofa (http://my.cofa.unsw.edu.au) applications.
+# my.artdesign (http://my.artdesign.unsw.edu.au) applications.
 
 require 'ldap'
 
