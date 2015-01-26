@@ -7,7 +7,7 @@ gem 'formatize'
 gem 'mysql2'
 gem 'resque'
 gem 'rubyzip', '0.9.9', :require =>'zip/zip'
-gem 'ruby-ldap', '0.9.12'
+gem 'ruby-ldap'
 gem 'rubycas-client'
 gem 'jquery-rails', '~> 2.3.0'
 gem 'simple_form'
@@ -19,6 +19,7 @@ gem 'tinymce-rails'
 gem 'wicked_pdf'
 gem 'settingslogic'
 gem 'wkhtmltopdf-binary'
+gem 'net-ssh-gateway'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -34,10 +35,4 @@ group :development do
   gem 'debugger', :require => 'ruby-debug', :platform => :mri_19
   gem "capistrano"
   gem "rvm-capistrano"
-end
-
-group :production do
-  gem 'libv8', '3.16.14.3'
-  gem 'therubyracer', '0.12.1'
-  gem 'execjs'
 end
