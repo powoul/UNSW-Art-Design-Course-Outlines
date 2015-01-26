@@ -25,7 +25,7 @@
 <p>
 	<% if @proficiencies_required.present? %>
     <h4>Proficiencies Required</h4>
-		<% proficiencies_required.each do |proficiency| %>
+		<% @proficiencies_required.each do |proficiency| %>
 			<p><%= proficiency %></p>
 		<% end %>
 	<% end %>
