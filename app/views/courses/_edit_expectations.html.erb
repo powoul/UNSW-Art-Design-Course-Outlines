@@ -33,7 +33,7 @@
         <div class="controls">
           <%= mm.input :description, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>          
         </div>
-        <%= mm.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
+        <%#= mm.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' } %>
       </div>
   <% end %>
 </div>

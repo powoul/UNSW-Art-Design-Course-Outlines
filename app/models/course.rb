@@ -17,11 +17,11 @@ class Course < ActiveRecord::Base
   has_many :lecturers, :as => :associate, :class_name => "Member", :conditions => "members.role = 'LECTURER'", :dependent => :destroy
   has_one :convenor, :as => :associate, :class_name => "Member", :conditions => "members.role = 'CONVENOR'", :dependent => :destroy
   # has_one :program_director, :as => :associate, :class_name => "Member", :conditions => "members.role = 'PROGRAM DIRECTOR'", :dependent => :destroy
-  has_many :course_learning_outcomes, :dependent => :destroy, :order => "order_number ASC"
+  has_many :course_learning_outcomes, :dependent => :destroy#, :order => "order_number ASC"
   has_one :teaching_strategy
-  has_many :course_improvements, :dependent => :destroy, :order => "order_number ASC"
-  has_many :topics, :dependent => :destroy
-  has_many :assessment_tasks, :dependent => :destroy, :order => "order_number ASC"
+  has_many :course_improvements, :dependent => :destroy#, :order => "order_number ASC"
+  has_many :topics, :dependent => :destroy, :order => "date ASC"
+  has_many :assessment_tasks, :dependent => :destroy#, :order => "order_number ASC"
   has_many :members, :as => :associate, :class_name => "Member"
   belongs_to :semester
   belongs_to :program

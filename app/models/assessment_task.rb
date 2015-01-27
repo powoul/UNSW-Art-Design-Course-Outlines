@@ -1,7 +1,7 @@
 class AssessmentTask < ActiveRecord::Base
   
   belongs_to :course
-  attr_accessible :title, :weighting, :synopsis, :feedback, :order_number, :graduate_attribute_ids
+  attr_accessible :title, :weighting, :synopsis, :feedback, :graduate_attribute_ids
 
   attr_accessible :criteria_attributes
   attr_accessible :assessment_task_proficiencies_attributes
@@ -9,8 +9,8 @@ class AssessmentTask < ActiveRecord::Base
   attr_accessible :task_outcomes_attributes
   attr_accessible :assessment_dates_attributes
 
-  has_many :criteria, :dependent => :destroy, :order => "created_at ASC, order_number ASC"
-  has_many :assessment_task_proficiencies, :dependent => :destroy, :order => "order_number ASC"
+  has_many :criteria, :dependent => :destroy#, :order => "created_at ASC, order_number ASC"
+  has_many :assessment_task_proficiencies, :dependent => :destroy#, :order => "order_number ASC"
   has_many :assessment_task_resources, :dependent => :destroy#, :order => "order_number ASC"
   has_many :task_outcomes, :dependent => :destroy#, :order => "order_number ASC"
   has_many :course_learning_outcomes, :through => :task_outcomes

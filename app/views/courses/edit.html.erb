@@ -238,17 +238,5 @@ function getUrlVars()
     return vars;
 }
 
-$(document).on('nested:fieldAdded', function(event){
-  // this field was just inserted into your form
-  var field = event.field; 
-  // it's a jQuery object already! Now you can find date input
-  field.find('input').each(function(index, input) {
-    if ($(input).hasClass('order_number_input')) {
-      $(input).val(new Date().getTime() % 10000000)
-    }
-  });
-  
-})
-
 </script>
 
