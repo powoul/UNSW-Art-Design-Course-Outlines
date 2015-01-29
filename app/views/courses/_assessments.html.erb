@@ -6,7 +6,7 @@
 			<dd><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></dd>			
 
 			<dt>Weighting</dt>
-			<dd><%= assessment.weighting.present? ? assessment.weighting : '<i>undefined</i>'.html_safe %></dd>
+			<dd><%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : '<i>undefined</i>'.html_safe %></dd>
 
 			<h4>Due Date(s)</h4>
 			<% if assessment.assessment_dates.present? %>
