@@ -152,9 +152,11 @@ class Course < ActiveRecord::Base
   def number_of_assessment_tasks
     if !self.assessment_tasks.present? || self.assessment_tasks.reject(&:marked_for_destruction?).size < 2
       errors.add :assessment_tasks, 'At least 2 assessment tasks are required.'.html_safe
-    elsif self.assessment_tasks.reject(&:marked_for_destruction?).size > 3
-      errors.add :assessment_tasks, 'Maximum <strong>three</strong> assessment tasks are allowed.'.html_safe
     end
+    # Ignore limitation on maximum number of assessment_tasks for now
+    # elsif self.assessment_tasks.reject(&:marked_for_destruction?).size > 3
+    #   errors.add :assessment_tasks, 'Maximum <strong>three</strong> assessment tasks are allowed.'.html_safe
+    # end
   end
 
   def uniqueness_of_lecturers
