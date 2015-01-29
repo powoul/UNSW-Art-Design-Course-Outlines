@@ -9,6 +9,32 @@ class Semester < ActiveRecord::Base
 
  def name_with_year
   	"#{name}, #{year}"
-  end
+ end
+
+ def update_courses_topics
+
+ 	self.courses.each do |course|
+
+	    if course.topics.blank?
+	      course.create_topics
+	    else
+	    	week = self.start
+		    week_number = 1
+			while week <= self.end do
+				unless week == self.mid_semester_break		      
+				    unless (existing_topic = course.topics.find(:first, :conditions => { :week => week_number })).present?
+						new_topic = Topic.new(:week => week_number, :date => week, :bgcolor => "white", :course_id => course.id)
+					    new_topic.save				    
+				    end			    
+		      		week_number = week_number + 1
+		      	end		      	
+		      	week = week + 7
+		    end
+		    course.topics.where("date > ?", self.end).each do |topic|
+		    	topic.destroy
+		    end
+	    end	    
+ 	end
+ end
 
 end

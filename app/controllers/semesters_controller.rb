@@ -60,6 +60,7 @@ class SemestersController < ApplicationController
 
     respond_to do |format|
       if @semester.update_attributes(params[:semester])
+        @semester.update_courses_topics
         format.html { redirect_to @semester, :notice => 'Semester was successfully updated.' }
         format.json { head :no_content }
       else
