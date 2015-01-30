@@ -16,9 +16,14 @@
 				<td><%= topic.topic_name.present? ? topic.topic_name : '' %></td>
 				<td>
 					<% @course.assessment_tasks.each do |task| %>
+						<% count = 0 %>
 			            <% task.assessment_dates.each do |date| %>            
 			              <% if date.due == topic.date %>
-			                <%= date.description + "; s" %>
+			              	<% if count == 0 %>
+			                  <% count = 1 %>
+			                  <%= task.title.present? ? (task.title + ":") : "" %>
+			                <% end %>
+			                <%= date.description.present? ? (date.description + ".") : "" %>
 			              <% end %>
 			            <% end %>
 		          	<% end %>
