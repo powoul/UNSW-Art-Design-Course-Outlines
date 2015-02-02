@@ -55,7 +55,7 @@ class CoursesController < ApplicationController
       format.pdf do
         render :pdf => "#{@course.name}",
           :layout => 'authenticated.pdf',
-          :show_as_html => params[:debug].present? && Rails.env.development?,
+          :show_as_html => params[:debug].present?,
           :page_size    => 'A4',
           :dpi          => 177
       end
