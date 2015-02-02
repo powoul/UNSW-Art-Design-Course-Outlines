@@ -19,3 +19,12 @@
 //= require jquery_nested_form
 //= require tinymce-jquery
 //= require_tree .
+//= require_self
+
+$(document).on('nested:fieldAdded', function(event){
+	tinyMCE.init({
+	selector: "textarea.tinymce",
+	theme: "modern",
+	plugins: "link"
+	});
+})
