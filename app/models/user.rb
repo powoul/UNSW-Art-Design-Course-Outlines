@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def convenor_or_director?(course)
-    (self == course.convenor.user) || (course.program.director.present? && self == course.program.director.user) || (self.zid == 'z9901300') || (self.zid == 'z3288850')
+    (self == course.convenor.user) || (course.program.director.present? && self == course.program.director.user) || (self.zid == 'z9901300') || (self.zid == 'z3288850') || (self.zid == 'z2275417')
   end
 
 end
