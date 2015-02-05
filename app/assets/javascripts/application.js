@@ -18,6 +18,7 @@
 //= require bootstrap
 //= require jquery_nested_form
 //= require tinymce-jquery
+//= require tinymce/plugins/link/plugin
 //= require_tree .
 //= require_self
 
