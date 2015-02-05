@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141207221230) do
+ActiveRecord::Schema.define(:version => 20150205050014) do
 
   create_table "assessment_attributes", :force => true do |t|
     t.integer "assessment_task_id"
@@ -177,15 +178,15 @@ ActiveRecord::Schema.define(:version => 20141207221230) do
 
   create_table "teaching_strategies", :force => true do |t|
     t.boolean  "lectures",                   :default => false
-    t.string   "lectures_description"
+    t.text     "lectures_description"
     t.boolean  "seminars",                   :default => false
-    t.string   "seminars_description"
+    t.text     "seminars_description"
     t.boolean  "tutorials",                  :default => false
-    t.string   "tutorials_description"
+    t.text     "tutorials_description"
     t.boolean  "studio",                     :default => false
-    t.string   "studio_description"
+    t.text     "studio_description"
     t.boolean  "blended_online",             :default => false
-    t.string   "blended_online_description"
+    t.text     "blended_online_description"
     t.text     "teaching_philosophy"
     t.integer  "course_id"
     t.datetime "created_at",                                    :null => false
