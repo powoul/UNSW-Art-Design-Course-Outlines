@@ -36,9 +36,11 @@
             <td style="color: <%= text_color(course.status) %>"><%= course.status %></td>
             <td>
                 <%#= link_to 'View', course_path(course, :category => params[:category]), :class => 'btn btn-mini' %>
-                <%= link_to 'Edit', edit_course_path(course, :category => params[:category]), :class => 'btn btn-mini btn-success' %>
-                <%= link_to_if course.status == "APPROVED", 'Download (pdf)', course_path(course, :category => params[:category], :format => "pdf"), :class => 'btn btn-mini btn-success' %>
-                <%= link_to 'Delete', course_path(course, :category => params[:category]), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
+                <% if current_user.admin? || current_user.convenor_or_director?(course) %>
+                    <%= link_to 'Edit', edit_course_path(course, :category => params[:category]), :class => 'btn btn-mini btn-success' %>
+                    <%= link_to_if course.status == "APPROVED", 'Download (pdf)', course_path(course, :category => params[:category], :format => "pdf"), :class => 'btn btn-mini btn-success' %>
+                    <%= link_to 'Delete', course_path(course, :category => params[:category]), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
+                <% end %>
             </td>            
           </tr>
         <% end %>

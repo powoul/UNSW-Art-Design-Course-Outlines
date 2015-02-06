@@ -8,7 +8,9 @@
 		<header class="jumbotron subhead">
 			<div class="btn-toolbar pull-right">
 		        <div class="btn-group">
-		            <%= link_to 'Edit', edit_course_path(@course, :category => params[:category]), :class => 'btn' %>
+		            <% if current_user.admin? || current_user.convenor_or_director?(@course) %>
+		            	<%= link_to 'Edit', edit_course_path(@course, :category => params[:category]), :class => 'btn' %>
+		            <% end %>
 		        </div>
 		    </div>
 			<h1><%= @course.code.upcase %> - <%= @course.name.upcase %></h1>
