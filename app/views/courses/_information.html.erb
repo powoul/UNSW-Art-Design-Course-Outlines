@@ -1,36 +1,80 @@
-<dl class="dl-horizontal">
+<div class="view-items">
+	<b>Units of Credit: </b>
+	<%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %>
+</div>
+
+<% if @course.teaching_times_and_locations.present? %>
+	<div class="view-items">
+		<b>Teaching Times and Locations: </b>
+		<%= @course.teaching_times_and_locations.html_safe %>
+	</div>
+<% end %>
+
+<% if @course.online_course_support.present? %>
+	<div class="view-items">
+		<b>Online Course Support</b>
+		<%= @course.online_course_support.html_safe %>
+	</div>
+<% end %>
+
+<% if @course.parallel_teaching.present? %>
+	<div class="view-items">
+		<b>Parallel Teaching: </b>
+		<%= @course.parallel_teaching.html_safe %>
+	</div>
+<% end %>
+
+<% if @resources_required.present? %>
+	<div class="view-items">
+		<b>Resources Required: </b>
+		<% @resources_required.each do |resource| %>
+			<li class="line-items"><%= resource %></li>
+		<% end %>
+	</div>
+<% end %>
+
+<% if @proficiencies_required.present? %>
+	<div class="view-items">
+		<b>Proficiencies Required: </b>
+		<% @proficiencies_required.each do |proficiency| %>
+			<li class="line-items"><%= proficiency %></li>
+		<% end %>
+	</div>
+<% end %>
+
+<!-- <dl class="dl-horizontal">
 	
 	<dt>Units of Credit</dt>
-	<dd><%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %></dd>
+	<dd><%#= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %></dd>
 
-	<% if @course.teaching_times_and_locations.present? %>
+	<%# if @course.teaching_times_and_locations.present? %>
 		<dt>Teaching Times and Locations</dt>
-		<dd><%= @course.teaching_times_and_locations.html_safe %></dd>
-	<% end %>
+		<dd><%#= @course.teaching_times_and_locations.html_safe %></dd>
+	<%# end %>
 
-	<% if @course.online_course_support.present? %>
+	<%# if @course.online_course_support.present? %>
 		<dt>Online Course Support</dt>
-		<dd><%= @course.online_course_support.html_safe %></dd>
-	<% end %>
+		<dd><%#= @course.online_course_support.html_safe %></dd>
+	<%# end %>
 
-	<% if @course.parallel_teaching.present? %>
+	<%# if @course.parallel_teaching.present? %>
 		<dt>Parallel Teaching</dt>
-		<dd><%= @course.parallel_teaching.html_safe %></dd>
-	<% end %>
+		<dd><%#= @course.parallel_teaching.html_safe %></dd>
+	<%# end %>
 	
-	<% if @resources_required.present? %>
+	<%# if @resources_required.present? %>
 		<h5>Resources Required</h5>
-		<% @resources_required.each do |resource| %>
+		<%# @resources_required.each do |resource| %>
 			<dt>&nbsp;</dt>
-			<dd><%= resource %></dd>
-		<% end %>
-	<% end %>
+			<dd><%#= resource %></dd>
+		<%# end %>
+	<%# end %>
 	
-	<% if @proficiencies_required.present? %>
+	<%# if @proficiencies_required.present? %>
 	<h5>Proficiencies Required</h5>
-		<% @proficiencies_required.each do |proficiency| %>
+		<%# @proficiencies_required.each do |proficiency| %>
 			<dt>&nbsp;</dt>
-			<dd><%= proficiency %></dd>
-		<% end %>
-	<% end %>
-</dl>
+			<dd><%#= proficiency %></dd>
+		<%# end %>
+	<%# end %>
+</dl> -->

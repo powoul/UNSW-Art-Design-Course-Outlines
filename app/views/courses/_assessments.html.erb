@@ -1,34 +1,43 @@
 <% if @course.assessment_tasks.present? %>
 	<% @course.assessment_tasks.each_with_index do |assessment, index| %>
-		<h2>Assessment Task <%= (index + 1).to_s %></h2>
-		<dl class="dl-horizontal">
-			<dt>Title</dt>
-			<dd><%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %></dd>			
+		<h3>Assessment Task <%= (index + 1).to_s %></h3>
+		<div class="view-items">
+			<b>Title: </b>
+			<%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %>		
+		</div>
 
-			<dt>Weighting</dt>
-			<dd><%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : '<i>undefined</i>'.html_safe %></dd>
+		<div class="view-items">
+			<b>Weighting: </b>
+			<%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : '<i>undefined</i>'.html_safe %>
+		</div>
 
-			<h4>Due Date(s)</h4>
-			<% if assessment.assessment_dates.present? %>
-				<div>
-					<% assessment.assessment_dates.each do |due_date| %>
-						<dt style="text-align: right;">Description</dt>
-						<dd><%= due_date.description.present? ? due_date.description : '<i>undefined</i>'.html_safe %></dd>
-						<dt style="text-align: right;">Week</dt>
-						<dd><%= due_date.due.present? ? week_number(@course, due_date.due) : '<i>undefined</i>'.html_safe %></dd>
-					<% end %>
-				</div>				
-			<% else %>
-				<dt>&nbsp;</dt>
-				<dd><i>undefined</i></dd>
-			<% end %>
-		</dl>
-
+		<div class="view-items">		
+			<b>Tasks: </b>
+		</div>
+		<% if assessment.assessment_dates.present? %>
+			
+				<% assessment.assessment_dates.each do |due_date| %>
+					<div class="view-items">
+						<div class="line-items">
+							<b>Description: </b>
+							<%= due_date.description.present? ? due_date.description : '<i>undefined</i>'.html_safe %>
+						</div>
+						<div class="line-items">
+							<b>Due: </b>
+						    <%= due_date.due.present? ? week_number(@course, due_date.due) : '<i>undefined</i>'.html_safe %>
+						</div>
+					</div>
+				<% end %>
+			 			
+		<% else %>
+			<i>undefined</i>
+		<% end %>
+		 
 		<h4>Assessment Synopsis</h4>
 		<p><%= assessment.synopsis.present? ? assessment.synopsis.html_safe : '<i>undefined</i>'.html_safe %></p>
 
 		<% if assessment.criteria.present? %>
-			<h4>Assessment Criteria With Marking Rubric</h4>
+			<h4><i>Assessment Criteria With Marking Rubric</i></h4>
 			<table class="table table-bordered">
 			    <thead>
 			      <tr>
@@ -46,45 +55,59 @@
 			    </tbody>
 			</table>
 		<% end %>
-
-		<dl class="dl-horizontal">
-			<h4>Course Learning Oucomes addressed in this task:</h4>
-			<% if assessment.task_outcomes.present? %>
+		
+		<h4>Course Learning Oucomes addressed in this task:</h4>
+		<% if assessment.task_outcomes.present? %>
+			<ol>
 				<% assessment.task_outcomes.each do |outcome| %>
-					<dt>&nbsp;</dt>
-					<dd><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></dd>
+					<div class="line-items">
+						<li><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></li>
+					</div>
 				<% end %>
-			<% else %>
-				<dt>&nbsp;</dt>
-				<dd><i>undefined</i></dd>
-			<% end %>
+			</ol>
+		<% else %>
+			<dt>&nbsp;</dt>
+			<dd><i>undefined</i></dd>
+		<% end %>
 
-			<% if assessment.graduate_attributes.present? %>
-				<h4>UNSW Graduate Attributes addressed in this task:</h4>
+		<% if assessment.graduate_attributes.present? %>
+			<h4>UNSW Graduate Attributes addressed in this task:</h4>
+			<ol>
 				<% assessment.graduate_attributes.each do |attribute| %>
-					<dt>&nbsp;</dt>
-					<dd><%= attribute.name %></dd>
+					<div class="line-items">
+						<li><%= attribute.name %></li>
+					</div>
 				<% end %>
-			<% end %>
+			</ol>
+		<% end %>
 
-			<% if assessment.assessment_task_resources.present? %>
-				<h4>Resources required for this task:</h4>
-				<% assessment.assessment_task_resources.each do |resource| %>
-					<dt>Resource</dt>
-					<dd><%= resource.resource.present? ? resource.resource.html_safe : '<i>undefined</i>'.html_safe %></dd>
-					<dt>Technical Staff</dt>
-					<dd><%= resource.technical_staff.present? ? resource.technical_staff.member_name : '<i>undefined</i>'.html_safe %></dd>
-				<% end %>
+		<% if assessment.assessment_task_resources.present? %>
+			<h4>Resources required for this task:</h4>
+			<% assessment.assessment_task_resources.each do |resource| %>
+				<div class="view-items">
+					<div class="line-items">
+						<b>Resource: </b>
+						<%= resource.resource.present? ? resource.resource.html_safe : '<i>undefined</i>'.html_safe %>
+					</div>
+					<div class="line-items">
+						<b>Technical Staff: </b>
+					<%= resource.technical_staff.present? ? resource.technical_staff.member_name : '<i>undefined</i>'.html_safe %>
+					</div>					
+				</div>
 			<% end %>
+		<% end %>
 
-			<% if assessment.assessment_task_proficiencies.present? %>
-				<h4>Proficiencies required for this task:</h4>
+		<% if assessment.assessment_task_proficiencies.present? %>
+			<h4>Proficiencies required for this task:</h4>
+			<ul>
 				<% assessment.assessment_task_proficiencies.each do |proficiency| %>
-					<dt>&nbsp;</dt>
-					<dd><%= proficiency.proficiency.present? ? proficiency.proficiency.html_safe : '<i>undefined</i>'.html_safe %></dd>
+					<div class="line-items">
+						<li><%= proficiency.proficiency.present? ? proficiency.proficiency.html_safe : '<i>undefined</i>'.html_safe %></li>
+					</div>
 				<% end %>
-			<% end %>
-		</dl>
+			</ul>
+		<% end %>
+		
 		
 		<h4>Feedback strategy for this task:</h4>
 		<p><%= assessment.feedback.present? ? assessment.feedback.html_safe : '<i>undefined</i>'.html_safe %></p>
