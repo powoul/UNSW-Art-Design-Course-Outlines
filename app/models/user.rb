@@ -23,6 +23,15 @@ class User < ActiveRecord::Base
     self.role == 'ADMIN'
   end
 
+  def superadmin?
+    self.role == "SUPERADMIN"
+  end
+
+
+  def admins?
+    self.role == "ADMIN" || self.role == "SUPERADMIN"
+  end
+  
   def convenor?(course)
     self == course.convenor.user
     # course..each do |m|
