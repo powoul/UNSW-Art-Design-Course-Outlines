@@ -1,4 +1,4 @@
-<% staff_add_button_id = !current_user.convenor_or_director?(f.object) ? "staffAddButton" : "" %>
+<% staff_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "staffAddButton" : "" %>
 <div id="new_lecturers">
   <%= f.simple_fields_for :lecturers do |lec| %>
     <%= lec.input :role, :as => :hidden, :input_html => { :value => "LECTURER" } %>
@@ -10,7 +10,7 @@
     <div class="control-group <%= 'error' if lec.object.errors[:member_name].any? %>">
       <label class="control-label required">Staff</label>
       <div class="controls">
-        <%= lec.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'}, :disabled => !current_user.convenor_or_director?(f.object) %>
+        <%= lec.input :member_name, :label => false, :url => autocomplete_user_fullname_members_path, :as => :autocomplete, :placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span5'}, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
       </div>
     </div>
 
@@ -18,7 +18,7 @@
     <div class="control-group <%= 'error' if lec.object.errors[:consultation_times].any? %>">
       <label class="control-label required">Consultation Times</label>
       <div class="controls">
-        <%= lec.input :consultation_times, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+        <%= lec.input :consultation_times, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
       </div>
     </div>
     <hr>

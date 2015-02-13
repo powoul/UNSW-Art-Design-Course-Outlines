@@ -33,10 +33,7 @@
             <td><%= semester.mid_semester_break %></td>
             <td>
                 <%= link_to 'View', semester_path(semester), :class => 'btn btn-mini' %>
-                <% if current_user.admin? %>
-                    <%= link_to 'Edit', edit_semester_path(semester), :class => 'btn btn-mini btn-primary' %>
-                <% end %>
-                <%= link_to 'Delete', semester_path(semester), :confirm => "Are you sure? ", :class => 'btn btn-mini btn-danger', :method => :delete %>
+                <%= link_to 'Edit', edit_semester_path(semester), :class => 'btn btn-mini btn-primary' %>
             </td>
           </tr>
         <% end %>

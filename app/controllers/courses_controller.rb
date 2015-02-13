@@ -1,27 +1,23 @@
 class CoursesController < ApplicationController
-  #autocomplete :program, :description, :full => true, :display_value => :number_with_description, :extra_data => [:number, :description], :scopes => [:search_by_number_and_description], :where => { :status => true }
-  
-  # def get_autocomplete_items(parameters)
-  #   items = Program.search_by_number_and_description(params[:term])  
-  # end
-
 
   # GET /courses
   # GET /courses.json
   def index
-    if !params[:category].present?
-      @courses = Course.all
-    elsif (params[:category] == 'convenor')
+    if (params[:category] == 'convenor')
       @courses = []
       Course.all.each do |course|
         @courses << course if current_user.convenor?(course)
       end
-    else
+    elsif (params[:category] == 'program')
       @courses = []
       Course.all.each do |course|
         @courses << course if current_user.program_director?(course)
-      end      
+      end
+    else
+       @courses = Course.all    
     end
+
+    @approved_courses = Course.where("status = ?", "APPROVED")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,18 +42,17 @@ class CoursesController < ApplicationController
     end
     @resources_required = @resources_required.compact.uniq
     @proficiencies_required = @proficiencies_required.compact.uniq
-    
-    # @course_convenor = @course.members.where(:role => "CONVENOR").first
-    # @teaching_staff = @course.members.where(:role => "TEACHING STAFF")
 
     respond_to do |format|
       format.html # show.html.erb
       format.pdf do
-        render :pdf => "#{@course.name}",
+          pdf = render_to_string :pdf => "#{@course.name}",
           :layout => 'authenticated.pdf',
           :show_as_html => params[:debug].present?,
           :page_size    => 'A4',
-          :dpi          => 177
+          :dpi          => 177,
+          :template => '/courses/show.pdf.erb'
+          send_data pdf
       end
       format.json { render :json => @course }
     end
@@ -66,10 +61,9 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    if current_user.admin? && Semester.count >= 1 
+    if current_user.admins? && Semester.count >= 1 
         @course = Course.new
         @course.convenor = Member.new(:role => 'CONVENOR')
-        # @course.program_director = Member.new(:role => 'PROGRAM DIRECTOR')
 
         respond_to do |format|
           format.html # new.html.erb
@@ -77,7 +71,7 @@ class CoursesController < ApplicationController
         end
     else
       respond_to do |format|
-        unless current_user.admin?
+        unless current_user.admins?
           flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe 
         else
           flash[:error] = 'Please create a semester first and try again.'
@@ -96,8 +90,7 @@ class CoursesController < ApplicationController
        @course.teaching_strategy = TeachingStrategy.new
     end
 
-
-    if current_user.admin? || current_user.convenor?(@course) || current_user.program_director?(@course)
+    if current_user.admins? || current_user.convenor_or_director_or_superadmin?(@course)
       respond_to do |format|
           format.html # new.html.erb
           format.json { render :json => @course }
@@ -110,22 +103,6 @@ class CoursesController < ApplicationController
       end
     end
 
-    # if !@course.topics.present?
-    #   @course.topics =  create_topics
-    # end
-    
-    # @course.expectation = Expectation.new
-    # if @course.lecturers.empty?
-    #   @course.lecturers << Member.new(:role => 'LECTURER')
-    # end
-    # if @course.course_improvements.empty?
-    #   @course.course_improvements << CourseImprovement.new
-    # end
-    # if @course.assessments.empty? 
-    #   @course.assessments << Assessment.new
-    # end
-    #@course_convenor = @course.members.where(:role => "CONVENOR").first
-    #@affiliated_program = @course.affiliated_program
   end
 
   # POST /courses
@@ -143,7 +120,6 @@ class CoursesController < ApplicationController
         format.json { render :json => @course, :status=> :created, :location => @course }
       else
         @course.convenor ||= Member.new(:role => 'CONVENOR')
-        # @course.program_director ||= Member.new(:role => 'PROGRAM DIRECTOR')
         format.html { render :action => "new" }
         format.json { render :json => @course.errors, :status => :unprocessable_entity }
       end
@@ -177,12 +153,21 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @course = Course.find(params[:id])
-    @course.destroy
+    if current_user.superadmin?
+      @course = Course.find(params[:id])
+      @course.destroy
 
-    respond_to do |format|
-      format.html { redirect_to courses_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to courses_url }
+        format.json { head :no_content }
+      end
+    else
+      flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        
+      respond_to do |format|
+        format.html { redirect_to courses_url }
+        format.json { head :no_content }
+      end
     end
   end
 

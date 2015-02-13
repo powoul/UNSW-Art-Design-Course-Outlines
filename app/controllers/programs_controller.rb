@@ -30,9 +30,9 @@ class ProgramsController < ApplicationController
   # GET /programs/new
   # GET /programs/new.json
   def new
-    if current_user.admin?
+    if current_user.superadmin?
       @program = Program.new
-      @program.director = Member.new(:role => 'PROGRAM DIRECTOR')
+      #@program.director = Member.new(:role => 'PROGRAM DIRECTOR')
 
       respond_to do |format|
         format.html # new.html.erb
@@ -49,7 +49,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1/edit
   def edit
-    if current_user.admin?
+    if current_user.superadmin?
       @program = Program.find(params[:id])
 
       respond_to do |format|

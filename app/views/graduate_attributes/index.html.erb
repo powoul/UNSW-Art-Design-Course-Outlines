@@ -19,7 +19,9 @@
       <td><%= graduate_attribute.name %></td>
       <td><%= link_to 'Show', graduate_attribute, :class => "btn btn-mini btn-primary" %>
         <%= link_to 'Edit', edit_graduate_attribute_path(graduate_attribute), :class => "btn btn-mini btn-success" %>
-        <%= link_to 'Destroy', graduate_attribute, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini btn-danger" %>
+        <% if current_user.superadmin? %>
+          <%= link_to 'Delete', graduate_attribute, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini btn-danger" %>
+        <% end %>
       </td>
     </tr>
   <% end %>

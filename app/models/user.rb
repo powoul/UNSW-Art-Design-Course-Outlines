@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :members
   belongs_to :affiliated_program
 
-  ROLES = ['ADMIN', 'TECHNICAL STAFF']
+  ROLES = ['TECHNICAL STAFF', 'ADMIN', 'SUPERADMIN']
 
   define_index  do
   	indexes fullname, :sortable => true
@@ -27,28 +27,27 @@ class User < ActiveRecord::Base
     self.role == "SUPERADMIN"
   end
 
-
   def admins?
     self.role == "ADMIN" || self.role == "SUPERADMIN"
   end
   
   def convenor?(course)
     self == course.convenor.user
-    # course..each do |m|
-    #   return true if (self == m.user && m.role == "CONVENOR")
-    # end
-    # false
   end
 
   def program_director?(course)
     if course.program.director.present?
-      return true if (self == course.program.director.user || self.zid == 'z9901300')
+      return true if (self == course.program.director.user)
     end
     false
   end
 
-  def convenor_or_director?(course)
-    (self == course.convenor.user) || (course.program.director.present? && self == course.program.director.user) || (self.zid == 'z9901300') || (self.zid == 'z3288850') || (self.zid == 'z2275417') || (self.zid == 'z3418709')
+  def convenor_or_superadmin?(course)
+    (self == course.convenor.user) || (self.role == "SUPERADMIN")
+  end
+
+  def convenor_or_director_or_superadmin?(course)
+    (self == course.convenor.user) || (course.program.director.present? && self == course.program.director.user) || (self.role == "SUPERADMIN")
   end
 
 end

@@ -24,17 +24,39 @@ class ParametersController < ApplicationController
   # GET /parameters/new
   # GET /parameters/new.json
   def new
-    @parameter = Parameter.new
+    if current_user.admins?
+      @parameter = Parameter.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @parameter }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @parameter }
+      end
+    else
+      flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+      respond_to do |format|
+        format.html { redirect_to parameters_url }
+        format.json { head :no_content }
+      end
     end
   end
 
   # GET /parameters/1/edit
   def edit
-    @parameter = Parameter.find(params[:id])
+    if current_user.admins?
+      @parameter = Parameter.find(params[:id])
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @parameter }
+      end
+    else
+      flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+      
+      respond_to do |format|
+        format.html { redirect_to parameters_url }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /parameters
@@ -72,12 +94,20 @@ class ParametersController < ApplicationController
   # DELETE /parameters/1
   # DELETE /parameters/1.json
   def destroy
-    @parameter = Parameter.find(params[:id])
-    @parameter.destroy
+    if current_user.superadmin?
+      @parameter = Parameter.find(params[:id])
+      @parameter.destroy
 
-    respond_to do |format|
-      format.html { redirect_to parameters_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to parameters_url, :notice => "Parameter was successfully deleted." }
+        format.json { head :no_content }
+      end
+    else
+      flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+      respond_to do |format|
+        format.html { redirect_to parameters_url }
+        format.json { head :no_content }
+      end  
     end
   end
 end

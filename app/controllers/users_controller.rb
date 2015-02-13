@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if current_user.admin?
+    if current_user.superadmin?
       @user = User.find(params[:id])
 
       respond_to do |format|

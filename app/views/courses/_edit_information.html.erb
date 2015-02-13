@@ -3,7 +3,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:code].any? %>">
     <label class="control-label required">Course Code</label>
     <div class="controls">
-      <%= f.input :code, :label => false, :disabled => !current_user.admin? %>
+      <%= f.input :code, :label => false, :disabled => !current_user.admins? %>
     </div>
   </div>
 
@@ -11,7 +11,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:name].any? %>">
     <label class="control-label required">Course Name</label>
     <div class="controls">
-      <%= f.input :name, :label => false, :disabled => !current_user.admin? %>
+      <%= f.input :name, :label => false, :disabled => !current_user.admins? %>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:semester_name].any? %>">
     <label class ="control-label required">Semester</label>
     <div class="controls">
-      <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year }, :disabled => !current_user.admin? %>
+      <%= f.input :semester_name, :label => false, :collection => Semester.all.map { |s| s.name_with_year }, :disabled => !current_user.admins? %>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:units_of_credit].any? %>">
     <label class="control-label required">Units of Credit</label>
     <div class="controls">
-      <%= f.input :units_of_credit, :label => false, :input_html => { :class => "span1" }, :disabled => !current_user.admin? %>
+      <%= f.input :units_of_credit, :label => false, :input_html => { :class => "span1" }, :disabled => !current_user.admins? %>
     </div>
   </div>
 
@@ -43,7 +43,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:teaching_times_and_locations].any? %>">
     <label class="control-label">Teaching Times and Locations</label>
     <div class="controls">
-      <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+      <%= f.input :teaching_times_and_locations, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:online_course_support].any? %>">
     <label class="control-label">Online Course Support</label>
     <div class="controls">
-      <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+      <%= f.input :online_course_support, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
 
       <p class="help-block"><small>Does this course have any online support associated with it such as Moodle, Omnium, a course blog etc. Please add a descriptor.</small></p>
     </div>
@@ -61,7 +61,7 @@
   <div class="control-group <%= 'error' if f.object.errors[:parallel_teaching].any? %>">
     <label class="control-label">Parallel Teaching</label>
     <div class="controls">
-      <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+      <%= f.input :parallel_teaching, :label => false, :input_html => { :class => 'span10' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
 
       <p class="help-block"><small>Put the codes and names of any courses taught in the same class(es) as this courses here.</small></p>
     </div>

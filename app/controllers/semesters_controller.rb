@@ -24,17 +24,38 @@ class SemestersController < ApplicationController
   # GET /semesters/new
   # GET /semesters/new.json
   def new
-    @semester = Semester.new
+    if current_user.superadmin?
+      @semester = Semester.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @semester }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @semester }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to semesters_url }
+        format.json { head :no_content }
+      end
     end
   end
 
   # GET /semesters/1/edit
   def edit
-    @semester = Semester.find(params[:id])
+    if current_user.superadmin?
+      semester = Semester.find(params[:id])
+      
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @semester }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You have been denied access to this page because you do not have the right access to this page. If you believe that a mistake has been made, please contact <a href="mailto:h.samani@unsw.edu.au">h.samani@unsw.edu.au</a>.'.html_safe
+        format.html { redirect_to semesters_url }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /semesters

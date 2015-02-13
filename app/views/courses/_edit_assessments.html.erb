@@ -1,5 +1,5 @@
 <p class="help-block"><small><i><u>NOTES ABOUT ASSESSMENT: </i></u>Limit course assessment to no more than THREE tasks - one or two of which may include the stages of a bigger task. Remember that not every task needs to be formally assessed for marks and students can be asked to provide a draft, for example, without it needing to have marks attached. Please include assessment details in the Course Outline so that all students know from the outset what is expected to pass the course.</small></p>
-<% assessment_add_button_id = !current_user.convenor_or_director?(f.object) ? "assessmentAddButton" : "" %>
+<% assessment_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "assessmentAddButton" : "" %>
 <div id="assessments_div">
   <%= f.simple_fields_for :assessment_tasks do |assess| %>
     <div class="pull-right">
@@ -12,7 +12,7 @@
       <div class="control-group <%= 'error' if assess.object.errors[:title].any? %>">
         <label class="control-label required">Title</label>
         <div class="controls">
-          <%= assess.input :title, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %>
+          <%= assess.input :title, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
         </div>
       </div>
 
@@ -26,14 +26,14 @@
       <div class="control-group <%= 'error' if assess.object.errors[:weighting].any? %>">
         <label class="control-label required">Weighting (%)</label>
         <div class="controls">
-          <%= assess.input :weighting, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor_or_director?(f.object) %>
+          <%= assess.input :weighting, :label => false, :input_html => { :class => "span1"}, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
           <p class="help-block"><small>No task should be more than 65%, with most tasks it is desirable to limit the size (and risk) to 50% weighting. Wigthing should reflect the complexity of the task. A larger weighting might mean more criteria being assessed, while a smaller wighting should have less criteria (see bellow).</small></p>
         </div>
       </div>
 
       <hr>
       <h4>Due dates for this task:</h4><br />
-      <% assessment_dates_add_button_id = !current_user.convenor_or_director?(f.object) ? "assessmentDatesAddButton" : "" %>
+      <% assessment_dates_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "assessmentDatesAddButton" : "" %>
       <div id="assessment_dates_<%= assess.object_id %>">
         <%= assess.simple_fields_for :assessment_dates do |due_dates| %>
 
@@ -44,14 +44,14 @@
           <div class="control-group <%= 'error' if due_dates.object.errors[:due].any? %>">
             <label class="control-label">Due</label>
             <div class="controls">
-               <%= due_dates.input :due, :label => false, :collection => weeks_list(f.object), :input_html => { :class => 'span2'}, :disabled => !current_user.convenor_or_director?(f.object) %>
+               <%= due_dates.input :due, :label => false, :collection => weeks_list(f.object), :input_html => { :class => 'span2'}, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
             </div>
           </div>
 
           <div class="control-group <%= 'error' if due_dates.object.errors[:description].any? %>">
             <label class="control-label">Description</label>
             <div class="controls">
-               <%= due_dates.input :description, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+               <%= due_dates.input :description, :label => false, :input_html => { :class => 'span5' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
             </div>
           </div>
 
@@ -80,7 +80,8 @@
       <div class="control-group <%= 'error' if assess.object.errors[:synopsis].any? %>">
         <label class="control-label required">Assessment Synopsis (full brief available in course)</label>
         <div class="controls">
-          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 10, :class => 'span11 tinymce' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+          <% tinymceStr = current_user.convenor_or_director_or_superadmin?(f.object) ? 'tinymce' : '' %>
+          <%= assess.input :synopsis, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
           <p class="help-block"><small>This can be a <u>summary</u> of the project brief that outlines teh aims of the task, what you want students to do and where they need to submit). Keep this short and to the point. Usually one paragraph.</small></p>
         </div>
       </div>
@@ -88,7 +89,6 @@
       <br />
       <h4>Assessment Criteria With Marking Rubric:</h4><br />
       <div class="headings">
-            
               <div class="input string optional criteria_criteria">
                 <label class="require">Criteria</label>
               </div>
@@ -110,16 +110,16 @@
               <div class="input delete-btn"></div>
       </div>                 
       
-      <% criteria_add_button_id = !current_user.convenor_or_director?(f.object) ? "criteriaAddButton" : "" %>
+      <% criteria_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "criteriaAddButton" : "" %>
       <div id="criteria_<%= assess.object_id %>" class="criteria">
         <%= assess.simple_fields_for :criteria, :html => { :class => 'form-horizontal' } do |criterion| %>
           <div id="criterion_<%= assess.object.id %>">
-            <div><%= criterion.input :criteria, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
-            <div><%= criterion.input :fail, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
-            <div><%= criterion.input :pass, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
-            <div><%= criterion.input :credit, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
-            <div><%= criterion.input :distinction, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
-            <div><%= criterion.input :high_distinction, :label => false, :disabled => !current_user.convenor_or_director?(f.object) %></div>
+            <div><%= criterion.input :criteria, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
+            <div><%= criterion.input :fail, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
+            <div><%= criterion.input :pass, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
+            <div><%= criterion.input :credit, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
+            <div><%= criterion.input :distinction, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
+            <div><%= criterion.input :high_distinction, :label => false, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %></div>
             <!-- <div><%#= criterion.input :order_number, :as => :hidden, :input_html => { :class => 'order_number_input' }, :disabled => !current_user.convenor_or_director?(f.object) %></div> -->
             <div class="input delete-btn"><%= criterion.link_to_remove icon('trash'), :class => "btn", :id => "#{criteria_add_button_id}" %></div>
           </div>
@@ -134,7 +134,7 @@
       <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#criteria_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
       <h4>Course Learning Outcomes addressed in this task:</h4>
-      <% task_outcomes_add_button_id = !current_user.convenor_or_director?(f.object) ? "taskOutcomeAddButton" : "" %>
+      <% task_outcomes_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "taskOutcomeAddButton" : "" %>
       <div id="task_outcomes_<%= assess.object_id %>">
         <%= assess.simple_fields_for :task_outcomes do |outcome| %>
 
@@ -145,7 +145,7 @@
           <div class="control-group <%= 'error' if f.object.errors[:course_learning_outcome_id].any? %>">
             <label class="control-label">Outcome</label>
             <div class="controls">
-              <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor_or_director?(f.object) %>
+              <%= outcome.input :course_learning_outcome_id, :label => false, :collection => @course.course_learning_outcomes, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
             </div>
           </div>
 
@@ -184,7 +184,7 @@
       <p><a class="btn btn-info btn-mini" data-toggle="modal" href="#graduate_attributes_help"><%= icon('info-sign','') %> Help for completing this section</a></p><br />
 
       <h4>Resources required for this task:</h4><br />
-      <% task_resources_add_button_id = !current_user.convenor_or_director?(f.object) ? "taskResourcesAddButton" : "" %>
+      <% task_resources_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "taskResourcesAddButton" : "" %>
       <div id="task_resources_<%= assess.object_id %>">
         <%= assess.simple_fields_for :assessment_task_resources do |resource| %>
 
@@ -195,7 +195,7 @@
           <div class="control-group <%= 'error' if f.object.errors[:resource].any? %>">
             <label class="control-label required">Resource</label>
             <div class="controls">
-              <%= resource.input :resource, :label => false, :input_html => { :class => "span11"}, :disabled => !current_user.convenor_or_director?(f.object) %>
+              <%= resource.input :resource, :label => false, :input_html => { :class => "span11"}, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
             </div>
           </div>
     
@@ -207,7 +207,7 @@
             <div class="control-group <%= 'error' if resource.object.errors[:technical_staff].any? %>">
               <label class="control-label required">Technical Staff</label>
               <div class="controls">
-                <%= staff.input :member_name, :label => false, :collection => User.all.reject{|u| u.role != "TECHNICAL STAFF"}.map { |s| s.zid_with_fullname },:placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span3'}, :disabled => !current_user.convenor_or_director?(f.object) %>
+                <%= staff.input :member_name, :label => false, :collection => User.all.reject{|u| u.role != "TECHNICAL STAFF"}.map { |s| s.zid_with_fullname },:placeholder => "Type name, zid", :input_html => {:"data-update-elements" => "[]", :class => 'span3'}, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
               </div>
             </div>
 
@@ -234,7 +234,7 @@
 
       <hr>
       <h4>Proficiencies required for this task:</h4><br />
-      <% task_proficiency_add_button_id = !current_user.convenor_or_director?(f.object) ? "taskProficiencyAddButton" : "" %>
+      <% task_proficiency_add_button_id = !current_user.convenor_or_director_or_superadmin?(f.object) ? "taskProficiencyAddButton" : "" %>
       <div id="task_proficiencies_<%= assess.object_id %>">
         <%= assess.simple_fields_for :assessment_task_proficiencies do |proficiency| %>
 
@@ -245,7 +245,7 @@
           <div class="control-group">
             <label class="control-label">Proficiency</label>
             <div class="controls">
-              <%= proficiency.input :proficiency, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor_or_director?(f.object) %>
+              <%= proficiency.input :proficiency, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>
             </div>
           </div>
 
@@ -269,8 +269,8 @@
       <div class="control-group <%= 'error' if f.object.errors[:feedback].any? %>">
         <label class="control-label required">Feedback</label>
         <div class="controls">
-          <% tinymceStr = current_user.convenor_or_director?(f.object) ? 'tinymce' : '' %>
-          <%= assess.input :feedback, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director?(f.object) %>                    
+          <% tinymceStr = current_user.convenor_or_director_or_superadmin?(f.object) ? 'tinymce' : '' %>
+          <%= assess.input :feedback, :label => false, :input_html => { :rows => 10, :class => "span11 #{tinymceStr}" }, :disabled => !current_user.convenor_or_director_or_superadmin?(f.object) %>                    
         </div>
       </div>
       <p class="help-block"><small>You must provide feedback for every assessment, and you should provide students with information here on how they will get feedback on this task. Provide here information on whether feedback will be written or spoken, and when it will be given. NOTE – Feedback should be delivered in a timely manner (no more than two weeks from the date of submission), be succinct and clear, and also personalised for each student.</small></p><br />
@@ -345,7 +345,7 @@
 
 <% end %>
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   $("*[id*='assessmentAddButton']").each(function() {
     $(this).addClass('disabled');
     $(this).prop('disabled', true);
@@ -375,6 +375,5 @@
     $(this).addClass('disabled');
     $(this).prop('disabled', true);
   });
-  
-  
+    
 </script>

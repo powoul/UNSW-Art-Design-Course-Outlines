@@ -8,7 +8,7 @@
 		<header class="jumbotron subhead">
 			<div class="btn-toolbar pull-right">
 		        <div class="btn-group">
-		            <% if current_user.admin? || current_user.convenor_or_director?(@course) %>
+		            <% if current_user.admin? || current_user.convenor_or_director_or_superadmin?(@course) %>
 		            	<%= link_to 'Edit', edit_course_path(@course, :category => params[:category]), :class => 'btn' %>
 		            <% end %>
 		        </div>
