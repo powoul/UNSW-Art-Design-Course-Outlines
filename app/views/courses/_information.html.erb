@@ -24,24 +24,6 @@
 	</div>
 <% end %>
 
-<% if @resources_required.present? %>
-	<div class="view-items">
-		<b>Resources Required: </b>
-		<% @resources_required.each do |resource| %>
-			<li class="line-items"><%= resource %></li>
-		<% end %>
-	</div>
-<% end %>
-
-<% if @proficiencies_required.present? %>
-	<div class="view-items">
-		<b>Proficiencies Required: </b>
-		<% @proficiencies_required.each do |proficiency| %>
-			<li class="line-items"><%= proficiency %></li>
-		<% end %>
-	</div>
-<% end %>
-
 <!-- <dl class="dl-horizontal">
 	
 	<dt>Units of Credit</dt>
