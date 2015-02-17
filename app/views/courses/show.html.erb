@@ -12,7 +12,23 @@
 		            	<%= link_to 'Edit', edit_course_path(@course, :category => params[:category]), :class => 'btn' %>
 		            <% end %>
 		        </div>
+
+		        <div class="btn-group">
+		            <% if @course.status == "SUBMITTED" && (current_user.program_director?(@course) || current_user.superadmin?) %>
+		            <div style="margin-bottom: 20px;">
+		            	<%= simple_nested_form_for @course, :html => { :class => 'form-horizontal' } do |f| %>
+							<%= f.submit "Approve", :class => "btn btn-success", :style => "margin-bottom: 20px;", :name => "status", :value => "APPROVE" %>
+		            	<% end %>
+		            </div>
+		            <% end %>
+		        </div>
+
+		        <div class="btn-group">
+		            <%= link_to "Back", courses_path(:category => params[:category]), :class => 'btn' %>
+		        </div>
+
 		    </div>
+
 			<h1><%= @course.code.upcase %> - <%= @course.name.upcase %></h1>
 			<p class="lead">You are viewing <%= @course.code.upcase %> - <%= @course.name.upcase %></p><br />
 			<div class="subnav">

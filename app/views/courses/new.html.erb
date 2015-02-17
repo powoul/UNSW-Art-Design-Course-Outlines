@@ -25,6 +25,6 @@
 	<br />
 	<div class="form-actions" style="text-align: center;">
 	    <%= f.submit "Create Course", :class => 'btn btn-primary', :name => "status", :value => "SAVE" %>
-	    <%= link_to "Cancel", courses_path, :class => 'btn' %>
+	    <%= link_to "Cancel", courses_path(:category => params[:category]), :class => 'btn' %>
 	</div>
 <% end %>
