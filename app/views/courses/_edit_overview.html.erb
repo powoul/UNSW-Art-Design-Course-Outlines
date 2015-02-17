@@ -27,7 +27,7 @@
 
 <h3>STUDENT LEARNING OUTCOMES</h3><br />
 <p>At the conclusion of this course, students should be able to:</p>
-<% course_learning_outcomes_add_button_id = !current_user.convenor_or_superadmin?(f.object) ? "learningOutcomeAddButton" : "" %>
+<% course_learning_outcomes_add_button_id = !current_user.superadmin? ? "learningOutcomeAddButton" : "" %>
 <div id="outcomes">
 <%= f.simple_fields_for :course_learning_outcomes do |outcome| %>
   
@@ -38,7 +38,7 @@
     <div class="control-group <%= 'error' if outcome.object.errors[:name].any? %>">
       <label class="control-label required">Learning outcome</label>
       <div class="controls">
-        <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.convenor_or_superadmin?(f.object) %>
+        <%= outcome.input :name, :label => false, :input_html => { :class => 'span11' }, :disabled => !current_user.superadmin? %>
       </div>
     </div>
 
