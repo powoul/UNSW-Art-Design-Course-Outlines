@@ -41,7 +41,7 @@ class Course < ActiveRecord::Base
   before_validation :initialize_associate, :on => :create
 
   validates_presence_of :code, :name, :semester, :units_of_credit, :summary, :convenor, :program, :on => :create
-  validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :late_submission_allowed, :on => :update
+  validates_presence_of :teaching_times_and_locations, :online_course_support, :parallel_teaching, :course_aims, :on => :update
   validates :resources, :presence => {:message => "Resources for students can't be blank."}, :on => :update
   validates_uniqueness_of :code, :scope => [:semester_id], :message => "Course already exists for this semester" 
   validate :uniqueness_of_learning_outcomes, :number_of_learning_outcomes, :on => :update
@@ -50,6 +50,7 @@ class Course < ActiveRecord::Base
   validate :number_of_assessment_tasks, :on => :update
   validate :task_total_wighting, :on => :update
   validate :presence_of_program_director, :on => :update
+  validates_inclusion_of :late_submission_allowed, :in => [true, false],:on => :update
   validates_associated :assessment_tasks, :message => "Error in assessment tasks"
 
   STATUS = {
