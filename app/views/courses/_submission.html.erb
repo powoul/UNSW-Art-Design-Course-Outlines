@@ -1,10 +1,10 @@
-<div class="form-actions">              
+<div class="form-actions">            
 	<%= f.submit "Save", :class => 'btn btn-primary', :name => "status", :value => "SAVE", :style => "margin-right: 10px;", :category => params[:category] %>
-	<% if current_user.convenor_or_superadmin?(f.object) && f.object.status == "DRAFT" %>
+	<% if current_user.convenor_or_superadmin?(f.object) %>
 		<%= f.submit "Submit", :class => "btn btn-primary", :name => "status", :value => "SUBMIT FOR APPROVAL", :style => "margin-right: 10px;" %>
 	<% end %>
-	<% if f.object.status == "SUBMITTED" && (current_user.program_director?(f.object) || current_user.superadmin?) %>
+	<% if (current_user.program_director?(f.object) || current_user.superadmin?) %>
 		<%= f.submit "Approve", :class => "btn btn-success", :name => "status", :value => "APPROVE", :style => "margin-right: 10px;" %>
 	<% end %>
-	<%= link_to "Back", courses_path(:category => params[:category]), :class => 'btn' %>
+	<%= link_to "Cancel", courses_path(:category => params[:category]), :class => 'btn' %>
 </div>
