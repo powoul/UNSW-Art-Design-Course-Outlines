@@ -25,7 +25,7 @@ class AssessmentTask < ActiveRecord::Base
 
   validates_presence_of :title, :weighting, :synopsis, :feedback, :assessment_dates
 
-  validate :number_of_criteria
+  #validate :number_of_criteria
   validate :maximum_weighting
   validates_associated :criteria, :message => "Error in assessment criteria"
   validates_associated :assessment_task_resources, :message => "Error in resources"
