@@ -4,16 +4,18 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to Course Outlines application.</h1>
     <p>
       Dear <strong><%= @user.fullname %></strong>,<br/>
     </p>
-    <p>You are the program director for <%= @course.code%> - <%= @course.name %>.<br/></p>
+
     <p>
-      Please follow this link to approve the course outlines:
-      <%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>
+      <strong><%= @course.convenor.user.fullname%></strong> has submitted the course outline for <strong><%= @course.code%>(<%= @course.name %>)</strong> for your approval in the Art & Design Course Outline System. Please follow this link <strong><%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %></strong> to review the outline, and press the ‘Approve' button if you are happy to commit this outline into the official system to be distributed to students.      
     </p>
-    <p>Thank you and have a great day!</p><br/>
+    
+    <p>
+      <i><strong>Please note:</strong> A course outline <u>must</u> be approved by you before it can be issued to students or used within the UNSW handbook.</i>
+    </p>
+    <p>Thank you.</p><br />
     <p>
       <strong>UNSW | Art & Design</strong></br>
       UNSW AUSTRALIA

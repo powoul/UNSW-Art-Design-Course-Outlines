@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
   def program_director(user, course)
   	@user = user
   	@course = course
-  	mail(:to => @user.email, :subject => "Course Outline - Program Director") do |format|
+  	mail(:to => @user.email, :subject => "Course Outline for #{course.code} requires your approval") do |format|
       format.html
     end
   end
