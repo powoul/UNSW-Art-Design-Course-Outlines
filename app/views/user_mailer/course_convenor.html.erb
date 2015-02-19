@@ -4,18 +4,13 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to Course Outlines application.</h1>
     <p>
       Dear <strong><%= @user.fullname %></strong>,<br/>
     </p>
-    <p>You are the course covenor for <%= @course.code%> - <%= @course.name %>.<br/></p>
     <p>
-      Please follow this link to complete the course outlines:
-      <a href="<%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>">
-        <%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %>
-      </a>
+      A new outline template has been created in the Art & Design Course Outline System for <strong><%= @course.code%> (<%= @course.name %>)</strong>. Please follow this link <strong><%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %></strong> to complete the template. When complete, please press the Submit for Approval button at the bottom of the outline so that your Program Director can review and approve the outline. Once your Program Director approves the outline it will be able to be exported as a PDF file.
     </p>
-    <p>Thank you and have a great day!</p><br/>
+    <p>Thank you.</p><br />
     <p>
       <strong>UNSW | Art & Design</strong></br>
       UNSW AUSTRALIA

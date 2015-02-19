@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def course_convenor(user, course)
   	@user = user
   	@course = course
-  	mail(:to => @user.email, :subject => "Course Outline - Course Convenor") do |format|
+  	mail(:to => @user.email, :subject => "Course Outline for #{course.code} has been created.") do |format|
       format.html
     end
   end

@@ -9,7 +9,7 @@
     </p>
 
     <p>
-      <strong><%= @course.convenor.user.fullname%></strong> has submitted the course outline for <strong><%= @course.code%>(<%= @course.name %>)</strong> for your approval in the Art & Design Course Outline System. Please follow this link <strong><%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %></strong> to review the outline, and press the ‘Approve' button if you are happy to commit this outline into the official system to be distributed to students.      
+      <strong><%= @course.convenor.user.fullname%></strong> has submitted the course outline for <strong><%= @course.code%> (<%= @course.name %>)</strong> for your approval in the Art & Design Course Outline System. Please follow this link <strong><%= course_url(@course, :host => Rails.application.config.action_mailer.default_url_options[:host]) %></strong> to review the outline, and press the ‘Approve' button if you are happy to commit this outline into the official system to be distributed to students.      
     </p>
     
     <p>
