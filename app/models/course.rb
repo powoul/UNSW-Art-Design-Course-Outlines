@@ -142,9 +142,10 @@ class Course < ActiveRecord::Base
 
   def number_of_learning_outcomes
     names = self.course_learning_outcomes.reject(&:marked_for_destruction?).map(&:name)
-    if names.compact.uniq.count > 5
-      errors.add :course_learning_outcomes, 'Maximum <strong>five</strong> learning outcomes are allowed.'.html_safe
-    end
+    # Suppress maximum learning outcomes validation for now
+    # if names.compact.uniq.count > 5
+    #   errors.add :course_learning_outcomes, 'Maximum <strong>five</strong> learning outcomes are allowed.'.html_safe
+    # end
     if names.compact.uniq.count < 1
       errors.add :course_learning_outcomes, 'No student learning outcome has been added.'.html_safe
     end
