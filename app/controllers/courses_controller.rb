@@ -139,7 +139,7 @@ class CoursesController < ApplicationController
       if @course.save(:validate => validate)
         if @course.status == "SUBMITTED"
           # Suppress email notification for now.
-          # UserMailer.program_director(@course.program.director.user, @course).deliver
+          UserMailer.program_director(@course.program.director.user, @course).deliver
         end
         format.html { redirect_to course_path(@course, :section_id => params[:section_id]), :notice => 'Course was successfully updated.' }
         format.json { head :no_content }
