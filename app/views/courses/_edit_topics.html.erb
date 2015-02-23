@@ -13,7 +13,7 @@
       <tr>
         <td><%= topic.input :week, :label => false, :disabled => true %></td>
         <td><%= topic.input :date, :as => :hidden %><%= topic.object.date.to_s("%d %B") %></td>
-        <td><%= topic.input :topic_name, :label => false, :disabled => (topic.object.topic_name == "Non-Teaching Week" || topic.object.topic_name == "Mid-Semester Break" || !current_user.convenor_or_director_or_superadmin?(f.object)) %></td>
+        <td><%= topic.input :topic_name, :label => false, :disabled => (topic.object.topic_name == "Mid-Semester Break" || !current_user.convenor_or_director_or_superadmin?(f.object)) %></td>
         <td>                  
           <% f.object.assessment_tasks.each do |task| %>
             <% count = 0 %>
