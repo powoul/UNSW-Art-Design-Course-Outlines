@@ -1,6 +1,6 @@
 <div class="view-items">
-	<b>Course Summary: </b>
-	<%= @course.summary.present? ? @course.summary.html_safe : '<i>undefined</i>'.html_safe %>
+	<h3>Course Summary:</h3>
+	<%= @course.summary.present? ? @course.summary.html_safe : '' %>
 </div>
 
 <div class="view-items">
@@ -11,19 +11,19 @@
 
 	<div class="view-items">
 		<b>Affiliated Program: </b>
-		<%= @course.program.present? ? @course.program.try(:number_with_description) : '<i>undefined</i>'.html_safe %>
+		<%= @course.program.present? ? @course.program.try(:number_with_description) : '' %>
 	</div>
 
 	<div class="view-items">
 		<b>Program Director:</b>
-		<%= @course.program.director.present? ? @course.program.director.user.fullname : '<i>undefined</i>'.html_safe %>
+		<%= @course.program.director.present? ? @course.program.director.user.fullname : '' %>
 	</div>
 
 </div>
 
 <div class="view-items">
-	<b>Course Aims</b>
-	<p><%= @course.course_aims.present? ? @course.course_aims.html_safe : '<i>undefined</i>'.html_safe %></p>
+	<h3>Course Aims</h3>
+	<p><%= @course.course_aims.present? ? @course.course_aims.html_safe : '' %></p>
 </div>
 
 <div class="view-items">
@@ -33,7 +33,7 @@
 	<% if @course.course_learning_outcomes.present? %>
 		<ol>
 			<% @course.course_learning_outcomes.each do |outcome| %>
-				<li><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></li>
+				<li><%= outcome.name.present? ? outcome.name.html_safe : '' %></li>
 			<% end %>
 		</ol>
 	<% else %>
@@ -48,14 +48,14 @@
 	<% if @course.teaching_strategy.lectures == true %>	
 		<div class="view-items">
 			<b>Lectures:</b>
-			<p><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '<i>undefined</i>'.html_safe %></p>
+			<p><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '' %></p>
 		</div>		
 	<% end %>
 
 	<% if @course.teaching_strategy.seminars == true %>
 		<div class="view-items">
 			<b>Seminars: </b>
-			<p><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '<i>undefined</i>'.html_safe %></p>
+			<p><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '' %></p>
 		</div>
 	<% end %>
 

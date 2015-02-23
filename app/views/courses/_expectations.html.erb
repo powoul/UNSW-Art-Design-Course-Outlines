@@ -1,15 +1,15 @@
 <% if @course.assessment.present? %>
-	<b>Course specific expectations</b>
-	<p><%= @course.assessment.present? ? @course.assessment.html_safe : '<i>undefined</i>'.html_safe %></p>
+	<h3>Course specific expectations</h3>
+	<p><%= @course.assessment.present? ? @course.assessment.html_safe : ''.html_safe %></p>
 <% end %>
 
 <b>RISK OF FAILURE WARNINGS</b>
-<p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : '<i>undefined</i>'.html_safe %></p>
+<p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : ''.html_safe %></p>
 
 <b>LATE SUBMISSION PENALTIES</b>
 <dl class="dl-horizontal">
 	<b>Late Submission Allowed?</b>
-	<%= @course.late_submission_allowed.nil? ? '<i>undefined</i>'.html_safe : yesno(@course.late_submission_allowed)  %>
+	<%= @course.late_submission_allowed.nil? ? ''.html_safe : yesno(@course.late_submission_allowed)  %>
 </dl>
 
 <% unless @course.late_submission_allowed.nil? %>
@@ -21,7 +21,7 @@
 	<% end %>
 <% end %>
 
-<b>Continual Course Improvement</b>
+<h3>Continual Course Improvement</h3>
 <p><%= Parameter.find_by_name('Continual Course Improvement').present? ? Parameter.find_by_name('Continual Course Improvement').body.html_safe : '' %></p>
 <% if @course.course_improvements.present? %>
 	<p>Over the past semesters, we have improved the course by:</p>

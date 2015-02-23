@@ -1,17 +1,28 @@
-body {
-  font-family: TimesNewRoman,"Times New Roman",Times,Baskerville,Georgia,serif;
-  font-size: 16px;
+@font-face{
+    font-family: Optima;
+    src:url('Optima-Regular.eot');
+    src:url("Optima-Regular.eot?#iefix") format('embedded-opentype'),
+       url("Optima-Regular.ttf") format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, table {
+  font-family: Optima,serif;
+  font-size: 14px;
 }
 h2, h3 {
   text-transform: uppercase;
 }
 
 h1 {
-  font-size: 24px;
+  font-family: Optima,serif;
+  font-size: 21px;
 }
 
 h2 {
-  font-size: 20px;
+  font-family: Optima,serif;
+  font-size: 17px;
   border-bottom: 1px solid #333;
   width: 100%;
   line-height: 1.2;
@@ -20,15 +31,19 @@ h2 {
 }
 
 h3 {
+  font-family: Optima,serif;
+  font-size: 16px;
   margin-top: 30px;
   margin-bottom: 10px;
 }
 
 h4 {
-  font-size: 18px;
+  font-family: Optima,serif;
+  font-size: 15px;
 }
 
 p {
+  font-family: Optima,serif;
   margin-bottom: 10px;
 }
 
@@ -41,4 +56,10 @@ p {
     -moz-filter: grayscale(100%);
     filter: grayscale(100%);
   }
+}
+
+.page-break {
+  display: block;
+  clear: both;
+  page-break-after: always;
 }
