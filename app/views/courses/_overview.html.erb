@@ -37,7 +37,7 @@
 			<% end %>
 		</ol>
 	<% else %>
-		<p><i>undefined</i></p>
+		<p>&nbsp;</p>
 	<% end %>
 </div>
 
@@ -62,27 +62,27 @@
 	<% if @course.teaching_strategy.tutorials == true %>
 		<div class="view-items">
 		<b>Tutorials</b>
-		<p><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : '<i>undefined</i>'.html_safe %></p>
+		<p><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>
 
 	<% if @course.teaching_strategy.studio == true %>
 		<div class="view-items">
 			<b>Studio</b>
-			<p><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : '<i>undefined</i>'.html_safe %></p>
+			<p><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>
 
 	<% if @course.teaching_strategy.blended_online == true %>
 		<div class="view-items">
 			<b>Blended/online</b>
-			<p><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : '<i>undefined</i>'.html_safe %></p>
+			<p><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>
 	</dl>
 
 	<b>Teaching Philosophy</b>
-	<p><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy.html_safe : '<i>undefined</i>'.html_safe %></p>
+	<p><%= @course.teaching_strategy.teaching_philosophy.present? ? @course.teaching_strategy.teaching_philosophy.html_safe : ''.html_safe %></p>
 <% else %>		
-	<i>undefined</i>
+	&nbsp;
 <% end %>

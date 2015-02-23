@@ -1,6 +1,6 @@
 <div class="view-items">
 	<b>Units of Credit: </b>
-	<%= @course.units_of_credit.present? ? @course.units_of_credit : '<i>undefined</i>'.html_safe %>
+	<%= @course.units_of_credit.present? ? @course.units_of_credit : ''.html_safe %>
 </div>
 
 <% if @course.teaching_times_and_locations.present? %>

@@ -3,12 +3,12 @@
 		<h3>Assessment Task <%= (index + 1).to_s %></h3>
 		<div class="view-items">
 			<b>Title: </b>
-			<%= assessment.title.present? ? assessment.title : '<i>undefined</i>'.html_safe %>		
+			<%= assessment.title.present? ? assessment.title : ''.html_safe %>		
 		</div>
 
 		<div class="view-items">
 			<b>Weighting: </b>
-			<%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : '<i>undefined</i>'.html_safe %>
+			<%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : ''.html_safe %>
 		</div>
 
 		<div class="view-items">		
@@ -20,21 +20,21 @@
 					<div class="view-items">
 						<div class="line-items">
 							<b>Description: </b>
-							<%= due_date.description.present? ? due_date.description : '<i>undefined</i>'.html_safe %>
+							<%= due_date.description.present? ? due_date.description : ''.html_safe %>
 						</div>
 						<div class="line-items">
 							<b>Due: </b>
-						    <%= due_date.due.present? ? week_number(@course, due_date.due) : '<i>undefined</i>'.html_safe %>
+						    <%= due_date.due.present? ? week_number(@course, due_date.due) : ''.html_safe %>
 						</div>
 					</div>
 				<% end %>
 			 			
 		<% else %>
-			<i>undefined</i>
+			
 		<% end %>
 		 
 		<h4>Assessment Synopsis</h4>
-		<p><%= assessment.synopsis.present? ? assessment.synopsis.html_safe : '<i>undefined</i>'.html_safe %></p>
+		<p><%= assessment.synopsis.present? ? assessment.synopsis.html_safe : ''.html_safe %></p>
 
 		<% if assessment.criteria.present? %>
 			<h4><i>Assessment Criteria With Marking Rubric</i></h4>
@@ -56,18 +56,20 @@
 			</table>
 		<% end %>
 		
-		<h4>Course Learning Oucomes addressed in this task:</h4>
+		<p><strong>FOR GUIDE TO UNSW GRADES SEE:</strong>&nbsp;<a href="https://student.unsw.edu.au/grades" target="blank">https://student.unsw.edu.au/grades</a></p>
+		
+		<h4>Course Learning Outcomes addressed in this task:</h4>
 		<% if assessment.task_outcomes.present? %>
 			<ol>
 				<% assessment.task_outcomes.each do |outcome| %>
 					<div class="line-items">
-						<li><%= outcome.name.present? ? outcome.name.html_safe : '<i>undefined</i>'.html_safe %></li>
+						<li><%= outcome.name.present? ? outcome.name.html_safe : ''.html_safe %></li>
 					</div>
 				<% end %>
 			</ol>
 		<% else %>
 			<dt>&nbsp;</dt>
-			<dd><i>undefined</i></dd>
+			<dd>&nbsp;</dd>
 		<% end %>
 
 		<% if assessment.graduate_attributes.present? %>
@@ -87,11 +89,11 @@
 				<div class="view-items">
 					<div class="line-items">
 						<b>Resource: </b>
-						<%= resource.resource.present? ? resource.resource.html_safe : '<i>undefined</i>'.html_safe %>
+						<%= resource.resource.present? ? resource.resource.html_safe : ''.html_safe %>
 					</div>
 					<div class="line-items">
 						<b>Technical Staff: </b>
-					<%= resource.technical_staff.present? ? resource.technical_staff.member_name : '<i>undefined</i>'.html_safe %>
+					<%= resource.technical_staff.present? ? resource.technical_staff.member_name : ''.html_safe %>
 					</div>					
 				</div>
 			<% end %>
@@ -102,7 +104,7 @@
 			<ul>
 				<% assessment.assessment_task_proficiencies.each do |proficiency| %>
 					<div class="line-items">
-						<li><%= proficiency.proficiency.present? ? proficiency.proficiency.html_safe : '<i>undefined</i>'.html_safe %></li>
+						<li><%= proficiency.proficiency.present? ? proficiency.proficiency.html_safe : ''.html_safe %></li>
 					</div>
 				<% end %>
 			</ul>
@@ -110,9 +112,9 @@
 		
 		
 		<h4>Feedback strategy for this task:</h4>
-		<p><%= assessment.feedback.present? ? assessment.feedback.html_safe : '<i>undefined</i>'.html_safe %></p>
+		<p><%= assessment.feedback.present? ? assessment.feedback.html_safe : ''.html_safe %></p>
 		<% end %>
 	
 <% else %>
-	<i>undefined</i>
+	&nbsp;
 <% end %>
