@@ -1,36 +1,38 @@
-<h3>REFERENCES FOR THIS COURSE</h3>
 <p><%= @course.resources.present? ? @course.resources.html_safe : ''.html_safe %></p>
 
-<h2><small>GENERAL INFORMATION</small></h2>
+<h2>GENERAL INFORMATION</h2>
 <p><%= Parameter.find_by_name('Digital and Research Literacy').present? ? Parameter.find_by_name('Digital and Research Literacy').body.html_safe : ''.html_safe %></p>
 
 
-<h2><small>ART & DESIGN ANNUAL</small></h2>
+<h2>ART & DESIGN ANNUAL</h2>
 <p><%= Parameter.find_by_name('Art & Design Annual').present? ? Parameter.find_by_name('Art & Design Annual').body.html_safe : ''.html_safe %></p>
 
-<h2><small>HEALTH AND SAFETY</small></h2>
+<h2>HEALTH AND SAFETY</h2>
 <p><%= Parameter.find_by_name('health and safety').present? ? Parameter.find_by_name('health and safety').body.html_safe : ''.html_safe %></p>
 
-<h2><small>ADDITIONAL SUPPORT FOR STUDENTS</small></h2>
+<h2>ADDITIONAL SUPPORT FOR STUDENTS</h2>
 <p><%= Parameter.find_by_name('additional support for students').present? ? Parameter.find_by_name('additional support for students').body.html_safe : ''.html_safe %></p>
+
+
+<% if @resources_required.present? || @proficiencies_required.present? %>
 
 <h3>RESOURCES AND PROFICIENCIES</h3>
 
+	<% if @resources_required.present? %>
+		<div class="view-items">
+			<b>Resources Required:</b>
+			<% @resources_required.each do |resource| %>
+				<li class="line-items"><%= resource %></li>
+			<% end %>
+		</div>
+	<% end %>
 
-<% if @resources_required.present? %>
-	<div class="view-items">
-		<b>Resources Required: </b>
-		<% @resources_required.each do |resource| %>
-			<li class="line-items"><%= resource %></li>
-		<% end %>
-	</div>
-<% end %>
-
-<% if @proficiencies_required.present? %>
-	<div class="view-items">
-		<b>Proficiencies Required: </b>
-		<% @proficiencies_required.each do |proficiency| %>
-			<li class="line-items"><%= proficiency %></li>
-		<% end %>
-	</div>
+	<% if @proficiencies_required.present? %>
+		<div class="view-items">
+			<b>Proficiencies Required:</b>
+			<% @proficiencies_required.each do |proficiency| %>
+				<li class="line-items"><%= proficiency %></li>
+			<% end %>
+		</div>
+	<% end %>
 <% end %>

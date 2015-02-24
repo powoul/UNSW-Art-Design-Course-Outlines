@@ -11,21 +11,15 @@
 			<%= assessment.weighting.present? ? (assessment.weighting.to_s + " %") : ''.html_safe %>
 		</div>
 
-		<div class="view-items">		
-			<b>Tasks: </b>
-		</div>
+		
 		<% if assessment.assessment_dates.present? %>
 			
 				<% assessment.assessment_dates.each do |due_date| %>
-					<div class="view-items">
-						<div class="line-items">
-							<b>Description: </b>
-							<%= due_date.description.present? ? due_date.description : ''.html_safe %>
-						</div>
-						<div class="line-items">
-							<b>Due: </b>
-						    <%= due_date.due.present? ? week_number(@course, due_date.due) : ''.html_safe %>
-						</div>
+					<div class="view-items">						
+						<b>Task: </b>
+						<%= due_date.description.present? ? due_date.description : ''.html_safe %><br />				
+						<b>Due: </b>
+					    <%= due_date.due.present? ? week_number(@course, due_date.due) : ''.html_safe %>
 					</div>
 				<% end %>
 			 			
@@ -37,26 +31,28 @@
 		<p><%= assessment.synopsis.present? ? assessment.synopsis.html_safe : ''.html_safe %></p>
 
 		<% if assessment.criteria.present? %>
-			<h4><i>Assessment Criteria With Marking Rubric</i></h4>
-			<table class="table table-bordered">
-			    <thead>
-			      <tr>
-			        <th>Criteria</th>
-			        <th>FAIL</th>
-			        <th>PASS</th>
-			        <th>CREDIT</th>
-			        <th>DISTINCTION</th>
-			        <th>HIGH DISTINCTION</th>
-			      </tr>
-			    </thead>
+			<div class="avoid-break">
+				<h4><i>Assessment Criteria With Marking Rubric</i></h4>
+				<table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th>Criteria</th>
+				        <th>FAIL</th>
+				        <th>PASS</th>
+				        <th>CREDIT</th>
+				        <th>DISTINCTION</th>
+				        <th>HIGH DISTINCTION</th>
+				      </tr>
+				    </thead>
 
-			    <tbody> 
-			      <%= render :partial => "criteria/row", :collection => assessment.criteria, :as => :criterion %>
-			    </tbody>
-			</table>
+				    <tbody> 
+				      <%= render :partial => "criteria/row", :collection => assessment.criteria, :as => :criterion %>
+				    </tbody>
+				</table>
+			</div>
 		<% end %>
 		
-		<p><strong>FOR GUIDE TO UNSW GRADES SEE:</strong>&nbsp;<a href="https://student.unsw.edu.au/grades" target="blank">https://student.unsw.edu.au/grades</a></p>
+		<p class="small-text"><strong>FOR GUIDE TO UNSW GRADES SEE:</strong>&nbsp;<a href="https://student.unsw.edu.au/grades" target="blank">https://student.unsw.edu.au/grades</a></p>
 		
 		<h4>Course Learning Outcomes addressed in this task:</h4>
 		<% if assessment.task_outcomes.present? %>
