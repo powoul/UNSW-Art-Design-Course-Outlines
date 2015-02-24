@@ -52,7 +52,7 @@ class CoursesController < ApplicationController
           :page_size    => 'A4',
           :dpi          => 177,
           :template => '/courses/show.pdf.erb'
-          send_data pdf, :filename => "#{@course.code}_S#{@course.semester.name}_#{@course.semester.year}.pdf"
+          send_data pdf, :filename => "#{@course.code}.pdf"
       end
       format.json { render :json => @course }
     end
