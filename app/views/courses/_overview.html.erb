@@ -1,12 +1,12 @@
 <div class="view-items">
-	<h3>Course Summary:</h3>
+	<h3>Course Summary</h3>
 	<%= @course.summary.present? ? @course.summary.html_safe : '' %>
 </div>
 
 <div class="view-items">
 
 	<div class="view-items">
-		<b>PROGRAM AFFILIATION</b>
+		<h3>PROGRAM AFFILIATION</h3>
 	</div>	
 
 	<div class="view-items">
@@ -27,7 +27,7 @@
 </div>
 
 <div class="view-items">
-	<b>STUDENT LEARNING OUTCOMES</b>
+	<h3>STUDENT LEARNING OUTCOMES</h3>
 	<p class="view-items">On completion of this course, the student should be able to:</p>
 
 	<% if @course.course_learning_outcomes.present? %>
@@ -41,27 +41,33 @@
 	<% end %>
 </div>
 
-<b>TEACHING STRATEGIES AND APPROACH TO LEARNING</b>
+<h3>TEACHING STRATEGIES AND APPROACH TO LEARNING</h3>
 
 <% if @course.teaching_strategy.present?  %>
 
 	<% if @course.teaching_strategy.lectures == true %>	
 		<div class="view-items">
-			<b>Lectures:</b>
+			<b>Lectures</b>
+		</div>
+		<div>
 			<p><%= @course.teaching_strategy.lectures_description.present? ? @course.teaching_strategy.lectures_description.html_safe : '' %></p>
 		</div>		
 	<% end %>
 
 	<% if @course.teaching_strategy.seminars == true %>
 		<div class="view-items">
-			<b>Seminars: </b>
+			<b>Seminars</b>
+		</div>
+		<div>
 			<p><%= @course.teaching_strategy.seminars_description.present? ? @course.teaching_strategy.seminars_description.html_safe : '' %></p>
 		</div>
 	<% end %>
 
 	<% if @course.teaching_strategy.tutorials == true %>
 		<div class="view-items">
-		<b>Tutorials</b>
+			<b>Tutorials</b>
+		</div>
+		<div>
 		<p><%= @course.teaching_strategy.tutorials_description.present? ? @course.teaching_strategy.tutorials_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>
@@ -69,6 +75,8 @@
 	<% if @course.teaching_strategy.studio == true %>
 		<div class="view-items">
 			<b>Studio</b>
+		</div>
+		<div>
 			<p><%= @course.teaching_strategy.studio_description.present? ? @course.teaching_strategy.studio_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>
@@ -76,6 +84,8 @@
 	<% if @course.teaching_strategy.blended_online == true %>
 		<div class="view-items">
 			<b>Blended/online</b>
+		</div>
+		<div>
 			<p><%= @course.teaching_strategy.blended_online_description.present? ? @course.teaching_strategy.blended_online_description.html_safe : ''.html_safe %></p>
 		</div>
 	<% end %>

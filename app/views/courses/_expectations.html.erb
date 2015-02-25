@@ -3,10 +3,10 @@
 	<p><%= @course.assessment.present? ? @course.assessment.html_safe : ''.html_safe %></p>
 <% end %>
 
-<b>RISK OF FAILURE WARNINGS</b>
+<h3>RISK OF FAILURE WARNINGS</h3>
 <p><%= Parameter.find_by_name('risk of failure warnings').present? ? Parameter.find_by_name('risk of failure warnings').body.html_safe : ''.html_safe %></p>
 
-<b>LATE SUBMISSION PENALTIES</b>
+<h3>LATE SUBMISSION PENALTIES</h3>
 <!-- <dl class="dl-horizontal">
 	<b>Late Submission Allowed?</b>
 	<%#= @course.late_submission_allowed.nil? ? ''.html_safe : yesno(@course.late_submission_allowed)  %>
