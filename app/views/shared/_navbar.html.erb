@@ -51,12 +51,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Loans<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><%= link_to 'CSU Desk', '/loans/csu' %></li>
-              <li><%= link_to 'Photomedia Store', '/loans/photomedia-store' %></li>
               <li><%= link_to 'Resource Centre', '/loans/resource-centre' %></li>
               <li><%= link_to 'Tool Room', '/loans/tool-room' %></li>
               <li class="divider"></li>
-              <%# if current_ad_user.member_of?('CFA_MY_CSULoansAdmin') %><li><%#= link_to 'CSU Admin', '/loans/csu/admin' %></li><%# end -%>
-              <%# if current_ad_user.member_of?('CFA_MY_PhotomediaStoreAdmin') %><li><%= link_to 'Photomedia Admin', '/loans/photomedia-store/admin' %></li><%# end -%>
+              <%# if current_ad_user.member_of?('CFA_MY_CSULoansAdmin') %><li><%= link_to 'CSU Admin', '/loans/csu/admin' %></li><%# end -%>
               <%# if current_ad_user.member_of?('CFA_MY_ResourceCentreAdmin') %><li><%= link_to 'Resource Centre Admin', '/loans/resource-centre/admin' %></li><%# end -%>
               <%# if current_ad_user.member_of?('CFA_My_ToolRoomAdmin') %><li><%= link_to 'Tool Room Admin', '/loans/tool-room/admin' %></li><%# end -%>
             </ul>
