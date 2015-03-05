@@ -20,6 +20,7 @@ gem 'wicked_pdf'
 gem 'settingslogic'
 gem 'wkhtmltopdf-binary'
 gem 'net-ssh-gateway'
+gem 'whenever', :require => false
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
